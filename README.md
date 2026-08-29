@@ -41,4 +41,5 @@ O merge para main deve ocorrer sempre ao final de cada entrega do trabalho.
 - `src/models` contém apenas os modelos de dados compartilhados.
 - Cada parte deve preservar o funcionamento das partes anteriores.
 - Toda implementação deve incluir testes e passar pela revisão do grupo antes do merge.
+- Mensagens de commit em inglês e usando os prefixos: `feat: <message>`, `doc: <message>`, `fix: <message>`...
 ---
