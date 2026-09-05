@@ -1,0 +1,109 @@
+<mxfile host="Electron">
+  <diagram name="Página-1" id="YM8IzewN4SVROOU2JIHy">
+    <mxGraphModel dx="1414" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-6" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Leitor de Texto" vertex="1">
+          <mxGeometry height="250" width="250" x="190" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-7" parent="C2mDCQ7q0TC-gEKY6mQH-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- texto: string&lt;/div&gt;&lt;div&gt;- tamanho: int&lt;/div&gt;&lt;div&gt;- posicao: int&lt;/div&gt;&lt;div&gt;- linha: int&lt;/div&gt;&lt;div&gt;- coluna: int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="84" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-8" parent="C2mDCQ7q0TC-gEKY6mQH-6" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="250" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-9" parent="C2mDCQ7q0TC-gEKY6mQH-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ carregarArquivo(caminho: string): bool&lt;/div&gt;&lt;div&gt;+ avancar(): char&lt;/div&gt;&lt;div&gt;+ observarCaractere(deslocamento: int): char&lt;/div&gt;&lt;div&gt;+ chegouAoFim(): bool&lt;/div&gt;&lt;div&gt;+ obterLinha(): int&lt;/div&gt;&lt;div&gt;+ obterColuna(): int&lt;/div&gt;&lt;div&gt;+ obterPosicao(): int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="250" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-11" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Analisador Léxico" vertex="1">
+          <mxGeometry height="360" width="250" x="690" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-12" parent="C2mDCQ7q0TC-gEKY6mQH-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- leitor: LeitorTexto&lt;/div&gt;&lt;div&gt;- afd: AFD&lt;/div&gt;&lt;div&gt;- tabelaSimbolos: TabelaSimbolos&lt;/div&gt;&lt;div&gt;- gerenciadorErros: GerenciadorErros&lt;/div&gt;&lt;div&gt;- lexemaAtual: string&lt;/div&gt;&lt;div&gt;- caractereAtual: char&lt;/div&gt;&lt;div&gt;- linhaInicioToken: int&lt;/div&gt;&lt;div&gt;- colunaInicioToken: int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="124" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-13" parent="C2mDCQ7q0TC-gEKY6mQH-11" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="250" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-14" parent="C2mDCQ7q0TC-gEKY6mQH-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ proximoToken(): Token&lt;/div&gt;&lt;div&gt;- reconhecerToken(): Token&lt;/div&gt;&lt;div&gt;- ignorarEspacos(): void&lt;/div&gt;&lt;div&gt;- ignorarComentario(): void&lt;/div&gt;&lt;div&gt;- adicionarAoLexema(caractere: char): void&lt;/div&gt;&lt;div&gt;- reiniciarLexema(): void&lt;/div&gt;&lt;div&gt;- reconhecerIdentificador(): Token&lt;/div&gt;&lt;div&gt;- reconhecerNumero(): Token&lt;/div&gt;&lt;div&gt;- reconhecerLiteral(): Token&lt;/div&gt;&lt;div&gt;- reconhecerCaractere(): Token&lt;/div&gt;&lt;div&gt;- reconhecerOperador(): Token&lt;/div&gt;&lt;div&gt;- reconhecerDelimitador(): Token&lt;/div&gt;&lt;div&gt;- criarTokenEOF(): Token&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="250" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-15" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.021;entryY=1.019;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-16" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="AFD" vertex="1">
+          <mxGeometry height="200" width="250" x="690" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-17" parent="C2mDCQ7q0TC-gEKY6mQH-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- estadoAtual: int&lt;/div&gt;&lt;div&gt;- estadoInicial: int&lt;/div&gt;&lt;div&gt;- estadosFinais: list&amp;lt;int&amp;gt;&lt;/div&gt;&lt;div&gt;- transicoes: dict&lt;/div&gt;" vertex="1">
+          <mxGeometry height="64" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-18" parent="C2mDCQ7q0TC-gEKY6mQH-16" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="250" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-19" parent="C2mDCQ7q0TC-gEKY6mQH-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ reiniciar(): void&lt;/div&gt;&lt;div&gt;+ transicionar(caractere: char): int&lt;/div&gt;&lt;div&gt;+ obterEstadoAtual(): int&lt;/div&gt;&lt;div&gt;+ ehEstadoFinal(): bool&lt;/div&gt;&lt;div&gt;+ ehEstadoDeErro(): bool&lt;/div&gt;&lt;div&gt;+ obterTipoToken(): int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="250" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-20" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Tabela de Símbolos" vertex="1">
+          <mxGeometry height="160" width="250" x="1180" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-21" parent="C2mDCQ7q0TC-gEKY6mQH-20" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- simbolos: dict" vertex="1">
+          <mxGeometry height="24" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-22" parent="C2mDCQ7q0TC-gEKY6mQH-20" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="250" y="50" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-23" parent="C2mDCQ7q0TC-gEKY6mQH-20" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ carregarPalavrasReservadas(): void&lt;/div&gt;&lt;div&gt;+ inserir(lexema: string, tipoToken: int): void&lt;/div&gt;&lt;div&gt;+ buscar(lexema: string): Token&lt;/div&gt;&lt;div&gt;+ existe(lexema: string): bool&lt;/div&gt;&lt;div&gt;+ remover(lexema: string): bool&lt;/div&gt;&lt;div&gt;+ quantidade(): int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="250" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-24" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Token" vertex="1">
+          <mxGeometry height="210" width="250" x="240" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-25" parent="C2mDCQ7q0TC-gEKY6mQH-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- tipo: int&lt;/div&gt;&lt;div&gt;- nome: string&lt;/div&gt;&lt;div&gt;- lexema: string&lt;/div&gt;&lt;div&gt;- linha: int&lt;/div&gt;&lt;div&gt;- coluna: int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="74" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-26" parent="C2mDCQ7q0TC-gEKY6mQH-24" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="250" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-27" parent="C2mDCQ7q0TC-gEKY6mQH-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ obterTipo(): int&lt;/div&gt;&lt;div&gt;+ obterNome(): string&lt;/div&gt;&lt;div&gt;+ obterLexema(): string&lt;/div&gt;&lt;div&gt;+ obterLinha(): int&lt;/div&gt;&lt;div&gt;+ obterColuna(): int&lt;/div&gt;&lt;div&gt;+ paraString(): string&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="250" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-28" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Gerenciador de Erros" vertex="1">
+          <mxGeometry height="200" width="250" x="1170" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-29" parent="C2mDCQ7q0TC-gEKY6mQH-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- erros: list&amp;lt;string&amp;gt;&lt;/div&gt;&lt;div&gt;- quantidadeErros: int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="34" width="250" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-30" parent="C2mDCQ7q0TC-gEKY6mQH-28" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="250" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-31" parent="C2mDCQ7q0TC-gEKY6mQH-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ registrarErro(mensagem: string, linha: int, coluna: int): void&lt;/div&gt;&lt;div&gt;+ registrarCaractereInvalido(caractere: char, linha: int, coluna: int): void&lt;/div&gt;&lt;div&gt;+ possuiErros(): bool&lt;/div&gt;&lt;div&gt;+ obterQuantidadeErros(): int&lt;/div&gt;&lt;div&gt;+ exibirErros(): void&lt;/div&gt;&lt;div&gt;+ limparErros(): void&lt;/div&gt;" vertex="1">
+          <mxGeometry height="130" width="250" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-33" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.018;entryY=-0.027;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-34" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-24">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="300" />
+              <mxPoint x="590" y="360" />
+              <mxPoint x="365" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-36" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.472;entryY=0.998;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-37" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.544;entryY=-0.013;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="300" />
+              <mxPoint x="1140" y="440" />
+              <mxPoint x="1316" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
