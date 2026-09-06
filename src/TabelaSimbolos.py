@@ -8,19 +8,17 @@ class TabelaSimbolos:
     def carregar_palavras_reservadas(self):
         # Carrega as palavras reservadas iniciais da linguagem
         self.simbolos = {
-            "int": TiposToken.INT,
-            "float": TiposToken.FLOAT,
-            "char": TiposToken.CHAR,
-            "bool": TiposToken.BOOL,
-            "if": TiposToken.IF,
-            "else": TiposToken.ELSE,
-            "while": TiposToken.WHILE,
-            "readln": TiposToken.READLN,
-            "print": TiposToken.PRINT,
-            "break": TiposToken.BREAK,
-            "return": TiposToken.RETURN,
-            "true": TiposToken.TRUE,
-            "false": TiposToken.FALSE
+            "if": TiposToken.IF, "else": TiposToken.ELSE, "while": TiposToken.WHILE,
+            "return": TiposToken.RETURN, "int": TiposToken.INT, "float": TiposToken.FLOAT,
+            "char": TiposToken.CHAR, "double": TiposToken.DOUBLE, "define": TiposToken.DEFINE,
+            "void": TiposToken.VOID, "break": TiposToken.BREAK, "continue": TiposToken.CONTINUE,
+            "switch": TiposToken.SWITCH, "case": TiposToken.CASE, "default": TiposToken.DEFAULT,
+            "struct": TiposToken.STRUCT, "typedef": TiposToken.TYPEDEF, "do": TiposToken.DO,
+            "const": TiposToken.CONST, "true": TiposToken.TRUE, "false": TiposToken.FALSE,
+            "bool": TiposToken.BOOL, "readln": TiposToken.READLN, "print": TiposToken.PRINT,
+            "class": TiposToken.CLASS, "static": TiposToken.STATIC, "string": TiposToken.STRING,
+            "main": TiposToken.MAIN, "include": TiposToken.INCLUDE, "using": TiposToken.USING,
+            "vector": TiposToken.VECTOR
         }
 
     def inserir(self, lexema: str, tipo_token: TiposToken):
