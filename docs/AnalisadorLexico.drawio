@@ -1,106 +1,114 @@
 <mxfile host="Electron">
-  <diagram name="Página-1" id="YM8IzewN4SVROOU2JIHy">
-    <mxGraphModel dx="1414" dy="838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+  <diagram name="Contrato de classes" id="lexer-class-contract">
+    <mxGraphModel dx="2162" dy="1315" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1300" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-6" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Leitor de Texto" vertex="1">
-          <mxGeometry height="250" width="250" x="190" y="30" as="geometry" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;strokeColor=none;fillColor=none;" value="&lt;b&gt;Analisador Léxico C--&lt;/b&gt;" vertex="1">
+          <mxGeometry height="45" width="900" x="40" y="20" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-7" parent="C2mDCQ7q0TC-gEKY6mQH-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- texto: string&lt;/div&gt;&lt;div&gt;- tamanho: int&lt;/div&gt;&lt;div&gt;- posicao: int&lt;/div&gt;&lt;div&gt;- linha: int&lt;/div&gt;&lt;div&gt;- coluna: int&lt;/div&gt;" vertex="1">
-          <mxGeometry height="84" width="250" y="26" as="geometry" />
+        <mxCell id="Lexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Lexer&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;facade — TODO&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- caminhoAFD: str&lt;br&gt;- tabelaSimbolos: TabelaSimbolos?&lt;br&gt;- gerenciadorErros: GerenciadorErros?&lt;hr&gt;+ __init__(caminhoAFD: str)&lt;br&gt;+ analisarArquivo(caminhoFonte: str): list[Token]&lt;br&gt;+ analisarTexto(texto: str): list[Token]&lt;br&gt;+ obterTabelaSimbolos(): TabelaSimbolos&lt;br&gt;+ obterErros(): list[ErroLexer]" vertex="1">
+          <mxGeometry height="275" width="340" x="40" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-8" parent="C2mDCQ7q0TC-gEKY6mQH-6" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="10" width="250" y="110" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-9" parent="C2mDCQ7q0TC-gEKY6mQH-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ carregarArquivo(caminho: string): bool&lt;/div&gt;&lt;div&gt;+ avancar(): char&lt;/div&gt;&lt;div&gt;+ observarCaractere(deslocamento: int): char&lt;/div&gt;&lt;div&gt;+ chegouAoFim(): bool&lt;/div&gt;&lt;div&gt;+ obterLinha(): int&lt;/div&gt;&lt;div&gt;+ obterColuna(): int&lt;/div&gt;&lt;div&gt;+ obterPosicao(): int&lt;/div&gt;" vertex="1">
-          <mxGeometry height="130" width="250" y="120" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-11" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Analisador Léxico" vertex="1">
-          <mxGeometry height="360" width="250" x="690" y="40" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-12" parent="C2mDCQ7q0TC-gEKY6mQH-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- leitor: LeitorTexto&lt;/div&gt;&lt;div&gt;- afd: AFD&lt;/div&gt;&lt;div&gt;- tabelaSimbolos: TabelaSimbolos&lt;/div&gt;&lt;div&gt;- gerenciadorErros: GerenciadorErros&lt;/div&gt;&lt;div&gt;- lexemaAtual: string&lt;/div&gt;&lt;div&gt;- caractereAtual: char&lt;/div&gt;&lt;div&gt;- linhaInicioToken: int&lt;/div&gt;&lt;div&gt;- colunaInicioToken: int&lt;/div&gt;" vertex="1">
-          <mxGeometry height="124" width="250" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-13" parent="C2mDCQ7q0TC-gEKY6mQH-11" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="10" width="250" y="150" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-14" parent="C2mDCQ7q0TC-gEKY6mQH-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ proximoToken(): Token&lt;/div&gt;&lt;div&gt;- reconhecerToken(): Token&lt;/div&gt;&lt;div&gt;- ignorarEspacos(): void&lt;/div&gt;&lt;div&gt;- ignorarComentario(): void&lt;/div&gt;&lt;div&gt;- adicionarAoLexema(caractere: char): void&lt;/div&gt;&lt;div&gt;- reiniciarLexema(): void&lt;/div&gt;&lt;div&gt;- reconhecerIdentificador(): Token&lt;/div&gt;&lt;div&gt;- reconhecerNumero(): Token&lt;/div&gt;&lt;div&gt;- reconhecerLiteral(): Token&lt;/div&gt;&lt;div&gt;- reconhecerCaractere(): Token&lt;/div&gt;&lt;div&gt;- reconhecerOperador(): Token&lt;/div&gt;&lt;div&gt;- reconhecerDelimitador(): Token&lt;/div&gt;&lt;div&gt;- criarTokenEOF(): Token&lt;/div&gt;" vertex="1">
-          <mxGeometry height="200" width="250" y="160" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-15" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.021;entryY=1.019;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-12">
+        <mxCell id="VSj9FzkloLAJbqGQTPUN-1" edge="1" parent="1" source="MotorLexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="Lexer" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-16" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="AFD" vertex="1">
-          <mxGeometry height="200" width="250" x="690" y="540" as="geometry" />
+        <mxCell id="MotorLexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;MotorLexer&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core — TODO&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- reconhecedor: Reconhecedor&lt;br&gt;- tabelaSimbolos: TabelaSimbolos&lt;br&gt;- gerenciadorErros: GerenciadorErros&lt;br&gt;- tokens: list[Token]&lt;hr&gt;+ __init__(reconhecedor, tabelaSimbolos, gerenciadorErros)&lt;br&gt;+ executar(): list[Token]&lt;br&gt;- processarToken(token: Token): None&lt;br&gt;- registrarSimbolo(token: Token): None" vertex="1">
+          <mxGeometry height="235" width="420" x="460" y="100" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-17" parent="C2mDCQ7q0TC-gEKY6mQH-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- estadoAtual: int&lt;/div&gt;&lt;div&gt;- estadoInicial: int&lt;/div&gt;&lt;div&gt;- estadosFinais: list&amp;lt;int&amp;gt;&lt;/div&gt;&lt;div&gt;- transicoes: dict&lt;/div&gt;" vertex="1">
-          <mxGeometry height="64" width="250" y="26" as="geometry" />
+        <mxCell id="GerenciadorErros" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;GerenciadorErros&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;TODO&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- erros: list[ErroLexer]&lt;hr&gt;+ __init__()&lt;br&gt;+ registrarErro(mensagem, linha, coluna, lexema): ErroLexer&lt;br&gt;+ obterErros(): list[ErroLexer]&lt;br&gt;+ possuiErros(): bool&lt;br&gt;+ quantidade(): int&lt;br&gt;+ limpar(): None" vertex="1">
+          <mxGeometry height="235" width="340" x="1048" y="100" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-18" parent="C2mDCQ7q0TC-gEKY6mQH-16" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="10" width="250" y="90" as="geometry" />
+        <mxCell id="ErroLexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ErroLexer&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass frozen — TODO&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ mensagem: str&lt;br&gt;+ linha: int&lt;br&gt;+ coluna: int&lt;br&gt;+ lexema: str&lt;hr&gt;+ paraString(): str" vertex="1">
+          <mxGeometry height="187.5" width="230" x="1541" y="123.75" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-19" parent="C2mDCQ7q0TC-gEKY6mQH-16" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ reiniciar(): void&lt;/div&gt;&lt;div&gt;+ transicionar(caractere: char): int&lt;/div&gt;&lt;div&gt;+ obterEstadoAtual(): int&lt;/div&gt;&lt;div&gt;+ ehEstadoFinal(): bool&lt;/div&gt;&lt;div&gt;+ ehEstadoDeErro(): bool&lt;/div&gt;&lt;div&gt;+ obterTipoToken(): int&lt;/div&gt;" vertex="1">
-          <mxGeometry height="100" width="250" y="100" as="geometry" />
+        <mxCell id="LeitorTexto" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;LeitorTexto&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- texto: str&lt;br&gt;- tamanho: int&lt;br&gt;- posicao: int&lt;br&gt;- linha: int&lt;br&gt;- coluna: int&lt;hr&gt;+ __init__(texto: str = &quot;&quot;)&lt;br&gt;+ carregarTexto(texto: str): None&lt;br&gt;+ carregarArquivo(nomeArquivo, encoding): bool&lt;br&gt;+ obterLinha(): int&lt;br&gt;+ obterColuna(): int&lt;br&gt;+ obterPosicao(): int&lt;br&gt;+ chegouAoFim(): bool&lt;br&gt;+ observarCaractere(deslocamento: int = 0): str?&lt;br&gt;+ avancar(): str?&lt;br&gt;+ criarMarco(): tuple[int, int, int]&lt;br&gt;+ restaurarMarco(marco): None" vertex="1">
+          <mxGeometry height="420" width="280" x="40" y="400" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-20" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Tabela de Símbolos" vertex="1">
-          <mxGeometry height="160" width="250" x="1180" y="570" as="geometry" />
+        <mxCell id="Reconhecedor" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Reconhecedor&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- afd: AFD&lt;br&gt;- leitor: LeitorTexto&lt;hr&gt;+ __init__(afd: AFD, leitor: LeitorTexto)&lt;br&gt;+ proximoToken(): Token&lt;br&gt;- _ignorarEspacos(): None&lt;br&gt;- _reconhecerComMaiorCasamento(): Token" vertex="1">
+          <mxGeometry height="235" width="317" x="511.5" y="492.5" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-21" parent="C2mDCQ7q0TC-gEKY6mQH-20" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- simbolos: dict" vertex="1">
-          <mxGeometry height="24" width="250" y="26" as="geometry" />
+        <mxCell id="AFD" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;AFD&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;autômato&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- estadoInicial: int&lt;br&gt;- estados: dict[int, str]&lt;br&gt;- estadosFinais: set[int]&lt;br&gt;- transicoes: dict&lt;br&gt;- estadoAtual: int&lt;hr&gt;+ __init__(caminhoConfiguracao: str)&lt;br&gt;+ reiniciar(): None&lt;br&gt;+ transicionar(caractere: str): bool&lt;br&gt;+ ehEstadoFinal(): bool&lt;br&gt;+ obterEstadoAtual(): str&lt;br&gt;+ ehEstadoDeErro(): bool&lt;br&gt;- _avaliarCondicao(caractere, condicao): bool" vertex="1">
+          <mxGeometry height="320" width="317" x="972" y="450" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-22" parent="C2mDCQ7q0TC-gEKY6mQH-20" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="10" width="250" y="50" as="geometry" />
+        <mxCell id="TabelaSimbolos" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;TabelaSimbolos&lt;/b&gt;&lt;/div&gt;&lt;hr&gt;- simbolos: dict[str, Simbolo]&lt;br&gt;- proximoIndice: int&lt;hr&gt;+ __init__()&lt;br&gt;+ carregarPalavrasReservadas(): None&lt;br&gt;+ inserir(lexema, tipoToken, categoria): Simbolo&lt;br&gt;+ buscar(lexema: str): Simbolo?&lt;br&gt;+ obterOuInserir(lexema, tipoToken): Simbolo&lt;br&gt;+ existe(lexema: str): bool&lt;br&gt;+ quantidade(): int&lt;br&gt;+ obterSimbolos(): list[Simbolo]" vertex="1">
+          <mxGeometry height="300" width="334" x="1503" y="450" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-23" parent="C2mDCQ7q0TC-gEKY6mQH-20" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ carregarPalavrasReservadas(): void&lt;/div&gt;&lt;div&gt;+ inserir(lexema: string, tipoToken: int): void&lt;/div&gt;&lt;div&gt;+ buscar(lexema: string): Token&lt;/div&gt;&lt;div&gt;+ existe(lexema: string): bool&lt;/div&gt;&lt;div&gt;+ remover(lexema: string): bool&lt;/div&gt;&lt;div&gt;+ quantidade(): int&lt;/div&gt;" vertex="1">
-          <mxGeometry height="100" width="250" y="60" as="geometry" />
+        <mxCell id="Token" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Token&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ tipo: TiposToken&lt;br&gt;+ lexema: str&lt;br&gt;+ linha: int&lt;br&gt;+ coluna: int&lt;br&gt;+ indiceSimbolo: int? = None&lt;hr&gt;+ paraString(): str" vertex="1">
+          <mxGeometry height="215" width="177.5" x="581.25" y="800" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-24" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Token" vertex="1">
-          <mxGeometry height="210" width="250" x="240" y="500" as="geometry" />
+        <mxCell id="TiposToken" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;TiposToken&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;Enum&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;ID, NUM_INT, NUM_FLOAT, LITERAL, ASCII&lt;br&gt;COMMA, BRACKETS, PARENTHESES, BRACES&lt;br&gt;PLUS, MINUS, INCREMENT, DECREMENT&lt;br&gt;NEG, ASSIGN, EQUALS, LESS, GREATER, DIFF&lt;br&gt;OR, AND, MULT, DIV, MOD, SEMICOLON&lt;br&gt;INT, FLOAT, CHAR, BOOL, TYPEDEF, STRUCT&lt;br&gt;IF, ELSE, WHILE, READLN, PRINT, BREAK, RETURN&lt;br&gt;TRUE, FALSE, END_OF_FILE, UNKNOWN" vertex="1">
+          <mxGeometry height="300" width="320" x="1010" y="930" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-25" parent="C2mDCQ7q0TC-gEKY6mQH-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- tipo: int&lt;/div&gt;&lt;div&gt;- nome: string&lt;/div&gt;&lt;div&gt;- lexema: string&lt;/div&gt;&lt;div&gt;- linha: int&lt;/div&gt;&lt;div&gt;- coluna: int&lt;/div&gt;" vertex="1">
-          <mxGeometry height="74" width="250" y="26" as="geometry" />
+        <mxCell id="Simbolo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=15;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Simbolo&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass frozen&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ indice: int&lt;br&gt;+ lexema: str&lt;br&gt;+ tipoToken: TiposToken&lt;br&gt;+ categoria: CategoriaSimbolo" vertex="1">
+          <mxGeometry height="180" width="221" x="1559.5" y="990" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-26" parent="C2mDCQ7q0TC-gEKY6mQH-24" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="10" width="250" y="100" as="geometry" />
+        <mxCell id="CategoriaSimbolo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;CategoriaSimbolo&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;Enum&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;RESERVADA&lt;br&gt;IDENTIFICADOR&lt;br&gt;LITERAL" vertex="1">
+          <mxGeometry height="155" width="123" x="1973" y="1002.5" as="geometry" />
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-27" parent="C2mDCQ7q0TC-gEKY6mQH-24" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ obterTipo(): int&lt;/div&gt;&lt;div&gt;+ obterNome(): string&lt;/div&gt;&lt;div&gt;+ obterLexema(): string&lt;/div&gt;&lt;div&gt;+ obterLinha(): int&lt;/div&gt;&lt;div&gt;+ obterColuna(): int&lt;/div&gt;&lt;div&gt;+ paraString(): string&lt;/div&gt;" vertex="1">
-          <mxGeometry height="100" width="250" y="110" as="geometry" />
+        <mxCell id="eLexerMotor" edge="1" parent="1" source="Lexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="MotorLexer" value="delega">
+          <mxGeometry relative="1" x="0.0027" y="-21" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-28" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Gerenciador de Erros" vertex="1">
-          <mxGeometry height="200" width="250" x="1170" y="55" as="geometry" />
+        <mxCell id="eMotorRecon" edge="1" parent="1" source="MotorLexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="Reconhecedor" value="orquestra">
+          <mxGeometry relative="1" x="-0.3116" y="-37" as="geometry">
+            <mxPoint y="-1" as="offset" />
+            <Array as="points" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-29" parent="C2mDCQ7q0TC-gEKY6mQH-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;- erros: list&amp;lt;string&amp;gt;&lt;/div&gt;&lt;div&gt;- quantidadeErros: int&lt;/div&gt;" vertex="1">
-          <mxGeometry height="34" width="250" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-30" parent="C2mDCQ7q0TC-gEKY6mQH-28" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="10" width="250" y="60" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-31" parent="C2mDCQ7q0TC-gEKY6mQH-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;div&gt;+ registrarErro(mensagem: string, linha: int, coluna: int): void&lt;/div&gt;&lt;div&gt;+ registrarCaractereInvalido(caractere: char, linha: int, coluna: int): void&lt;/div&gt;&lt;div&gt;+ possuiErros(): bool&lt;/div&gt;&lt;div&gt;+ obterQuantidadeErros(): int&lt;/div&gt;&lt;div&gt;+ exibirErros(): void&lt;/div&gt;&lt;div&gt;+ limparErros(): void&lt;/div&gt;" vertex="1">
-          <mxGeometry height="130" width="250" y="70" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-33" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.018;entryY=-0.027;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-31">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-34" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=block;endFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-24">
-          <mxGeometry relative="1" as="geometry">
+        <mxCell id="eMotorTabela" edge="1" parent="1" source="MotorLexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="TabelaSimbolos" value="consulta / insere">
+          <mxGeometry relative="1" x="0.004" y="-17" as="geometry">
+            <mxPoint as="offset" />
             <Array as="points">
-              <mxPoint x="590" y="300" />
-              <mxPoint x="590" y="360" />
-              <mxPoint x="365" y="360" />
+              <mxPoint x="775.05" y="387.11" />
+              <mxPoint x="1670" y="387.11" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-36" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.472;entryY=0.998;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=none;endFill=0;startArrow=block;startFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-14">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="eMotorErros" edge="1" parent="1" source="MotorLexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="GerenciadorErros" value="registra">
+          <mxGeometry relative="1" x="-0.2093" y="-15" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
         </mxCell>
-        <mxCell id="C2mDCQ7q0TC-gEKY6mQH-37" edge="1" parent="1" source="C2mDCQ7q0TC-gEKY6mQH-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.544;entryY=-0.013;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;" target="C2mDCQ7q0TC-gEKY6mQH-20">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="1140" y="300" />
-              <mxPoint x="1140" y="440" />
-              <mxPoint x="1316" y="440" />
-            </Array>
+        <mxCell id="eErrosModelo" edge="1" parent="1" source="GerenciadorErros" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=1;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="ErroLexer" value="acumula">
+          <mxGeometry relative="1" x="0.249" y="-19" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eReconLeitor" edge="1" parent="1" source="Reconhecedor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="LeitorTexto" value="usa">
+          <mxGeometry relative="1" x="0.0113" y="-7" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eReconAFD" edge="1" parent="1" source="Reconhecedor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="AFD" value="usa">
+          <mxGeometry relative="1" x="-0.1735" y="-11" as="geometry">
+            <mxPoint x="-8" y="11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eReconToken" edge="1" parent="1" source="Reconhecedor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;fontSize=15;labelBackgroundColor=none;fontColor=light-dark(#000000,#000000);strokeColor=light-dark(#000000,#000000);" target="Token" value="produz">
+          <mxGeometry relative="1" x="0.1217" y="27" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eTabelaSimbolo" edge="1" parent="1" source="TabelaSimbolos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamond;startFill=0;endArrow=block;endFill=1;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="Simbolo" value="armazena">
+          <mxGeometry relative="1" x="0.0222" y="51" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eTokenTipo" edge="1" parent="1" source="Token" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="TiposToken" value="classifica">
+          <mxGeometry relative="1" x="0.0312" y="15" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eSimboloTipo" edge="1" parent="1" source="Simbolo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="TiposToken" value="classifica">
+          <mxGeometry relative="1" x="0.0339" y="-20" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eSimboloCategoria" edge="1" parent="1" source="Simbolo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;fontSize=15;textShadow=0;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;strokeColor=light-dark(#000000,#000000);" target="CategoriaSimbolo" value="categoriza">
+          <mxGeometry relative="1" x="-0.049" y="14" as="geometry">
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
