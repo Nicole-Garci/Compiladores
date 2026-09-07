@@ -11,7 +11,7 @@ class TiposToken(Enum):
     GREATER_THAN = auto(); GREATER_THAN_EQUAL = auto()
     DIFF = auto(); OR = auto(); AND = auto(); MULT = auto()
     DIV = auto(); MOD = auto(); SEMICOLON = auto()
-    INT = auto(); FLOAT = auto(); CHAR = auto(); BOOL = auto()
+    INT = auto(); FLOAT = auto(); CHAR = auto(); BOOL = auto(); TYPEDEF = auto(); STRUCT = auto()
     IF = auto(); ELSE = auto(); WHILE = auto(); READLN = auto()
     PRINT = auto(); BREAK = auto(); RETURN = auto()
     TRUE = auto(); FALSE = auto(); END_OF_FILE = auto(); UNKNOWN = auto()
@@ -34,37 +34,6 @@ NOMES_TOKEN = {
     TiposToken.IF: "IF", TiposToken.ELSE: "ELSE", TiposToken.WHILE: "WHILE",
     TiposToken.READLN: "READLN", TiposToken.PRINT: "PRINT", TiposToken.BREAK: "BREAK",
     TiposToken.RETURN: "RETURN", TiposToken.TRUE: "TRUE", TiposToken.FALSE: "FALSE",
-    TiposToken.END_OF_FILE: "EOF", TiposToken.UNKNOWN: "UNKNOWN"
+    TiposToken.END_OF_FILE: "EOF", TiposToken.UNKNOWN: "UNKNOWN",
+    TiposToken.TYPEDEF: "TYPEDEF", TiposToken.STRUCT: "STRUCT",
 }
-
-class Token:
-    def __init__(self, tipo: TiposToken, lexema: str, linha: int, coluna: int):
-        self.tipo = tipo
-        self.lexema = lexema
-        self.linha = linha
-        self.coluna = coluna
-
-    def obter_tipo(self) -> TiposToken:
-        return self.tipo
-
-    def obter_lexema(self) -> str:
-        return self.lexema
-
-    def obter_linha(self) -> int:
-        return self.linha
-
-    def obter_coluna(self) -> int:
-        return self.coluna
-
-    def para_string(self) -> str:
-        """
-        Converte o token para o formato de saída exigido.
-        Exemplos: "IF", "ID.x1", "NUMINT.32"
-        """
-        nome_tipo = NOMES_TOKEN.get(self.tipo, "UNKNOWN")
-        
-        # Se for ID, NUM_INT ou NUM_FLOAT, concatena com o lexema
-        if self.tipo in (TiposToken.ID, TiposToken.NUM_INT, TiposToken.NUM_FLOAT):
-            return f"{nome_tipo}.{self.lexema}"
-        
-        return nome_tipo

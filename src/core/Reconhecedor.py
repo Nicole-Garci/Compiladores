@@ -1,11 +1,8 @@
-import sys
-from pathlib import Path
-from LeitorTexto import LeitorTexto
-SRC_DIR = Path(__file__).resolve().parent.parent
-sys.path.append(str(SRC_DIR))
-from AFD import AFD
-from TiposToken import TiposToken, Token
-from TabelaSimbolos import TabelaSimbolos
+from src.AFD import AFD
+from src.TabelaSimbolos import TabelaSimbolos
+from src.TiposToken import TiposToken
+from src.core.LeitorTexto import LeitorTexto
+from src.models.Token import Token
 
 ESTADO_PARA_TOKEN = {
     # Identificadores e Literais
@@ -49,22 +46,6 @@ ESTADO_PARA_TOKEN = {
     "qSEMICOLON": TiposToken.SEMICOLON,
 }
 
-PALAVRAS_RESERVADAS = {
-    "int": TiposToken.INT,
-    "float": TiposToken.FLOAT,
-    "char": TiposToken.CHAR,
-    "bool": TiposToken.BOOL,
-    "if": TiposToken.IF,
-    "else": TiposToken.ELSE,
-    "while": TiposToken.WHILE,
-    "readln": TiposToken.READLN,
-    "print": TiposToken.PRINT,
-    "break": TiposToken.BREAK,
-    "return": TiposToken.RETURN,
-    "true": TiposToken.TRUE,
-    "false": TiposToken.FALSE
-}
-
 class Reconhecedor:
     def __init__(self, json_filepath, code_filepath):
         self.afd = AFD(json_filepath)
@@ -89,12 +70,15 @@ class Reconhecedor:
 
         if self.leitor.chegouAoFim():
             return Token(TiposToken.END_OF_FILE, "", self.leitor.obterLinha(), self.leitor.obterColuna())
+
+        marcoInicial = self.leitor.criarMarco()
         
         lexema = ""
         linha = self.leitor.obterLinha()
         coluna = self.leitor.obterColuna()
         ultimoFinal = None
         ultimoLexema = ""
+        ultimoMarcoFinal = None
 
         while not self.leitor.chegouAoFim():
             charAtual = self.leitor.observarCaractere(0)
@@ -105,18 +89,26 @@ class Reconhecedor:
                 if self.afd.eh_estado_final():
                     ultimoFinal = self.afd.obter_estado_atual()
                     ultimoLexema = lexema
+                    ultimoMarcoFinal = self.leitor.criarMarco()
             else:
                 break
 
         if ultimoFinal is not None:
+            self.leitor.restaurarMarco(ultimoMarcoFinal)
+
             tipo = ESTADO_PARA_TOKEN.get(ultimoFinal, TiposToken.UNKNOWN)
             if ultimoFinal == "qCOMMENTDONE":
                 return self.proximoToken()
 
-            if tipo == TiposToken.ID and ultimoLexema in PALAVRAS_RESERVADAS:
-                tipo = PALAVRAS_RESERVADAS[ultimoLexema]
+            if tipo == TiposToken.ID:
+                simbolo = self.tabelaSimbolos.buscar(ultimoLexema)
+
+                if simbolo is not None:
+                    tipo = simbolo.tipoToken
 
             return Token(tipo, ultimoLexema, linha, coluna)
-        
+
+        self.leitor.restaurarMarco(marcoInicial)
         charInvalido = self.leitor.avancar()
+
         return Token(TiposToken.UNKNOWN, charInvalido, linha, coluna)

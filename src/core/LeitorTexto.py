@@ -70,3 +70,11 @@ class LeitorTexto:
             self.coluna += 1
 
         return caractere
+
+    def criarMarco(self):
+        """Salva a posição, linha e coluna atuais"""
+        return self.posicao, self.linha, self.coluna
+
+    def restaurarMarco(self, marco: tuple[int, int, int]):
+        """Restaura uma posição salva anteriormente"""
+        self.posicao, self.linha, self.coluna = marco
