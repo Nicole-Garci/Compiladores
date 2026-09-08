@@ -1,0 +1,46 @@
+/* Teste */
+typedef struct {
+    int codigo;
+    float saldo;
+    char categoria;
+    bool ativo;
+} Conta;
+
+int calcular(int a, int b) {
+    int resultado;
+    resultado = (a + b) * 2 / 1 % 3 - 1;
+    return resultado;
+}
+
+int main() {
+    Conta contas[10];
+    int indice;
+    float valor;
+    char letra;
+    bool valido;
+
+    indice = 0;
+    valor = 12.50;
+    letra = 'A';
+    valido = true;
+
+    /* O comentario pode ocupar
+       mais de uma linha. */
+    while (indice < 10 && valido == true) {
+        readln(valor);
+
+        if (valor >= 100.0 || valor != 0.0) {
+            print("valor valido");
+            indice++;
+        } else {
+            if (valor <= 0.0 && indice > 0) {
+                indice--;
+            }
+
+            valido = !false;
+            break;
+        }
+    }
+
+    return calcular(indice, 2);
+}

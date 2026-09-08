@@ -1,39 +1,45 @@
 import argparse
 import sys
+from pathlib import Path
 
-from src.TabelaSimbolos import TabelaSimbolos
-from src.TiposToken import TiposToken
-from src.core.Reconhecedor import Reconhecedor
-from src.models.ErroLexer import ErroLexer
-from src.models.Token import Token
+from src.Lexer import Lexer
+
+
+CAMINHO_AFD = Path(__file__).resolve().parent / "src" / "AFD.json"
 
 
 def parser() -> argparse.ArgumentParser:
-    """TODO: implement parser"""
+    analisadorArgumentos = argparse.ArgumentParser(
+        description="Executa o analisador lexico da linguagem C--."
+    )
+    analisadorArgumentos.add_argument(
+        "arquivo",
+        help="caminho do arquivo-fonte .cmm",
+    )
+    return analisadorArgumentos
+
 
 def main(argv: list[str] | None = None) -> int:
-    """TODO: implement main"""
-    print("Teste Token: " + Token(TiposToken.ID, 'x1', 1, 1).paraString())
+    argumentos = parser().parse_args(argv)
+    lexer = Lexer(str(CAMINHO_AFD))
 
-    table = TabelaSimbolos()
-    print("\n" + table.buscar('if').__str__())
-    print("\n" + table.obterOuInserir('contador', tiposToken=TiposToken.ID).__str__())
-    print("\nQtde Simb: " + table.quantidade().__str__())
+    try:
+        tokens = lexer.analisarArquivo(argumentos.arquivo)
+    except (ValueError, FileNotFoundError, OSError) as erro:
+        print(f"Erro: {erro}", file=sys.stderr)
+        return 2
 
-    print("\nReconhecedor: ")
-    r = Reconhecedor('src/AFD.json', 'tests/arquivoTexto')
-    print(r.proximoToken().paraString())
+    for token in tokens:
+        print(token.paraString())
 
-    r.leitor.carregarTexto('12.a')
-    print("\n12.a: " + [(r.proximoToken().paraString()) for i in range(3)].__str__())
+    erros = lexer.obterErros()
+    sys.stdout.flush()
 
-    r.leitor.carregarTexto('&x')
-    a = r.proximoToken(); b = r.proximoToken()
-    print("\n&x: " + (a.tipo.name, a.lexema).__str__() + "\t" + (b.tipo.name, b.lexema).__str__())
+    for erro in erros:
+        print(erro.paraString(), file=sys.stderr)
 
-    e = ErroLexer('literal não finalizado', 3, 8, '"abc')
-    print(f"\n{e}"); print(e.paraString())
+    return 1 if erros else 0
 
 
-if __name__ == main():
-    main(sys.argv)
+if __name__ == "__main__":
+    raise SystemExit(main())
