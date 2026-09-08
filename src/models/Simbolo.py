@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from enum import Enum
 
 from src.TiposToken import TiposToken
@@ -8,7 +9,7 @@ class CategoriaSimbolo(str, Enum):
     IDENTIFICADOR = "identificador"
     LITERAL = "literal"
 
-
+@dataclass
 class Simbolo:
     indice: int
     lexema: str

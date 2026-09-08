@@ -1,478 +1,478 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
-	<type>fa</type>
-	<automaton>
-		<!--The list of states.-->
-		<state id="0" name="q0">
-			<x>1038.0</x>
-			<y>486.0</y>
-			<initial/>
-		</state>
-		<state id="1" name="qID">
-			<x>584.0</x>
-			<y>162.0</y>
-			<final/>
-		</state>
-		<state id="2" name="qNUMINT">
-			<x>768.0</x>
-			<y>166.0</y>
-			<final/>
-		</state>
-		<state id="3" name="qDOT">
-			<x>888.0</x>
-			<y>166.0</y>
-		</state>
-		<state id="4" name="qNUMFLOAT">
-			<x>1008.0</x>
-			<y>166.0</y>
-			<final/>
-		</state>
-		<state id="5" name="qSTRING">
-			<x>568.0</x>
-			<y>316.0</y>
-		</state>
-		<state id="6" name="qSTRING_FINAL">
-			<x>454.0</x>
-			<y>398.0</y>
-			<final/>
-		</state>
-		<state id="7" name="qCHAR1">
-			<x>116.0</x>
-			<y>776.0</y>
-		</state>
-		<state id="8" name="qCHAR2">
-			<x>429.0</x>
-			<y>905.0</y>
-		</state>
-		<state id="9" name="qCHAR_FINAL">
-			<x>596.0</x>
-			<y>935.0</y>
-			<final/>
-		</state>
-		<state id="10" name="qDIV">
-			<x>1268.0</x>
-			<y>166.0</y>
-			<final/>
-		</state>
-		<state id="11" name="qCOMMENT">
-			<x>1398.0</x>
-			<y>166.0</y>
-		</state>
-		<state id="12" name="qCOMMENTSTAR">
-			<x>1528.0</x>
-			<y>166.0</y>
-		</state>
-		<state id="13" name="qCOMMENTDONE">
-			<x>1658.0</x>
-			<y>166.0</y>
-			<final/>
-		</state>
-		<state id="14" name="qASSIGN">
-			<x>1596.0</x>
-			<y>287.0</y>
-			<final/>
-		</state>
-		<state id="15" name="qEQ">
-			<x>1756.0</x>
-			<y>287.0</y>
-			<final/>
-		</state>
-		<state id="16" name="qLT">
-			<x>1596.0</x>
-			<y>357.0</y>
-			<final/>
-		</state>
-		<state id="17" name="qLEQ">
-			<x>1756.0</x>
-			<y>357.0</y>
-			<final/>
-		</state>
-		<state id="18" name="qGT">
-			<x>1596.0</x>
-			<y>427.0</y>
-			<final/>
-		</state>
-		<state id="19" name="qGEQ">
-			<x>1756.0</x>
-			<y>427.0</y>
-			<final/>
-		</state>
-		<state id="20" name="qNOT">
-			<x>1596.0</x>
-			<y>497.0</y>
-			<final/>
-		</state>
-		<state id="21" name="qNEQ">
-			<x>1756.0</x>
-			<y>497.0</y>
-			<final/>
-		</state>
-		<state id="22" name="qPLUS">
-			<x>1224.0</x>
-			<y>884.0</y>
-			<final/>
-		</state>
-		<state id="23" name="qINC">
-			<x>1384.0</x>
-			<y>884.0</y>
-			<final/>
-		</state>
-		<state id="24" name="qMINUS">
-			<x>1224.0</x>
-			<y>954.0</y>
-			<final/>
-		</state>
-		<state id="25" name="qDEC">
-			<x>1384.0</x>
-			<y>954.0</y>
-			<final/>
-		</state>
-		<state id="26" name="qMULT">
-			<x>1224.0</x>
-			<y>1024.0</y>
-			<final/>
-		</state>
-		<state id="27" name="qMOD">
-			<x>1384.0</x>
-			<y>1024.0</y>
-			<final/>
-		</state>
-		<state id="28" name="qAND1">
-			<x>1548.0</x>
-			<y>626.0</y>
-		</state>
-		<state id="29" name="qAND">
-			<x>1688.0</x>
-			<y>626.0</y>
-			<final/>
-		</state>
-		<state id="30" name="qOR1">
-			<x>1548.0</x>
-			<y>696.0</y>
-		</state>
-		<state id="31" name="qOR">
-			<x>1688.0</x>
-			<y>696.0</y>
-			<final/>
-		</state>
-		<state id="32" name="qLPARENT">
-			<x>555.0</x>
-			<y>689.0</y>
-			<final/>
-		</state>
-		<state id="33" name="qRPARENT">
-			<x>685.0</x>
-			<y>689.0</y>
-			<final/>
-		</state>
-		<state id="34" name="qLBRACKET">
-			<x>788.0</x>
-			<y>748.0</y>
-			<final/>
-		</state>
-		<state id="35" name="qRBRACKET">
-			<x>937.0</x>
-			<y>690.0</y>
-			<final/>
-		</state>
-		<state id="36" name="qLBRACE">
-			<x>555.0</x>
-			<y>799.0</y>
-			<final/>
-		</state>
-		<state id="37" name="qRBRACE">
-			<x>685.0</x>
-			<y>799.0</y>
-			<final/>
-		</state>
-		<state id="38" name="qCOMMA">
-			<x>815.0</x>
-			<y>799.0</y>
-			<final/>
-		</state>
-		<state id="39" name="qSEMICOLON">
-			<x>986.0</x>
-			<y>758.0</y>
-			<final/>
-		</state>
-		<state id="40" name="qERRO">
-			<x>1038.0</x>
-			<y>886.0</y>
-		</state>
-		<!--The list of transitions.-->
-		<transition>
-			<from>12</from>
-			<to>13</to>
-			<read>/</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>40</to>
-			<read>símbolo inválido</read>
-		</transition>
-		<transition>
-			<from>2</from>
-			<to>2</to>
-			<read>dígito</read>
-		</transition>
-		<transition>
-			<from>4</from>
-			<to>4</to>
-			<read>dígito</read>
-		</transition>
-		<transition>
-			<from>11</from>
-			<to>11</to>
-			<read>caractere ≠ *</read>
-		</transition>
-		<transition>
-			<from>16</from>
-			<to>17</to>
-			<read>=</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>26</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>10</to>
-			<read>/</read>
-		</transition>
-		<transition>
-			<from>11</from>
-			<to>40</to>
-			<read>EOF</read>
-		</transition>
-		<transition>
-			<from>14</from>
-			<to>15</to>
-			<read>=</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>22</to>
-			<read>+</read>
-		</transition>
-		<transition>
-			<from>12</from>
-			<to>12</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>7</from>
-			<to>8</to>
-			<read>ASCII válido</read>
-		</transition>
-		<transition>
-			<from>5</from>
-			<to>5</to>
-			<read>caractere ≠ " e ≠ quebra de linha</read>
-		</transition>
-		<transition>
-			<from>8</from>
-			<to>9</to>
-			<read>'</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>37</to>
-			<read>}</read>
-		</transition>
-		<transition>
-			<from>5</from>
-			<to>6</to>
-			<read>"</read>
-		</transition>
-		<transition>
-			<from>3</from>
-			<to>4</to>
-			<read>dígito</read>
-		</transition>
-		<transition>
-			<from>18</from>
-			<to>19</to>
-			<read>=</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>24</to>
-			<read>-</read>
-		</transition>
-		<transition>
-			<from>30</from>
-			<to>40</to>
-			<read>outro | EOF</read>
-		</transition>
-		<transition>
-			<from>24</from>
-			<to>25</to>
-			<read>-</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>1</to>
-			<read>letra</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>34</to>
-			<read>[</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>18</to>
-			<read>&gt;</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>35</to>
-			<read>]</read>
-		</transition>
-		<transition>
-			<from>10</from>
-			<to>11</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>2</from>
-			<to>3</to>
-			<read>.</read>
-		</transition>
-		<transition>
-			<from>30</from>
-			<to>31</to>
-			<read>|</read>
-		</transition>
-		<transition>
-			<from>1</from>
-			<to>1</to>
-			<read>letra | dígito</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>38</to>
-			<read>,</read>
-		</transition>
-		<transition>
-			<from>7</from>
-			<to>40</to>
-			<read>quebra de linha | EOF</read>
-		</transition>
-		<transition>
-			<from>11</from>
-			<to>12</to>
-			<read>*</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>5</to>
-			<read>"</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>36</to>
-			<read>{</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>28</to>
-			<read>&amp;</read>
-		</transition>
-		<transition>
-			<from>28</from>
-			<to>40</to>
-			<read>outro | EOF</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>14</to>
-			<read>=</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>39</to>
-			<read>;</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>33</to>
-			<read>)</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>27</to>
-			<read>%</read>
-		</transition>
-		<transition>
-			<from>8</from>
-			<to>40</to>
-			<read>caractere ≠ ' | EOF</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>30</to>
-			<read>|</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>32</to>
-			<read>(</read>
-		</transition>
-		<transition>
-			<from>12</from>
-			<to>40</to>
-			<read>EOF</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>16</to>
-			<read>&lt;</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>20</to>
-			<read>!</read>
-		</transition>
-		<transition>
-			<from>22</from>
-			<to>23</to>
-			<read>+</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>7</to>
-			<read>'</read>
-		</transition>
-		<transition>
-			<from>12</from>
-			<to>11</to>
-			<read>caractere ≠ * e ≠ /</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>2</to>
-			<read>dígito</read>
-		</transition>
-		<transition>
-			<from>28</from>
-			<to>29</to>
-			<read>&amp;</read>
-		</transition>
-		<transition>
-			<from>5</from>
-			<to>40</to>
-			<read>quebra de linha | EOF</read>
-		</transition>
-		<transition>
-			<from>20</from>
-			<to>21</to>
-			<read>=</read>
-		</transition>
-		<transition>
-			<from>0</from>
-			<to>0</to>
-			<read>whitespace (espaço | tab | \n | \r)</read>
-		</transition>
-	</automaton>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>&#13;
+	<type>fa</type>&#13;
+	<automaton>&#13;
+		<!--The list of states.-->&#13;
+		<state id="0" name="q0">&#13;
+			<x>850.0</x>&#13;
+			<y>650.0</y>&#13;
+			<initial/>&#13;
+		</state>&#13;
+		<state id="1" name="qID">&#13;
+			<x>801.0</x>&#13;
+			<y>324.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="2" name="qNUMINT">&#13;
+			<x>610.0</x>&#13;
+			<y>200.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="3" name="qDOT">&#13;
+			<x>810.0</x>&#13;
+			<y>200.0</y>&#13;
+		</state>&#13;
+		<state id="4" name="qNUMFLOAT">&#13;
+			<x>1010.0</x>&#13;
+			<y>200.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="5" name="qSTRING">&#13;
+			<x>1086.0</x>&#13;
+			<y>257.0</y>&#13;
+		</state>&#13;
+		<state id="6" name="qSTRING_FINAL">&#13;
+			<x>1226.0</x>&#13;
+			<y>257.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="7" name="qCHAR1">&#13;
+			<x>1074.0</x>&#13;
+			<y>679.0</y>&#13;
+		</state>&#13;
+		<state id="8" name="qCHAR2">&#13;
+			<x>1198.0</x>&#13;
+			<y>687.0</y>&#13;
+		</state>&#13;
+		<state id="9" name="qCHAR_FINAL">&#13;
+			<x>1333.0</x>&#13;
+			<y>696.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="10" name="qDIV">&#13;
+			<x>968.0</x>&#13;
+			<y>967.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="11" name="qCOMMENT">&#13;
+			<x>1102.0</x>&#13;
+			<y>969.0</y>&#13;
+		</state>&#13;
+		<state id="12" name="qCOMMENTSTAR">&#13;
+			<x>1333.0</x>&#13;
+			<y>973.0</y>&#13;
+		</state>&#13;
+		<state id="13" name="qCOMMENTDONE">&#13;
+			<x>1495.0</x>&#13;
+			<y>982.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="14" name="qASSIGN">&#13;
+			<x>1060.0</x>&#13;
+			<y>413.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="15" name="qEQ">&#13;
+			<x>1175.0</x>&#13;
+			<y>412.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="16" name="qLT">&#13;
+			<x>1047.0</x>&#13;
+			<y>484.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="17" name="qLEQ">&#13;
+			<x>1191.0</x>&#13;
+			<y>484.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="18" name="qGT">&#13;
+			<x>1052.0</x>&#13;
+			<y>560.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="19" name="qGEQ">&#13;
+			<x>1181.0</x>&#13;
+			<y>560.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="20" name="qNOT">&#13;
+			<x>1051.0</x>&#13;
+			<y>635.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="21" name="qNEQ">&#13;
+			<x>1178.0</x>&#13;
+			<y>631.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="22" name="qPLUS">&#13;
+			<x>600.0</x>&#13;
+			<y>400.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="23" name="qINC">&#13;
+			<x>400.0</x>&#13;
+			<y>400.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="24" name="qMINUS">&#13;
+			<x>600.0</x>&#13;
+			<y>480.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="25" name="qDEC">&#13;
+			<x>400.0</x>&#13;
+			<y>480.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="26" name="qMULT">&#13;
+			<x>600.0</x>&#13;
+			<y>560.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="27" name="qMOD">&#13;
+			<x>400.0</x>&#13;
+			<y>560.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="28" name="qAND1">&#13;
+			<x>1019.0</x>&#13;
+			<y>780.0</y>&#13;
+		</state>&#13;
+		<state id="29" name="qAND">&#13;
+			<x>965.0</x>&#13;
+			<y>862.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="30" name="qOR1">&#13;
+			<x>908.0</x>&#13;
+			<y>903.0</y>&#13;
+		</state>&#13;
+		<state id="31" name="qOR">&#13;
+			<x>812.0</x>&#13;
+			<y>907.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="32" name="qLPARENT">&#13;
+			<x>390.0</x>&#13;
+			<y>660.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="33" name="qRPARENT">&#13;
+			<x>385.0</x>&#13;
+			<y>722.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="34" name="qLBRACKET">&#13;
+			<x>434.0</x>&#13;
+			<y>822.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="35" name="qRBRACKET">&#13;
+			<x>613.0</x>&#13;
+			<y>911.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="36" name="qLBRACE">&#13;
+			<x>387.0</x>&#13;
+			<y>776.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="37" name="qRBRACE">&#13;
+			<x>428.0</x>&#13;
+			<y>889.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="38" name="qCOMMA">&#13;
+			<x>513.0</x>&#13;
+			<y>913.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="39" name="qSEMICOLON">&#13;
+			<x>716.0</x>&#13;
+			<y>918.0</y>&#13;
+			<final/>&#13;
+		</state>&#13;
+		<state id="40" name="qERRO">&#13;
+			<x>1507.0</x>&#13;
+			<y>842.0</y>&#13;
+		</state>&#13;
+		<!--The list of transitions.-->&#13;
+		<transition>&#13;
+			<from>8</from>&#13;
+			<to>40</to>&#13;
+			<read>caractere ≠ ' | EOF</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>2</from>&#13;
+			<to>2</to>&#13;
+			<read>dígito</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>4</from>&#13;
+			<to>4</to>&#13;
+			<read>dígito</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>11</from>&#13;
+			<to>11</to>&#13;
+			<read>caractere ≠ *</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>5</from>&#13;
+			<to>40</to>&#13;
+			<read>quebra de linha | EOF</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>5</from>&#13;
+			<to>6</to>&#13;
+			<read>"</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>12</from>&#13;
+			<to>40</to>&#13;
+			<read>EOF</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>18</from>&#13;
+			<to>19</to>&#13;
+			<read>=</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>1</to>&#13;
+			<read>letra</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>14</to>&#13;
+			<read>=</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>22</from>&#13;
+			<to>23</to>&#13;
+			<read>+</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>26</to>&#13;
+			<read>*</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>28</from>&#13;
+			<to>29</to>&#13;
+			<read>&amp;</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>30</from>&#13;
+			<to>31</to>&#13;
+			<read>|</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>39</to>&#13;
+			<read>;</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>24</to>&#13;
+			<read>-</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>10</from>&#13;
+			<to>11</to>&#13;
+			<read>*</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>22</to>&#13;
+			<read>+</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>28</to>&#13;
+			<read>&amp;</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>3</from>&#13;
+			<to>4</to>&#13;
+			<read>dígito</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>12</from>&#13;
+			<to>12</to>&#13;
+			<read>*</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>34</to>&#13;
+			<read>[</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>14</from>&#13;
+			<to>15</to>&#13;
+			<read>=</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>5</from>&#13;
+			<to>5</to>&#13;
+			<read>caractere ≠ " e ≠ quebra de linha</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>7</to>&#13;
+			<read>'</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>37</to>&#13;
+			<read>}</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>2</from>&#13;
+			<to>3</to>&#13;
+			<read>.</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>35</to>&#13;
+			<read>]</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>36</to>&#13;
+			<read>{</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>24</from>&#13;
+			<to>25</to>&#13;
+			<read>-</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>27</to>&#13;
+			<read>%</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>18</to>&#13;
+			<read>&gt;</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>30</to>&#13;
+			<read>|</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>16</to>&#13;
+			<read>&lt;</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>12</from>&#13;
+			<to>13</to>&#13;
+			<read>/</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>8</from>&#13;
+			<to>9</to>&#13;
+			<read>'</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>40</to>&#13;
+			<read>símbolo inválido</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>2</to>&#13;
+			<read>dígito</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>16</from>&#13;
+			<to>17</to>&#13;
+			<read>=</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>1</from>&#13;
+			<to>1</to>&#13;
+			<read>letra | dígito</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>7</from>&#13;
+			<to>40</to>&#13;
+			<read>quebra de linha | EOF</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>28</from>&#13;
+			<to>40</to>&#13;
+			<read>outro | EOF</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>11</from>&#13;
+			<to>12</to>&#13;
+			<read>*</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>7</from>&#13;
+			<to>8</to>&#13;
+			<read>ASCII válido</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>30</from>&#13;
+			<to>40</to>&#13;
+			<read>outro | EOF</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>20</from>&#13;
+			<to>21</to>&#13;
+			<read>=</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>38</to>&#13;
+			<read>,</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>5</to>&#13;
+			<read>"</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>20</to>&#13;
+			<read>!</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>10</to>&#13;
+			<read>/</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>32</to>&#13;
+			<read>(</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>33</to>&#13;
+			<read>)</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>12</from>&#13;
+			<to>11</to>&#13;
+			<read>caractere ≠ * e ≠ /</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>11</from>&#13;
+			<to>40</to>&#13;
+			<read>EOF</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>0</from>&#13;
+			<to>0</to>&#13;
+			<read>whitespace (espaço | tab | \n | \r)</read>&#13;
+		</transition>&#13;
+	</automaton>&#13;
 </structure>
