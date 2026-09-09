@@ -18,6 +18,10 @@ int main() {
     float valor;
     char letra;
     bool valido;
+    int x, y;
+
+    x+++++y;
+    x++ + ++y;
 
     indice = 0;
     valor = 12.50;

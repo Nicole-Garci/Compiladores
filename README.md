@@ -14,7 +14,7 @@ Este projeto implementa um compilador para a linguagem C-- a ser desenvolvido de
 - **João Victor Domingos e Souza** - [John5626]
 - **NOME** - [GitHub]
 - **NOME** - [GitHub]
-- **NOME** - [GitHub]
+- **Nicole Garcia Montes Clemente** - [Nicole-Garci]
 
 ---
 ## Organização das branches
