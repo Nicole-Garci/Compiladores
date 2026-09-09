@@ -44,6 +44,11 @@ int main() {
             valido = !false;
             break;
         }
+
+        /*erros*/
+        float valor@base = 10.5; // O caractere '@' não é reconhecido pelo lexer
+        print("valor valido);
+        valor = 12.50.8;
     }
 
     return calcular(indice, 2);
