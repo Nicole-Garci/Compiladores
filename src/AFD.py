@@ -62,19 +62,26 @@ class AFD:
             
         if condicao == "letra":
             return bool(re.match(r'[a-zA-Z]', caractere))
+
         if condicao == "dígito":
-            return bool(re.match(r'\d', caractere))
+            return bool(re.fullmatch(r'[0-9]', caractere))
+
         if condicao == "letra | dígito":
             return bool(re.match(r'[a-zA-Z0-9]', caractere))
+
         if "whitespace" in condicao:
-            return caractere.isspace()
+            return caractere in (" ", "\t", "\n", "\r")
+
         if condicao == "caractere ≠ *":
             return caractere != "*"
+
         if condicao == "caractere ≠ * e ≠ /":
             return caractere not in ('*', '/')
+
         if condicao == "caractere ≠ \" e ≠ quebra de linha":
             return caractere != '"' and caractere != '\n'
+
         if condicao == "ASCII válido":
-            return caractere.isascii() and not caractere.isspace()
+            return len(caractere) == 1 and caractere.isascii() and caractere not in ("'", "\n", "\r")
             
         return False
