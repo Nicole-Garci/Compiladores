@@ -22,15 +22,10 @@ class LeitorTexto:
         self,
         nomeArquivo: str | PathLike[str],
         encoding: str = "utf-8",
-    ) -> bool:
-        """Carrega um arquivo e informa se a operacao foi bem-sucedida."""
-        try:
-            texto = Path(nomeArquivo).read_text(encoding=encoding)
-        except (OSError, UnicodeError):
-            return False
-
+    ) -> None:
+        """Carrega um arquivo; erros de leitura são preservados para o chamador."""
+        texto = Path(nomeArquivo).read_text(encoding=encoding)
         self.carregarTexto(texto)
-        return True
 
     def obterLinha(self) -> int:
         return self.linha
@@ -70,3 +65,11 @@ class LeitorTexto:
             self.coluna += 1
 
         return caractere
+
+    def criarMarco(self) -> tuple[int, int, int]:
+        """Salva a posição, linha e coluna atuais"""
+        return self.posicao, self.linha, self.coluna
+
+    def restaurarMarco(self, marco: tuple[int, int, int]) -> None:
+        """Restaura uma posição salva anteriormente"""
+        self.posicao, self.linha, self.coluna = marco

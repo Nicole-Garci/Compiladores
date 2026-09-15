@@ -1,45 +1,88 @@
-# Compilador C--
+# Compilador C-- - Entrega 1
 
-Este projeto implementa um compilador para a linguagem C-- a ser desenvolvido de forma incremental em quatro partes:
+Implementação do analisador léxico da linguagem C-- descrita no enunciado em
+`docs/Trabalho 1 - Compiladores.pdf`. O programa reconhece o maior lexema,
+descarta comentários `/* ... */`, consulta todos os lexemas válidos em uma
+tabela de símbolos e acumula erros com linha e coluna até emitir `EOF`.
 
-1. Analisador Léxico
-2. Analisador Sintático
-3. Analisador Semântico
-4. Simulador do Compilador
+## Requisitos e execução
 
----
+- Python 3.10 ou posterior.
+- Nenhuma dependência externa para executar ou testar o analisador.
+- Arquivos de entrada devem usar UTF-8 e extensão `.cmm`.
 
-## Autor
+Na raiz do projeto:
 
-- **João Victor Domingos e Souza** - [John5626]
-- **NOME** - [GitHub]
-- **NOME** - [GitHub]
-- **NOME** - [GitHub]
+```text
+python main.py tests/arquivoTexto.cmm
+```
 
----
-## Organização das branches
+Também é possível instalar o projeto e usar o comando `cmm`:
 
-A branch `main` deve conter sempre a parte mais recente completamente implementada, revisada e finalizada. Ao término das quatro partes, ela representará a versão final do trabalho.
+```text
+python -m pip install -e .
+cmm tests/arquivoTexto.cmm
+```
 
-Cada parte deve ser desenvolvida em uma nova branch, começando pelo Analisador Léxico. Nunca implemente diretamente na `main`. Nomes a serem usados:
+Os tokens válidos são escritos em `stdout`, um por linha. Os diagnósticos são
+escritos em `stderr`. O código de saída é 0 em uma análise sem erros, 1 quando
+há erros léxicos e 2 quando o arquivo não pode ser processado.
 
-- `parte-1-lexer`
-- `parte-2-sintatico`
-- `parte-3-semantico`
-- `parte-4-simulador`
+Exemplo para `if(x1 <= 32) b = 10;`:
 
-Sempre que realizar uma alteração, crie a nova branch a partir da branch que está em implementação. Ao finalizar, abra um PR para a branch e marque os integrantes para revisão. 
-O merge para main deve ocorrer sempre ao final de cada entrega do trabalho.
+```text
+IF
+LPARENT
+ID.x1
+LEQ
+NUMINT.32
+RPARENT
+ID.b
+ASSIGN
+NUMINT.10
+SEMICOLON
+EOF
+```
 
----
-## Padrões de implementação
+## Organização
 
-- Uma classe por arquivo, com módulos e classes em `CamelCase`.
-- Métodos e variáveis em `lowerCamelCase`.
-- `Lexer.py` funciona como fachada do analisador léxico.
-- `src/core` concentra leitura, reconhecimento e motor de execução.
-- `src/models` contém apenas os modelos de dados compartilhados.
-- Cada parte deve preservar o funcionamento das partes anteriores.
-- Toda implementação deve incluir testes e passar pela revisão do grupo antes do merge.
-- Mensagens de commit em inglês e usando os prefixos: `feat: <message>`, `doc: <message>`, `fix: <message>`...
----
+- `main.py`: interface de linha de comando.
+- `src/Lexer.py`: fachada que valida a entrada e inicia uma análise isolada.
+- `src/AFD.py` e `src/AFD.json`: execução e configuração do autômato.
+- `src/core/`: leitura, reconhecimento por maior lexema e orquestração.
+- `src/TabelaSimbolos.py`: tabela única de reservadas, símbolos fixos,
+  identificadores e literais.
+- `src/GerenciadorErros.py`: coleta de diagnósticos sem interromper a análise.
+- `tests/test_lexer.py`: testes automatizados de regressão.
+- `docs/doc_Latex/`: fontes, evidências e instruções do relatório.
+
+## Testes
+
+```text
+python -m unittest discover -s tests -p "test_*.py" -v
+python docs/doc_Latex/scripts/verificar_implementacao.py
+```
+
+A suíte cobre todas as classes de operadores e delimitadores, palavras
+reservadas, identificadores, números, strings, caracteres, maior lexema,
+comentários completos e incompletos, recuperação de erros, CRLF, tabela de
+símbolos, reinicialização entre arquivos, CLI e entradas extensas.
+
+## Documentação da entrega
+
+O relatório final atualizado está em
+`output/pdf/Compilador_C--_Entrega_1.pdf`. As instruções de reprodução e
+compilação ficam em `docs/doc_Latex/README.md`.
+
+## Autores
+
+- João Victor Domingos e Souza - John5626
+- Nicole Garcia Montes Clemente - Nicole-Garci
+- Marcelo Americo da Silva
+- Davi Marques de Oliveira
+
+## Continuidade do projeto
+
+As próximas etapas são análise sintática, análise semântica e simulação. Os
+tokens mantêm tipo, lexema, posição e índice de símbolo para que essas fases
+possam reutilizar a saída desta entrega sem refazer a análise léxica.

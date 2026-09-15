@@ -1,80 +1,94 @@
 import json
 import re
+from pathlib import Path
 
 class AFD:
-    def __init__(self, json_filepath):
-        # Carrega as configurações do autômato a partir do JSON
-        with open(json_filepath, 'r', encoding='utf-8') as file:
-            data = json.load(file)
+    """Autômato finito determinístico configurado em JSON."""
+
+    def __init__(self, caminhoJson: str) -> None:
+        with Path(caminhoJson).open("r", encoding="utf-8") as arquivo:
+            data = json.load(arquivo)
             
-        self.estado_inicial = data["initial_state"]
+        self.estadoInicial = data["initial_state"]
         self.estados = {int(k): v for k, v in data["states"].items()}
-        self.estados_finais = set(data["final_states"])
+        self.estadosFinais = set(data["final_states"])
+        self.estadoErro = next(
+            (numero for numero, nome in self.estados.items() if nome == "qERRO"),
+            None,
+        )
+
+        if self.estadoInicial not in self.estados:
+            raise ValueError("Estado inicial do AFD não foi declarado")
+        if not self.estadosFinais.issubset(self.estados):
+            raise ValueError("O AFD contém estado final não declarado")
         
-        # Mapeamento de transições: self.transicoes[from_state] = [(to_state, condition_string)]
-        self.transicoes = {}
-        for t in data["transitions"]:
-            from_st = t["from"]
-            to_st = t["to"]
-            read_cond = t["read"]
+        self.transicoes: dict[int, list[tuple[int, str]]] = {}
+        for transicao in data["transitions"]:
+            estadoOrigem = transicao["from"]
+            estadoDestino = transicao["to"]
+            condicao = transicao["read"]
             
-            if from_st not in self.transicoes:
-                self.transicoes[from_st] = []
-            self.transicoes[from_st].append((to_st, read_cond))
+            self.transicoes.setdefault(estadoOrigem, []).append(
+                (estadoDestino, condicao)
+            )
             
-        self.estado_atual = self.estado_inicial
+        self.estadoAtual = self.estadoInicial
 
-    def reiniciar(self):
-        # Reinicia o autômato para o estado inicial.
-        self.estado_atual = self.estado_inicial
+    def reiniciar(self) -> None:
+        self.estadoAtual = self.estadoInicial
 
-    def eh_estado_final(self):
-        # Verifica se o autômato parou em um estado de aceitação.
-        return self.estado_atual in self.estados_finais
+    def ehEstadoFinal(self) -> bool:
+        return self.estadoAtual in self.estadosFinais
 
-    def obter_estado_atual(self):
-        # Retorna o nome do estado atual (ex: qID, qNUMINT).
-        return self.estados.get(self.estado_atual, "qUNKNOWN")
+    def obterEstadoAtual(self) -> str:
+        return self.estados.get(self.estadoAtual, "qUNKNOWN")
 
-    def eh_estado_de_erro(self):
-        # Verifica se o autômato está em um estado de erro (ex: estado 40)
-        return self.estado_atual == 40
+    def ehEstadoDeErro(self) -> bool:
+        return self.estadoErro is not None and self.estadoAtual == self.estadoErro
 
     def transicionar(self, caractere: str) -> bool:
-        # Calcula o próximo estado com base no caractere lido.
-        # Retorna True se houve transição válida, ou False se travou/erro.
-        if self.estado_atual not in self.transicoes:
+        if self.estadoAtual not in self.transicoes:
             return False
             
-        for para_estado, condicao in self.transicoes[self.estado_atual]:
-            if self._avaliar_condicao(caractere, condicao):
-                self.estado_atual = para_estado
+        for estadoDestino, condicao in self.transicoes[self.estadoAtual]:
+            if self._avaliarCondicao(caractere, condicao):
+                self.estadoAtual = estadoDestino
                 return True
                 
-        # Se nenhuma transição casou, envia para estado de erro (40)
-        self.estado_atual = 40
+        if self.estadoErro is not None:
+            self.estadoAtual = self.estadoErro
         return False
 
-    def _avaliar_condicao(self, caractere: str, condicao: str) -> bool:
-        # Lógica interna que avalia se o caractere satisfaz a string de transição usando Regex.
+    def _avaliarCondicao(self, caractere: str, condicao: str) -> bool:
         if caractere == condicao:
             return True
             
         if condicao == "letra":
-            return bool(re.match(r'[a-zA-Z]', caractere))
+            return bool(re.fullmatch(r"[a-zA-Z]", caractere))
+
         if condicao == "dígito":
-            return bool(re.match(r'\d', caractere))
+            return bool(re.fullmatch(r"[0-9]", caractere))
+
         if condicao == "letra | dígito":
-            return bool(re.match(r'[a-zA-Z0-9]', caractere))
+            return bool(re.fullmatch(r"[a-zA-Z0-9]", caractere))
+
         if "whitespace" in condicao:
-            return caractere.isspace()
+            return caractere in (" ", "\t", "\n", "\r")
+
         if condicao == "caractere ≠ *":
             return caractere != "*"
+
         if condicao == "caractere ≠ * e ≠ /":
-            return caractere not in ('*', '/')
+            return caractere not in ("*", "/")
+
         if condicao == "caractere ≠ \" e ≠ quebra de linha":
-            return caractere != '"' and caractere != '\n'
+            return caractere not in ('"', "\n", "\r")
+
         if condicao == "ASCII válido":
-            return caractere.isascii() and not caractere.isspace()
-            
+            return (
+                len(caractere) == 1
+                and caractere.isascii()
+                and caractere not in ("'", "\n", "\r")
+            )
+
         return False
