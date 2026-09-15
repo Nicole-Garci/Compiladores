@@ -41,8 +41,9 @@ class Lexer:
         self.gerenciadorErros = GerenciadorErros()
 
         reconhecedor = Reconhecedor(self.caminhoAFD, caminhoFonte)
-
-        m = MotorLexer(reconhecedor, self.tabSimbolos, self.gerenciadorErros)
-
-        return m.executar()
-
+        motor = MotorLexer(
+            reconhecedor,
+            self.tabSimbolos,
+            self.gerenciadorErros,
+        )
+        return motor.executar()

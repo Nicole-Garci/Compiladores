@@ -8,8 +8,10 @@ class CategoriaSimbolo(str, Enum):
     RESERVADA = "palavra reservada"
     IDENTIFICADOR = "identificador"
     LITERAL = "literal"
+    FIXO = "operador ou delimitador"
 
-@dataclass
+
+@dataclass(frozen=True)
 class Simbolo:
     indice: int
     lexema: str

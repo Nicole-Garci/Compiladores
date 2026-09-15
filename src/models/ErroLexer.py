@@ -9,7 +9,7 @@ class ErroLexer:
     lexema: str
 
     def paraString(self) -> str:
-        return(
+        return (
             f"Erro léxico na linha {self.linha}, "
             f"coluna {self.coluna}: {self.mensagem}. "
             f"Lexema: {self.lexema!r}"

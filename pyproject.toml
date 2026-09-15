@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cmm"
+version = "0.1.0"
+description = "Analisador léxico da linguagem C--"
+requires-python = ">=3.10"
+
+[project.scripts]
+cmm = "main:main"
+
+[tool.setuptools]
+py-modules = ["main"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.setuptools.package-data]
+src = ["AFD.json"]

@@ -1,5 +1,4 @@
 from src.AFD import AFD
-from src.TabelaSimbolos import TabelaSimbolos
 from src.TiposToken import TiposToken
 from src.core.LeitorTexto import LeitorTexto
 from src.models.Token import Token
@@ -46,17 +45,16 @@ ESTADO_PARA_TOKEN = {
     "qSEMICOLON": TiposToken.SEMICOLON,
 }
 
-class Reconhecedor:
-    def __init__(self, json_filepath, code_filepath):
-        self.afd = AFD(json_filepath)
-        self.tabelaSimbolos = TabelaSimbolos()
-        self.leitor = LeitorTexto("")
-        sucesso = self.leitor.carregarArquivo(code_filepath)
-        if not sucesso:
-            raise FileNotFoundError(f"Erro: O arquivo '{code_filepath}' não foi encontrado.")
-        
 
-    def _ignorar_espacos(self):
+class Reconhecedor:
+    """Aplica o AFD e devolve o maior prefixo reconhecido da entrada."""
+
+    def __init__(self, caminhoAFD: str, caminhoFonte: str) -> None:
+        self.afd = AFD(caminhoAFD)
+        self.leitor = LeitorTexto("")
+        self.leitor.carregarArquivo(caminhoFonte)
+
+    def _ignorarEspacos(self) -> None:
         while not self.leitor.chegouAoFim():
             c = self.leitor.observarCaractere()
             if c and c in " \t\r\n":
@@ -64,51 +62,111 @@ class Reconhecedor:
             else:
                 break
 
-    def proximoToken(self):
-        self.afd.reiniciar()
-        self._ignorar_espacos()
-
-        if self.leitor.chegouAoFim():
-            return Token(TiposToken.END_OF_FILE, "", self.leitor.obterLinha(), self.leitor.obterColuna())
-
-        marcoInicial = self.leitor.criarMarco()
-        
-        lexema = ""
-        linha = self.leitor.obterLinha()
-        coluna = self.leitor.obterColuna()
-        ultimoFinal = None
-        ultimoLexema = ""
-        ultimoMarcoFinal = None
-
+    def _consumirAteFechamento(self, lexema: str, delimitador: str) -> str:
+        """Agrupa um literal inválido para produzir apenas um diagnóstico."""
         while not self.leitor.chegouAoFim():
-            charAtual = self.leitor.observarCaractere(0)
-
-            if self.afd.transicionar(charAtual):
-                lexema += self.leitor.avancar()
-
-                if self.afd.eh_estado_final():
-                    ultimoFinal = self.afd.obter_estado_atual()
-                    ultimoLexema = lexema
-                    ultimoMarcoFinal = self.leitor.criarMarco()
-            else:
+            caractere = self.leitor.observarCaractere()
+            if caractere in ("\n", "\r"):
                 break
+            consumido = self.leitor.avancar()
+            lexema += consumido or ""
+            if consumido == delimitador:
+                break
+        return lexema
 
-        if ultimoFinal is not None:
-            self.leitor.restaurarMarco(ultimoMarcoFinal)
+    def proximoToken(self) -> Token:
+        while True:
+            self.afd.reiniciar()
+            self._ignorarEspacos()
 
-            tipo = ESTADO_PARA_TOKEN.get(ultimoFinal, TiposToken.UNKNOWN)
-            if ultimoFinal == "qCOMMENTDONE":
-                return self.proximoToken()
+            if self.leitor.chegouAoFim():
+                return Token(
+                    TiposToken.END_OF_FILE,
+                    "",
+                    self.leitor.obterLinha(),
+                    self.leitor.obterColuna(),
+                )
 
-            if tipo == TiposToken.ID:
-                simbolo = self.tabelaSimbolos.buscar(ultimoLexema)
+            marcoInicial = self.leitor.criarMarco()
+            lexema = ""
+            linha = self.leitor.obterLinha()
+            coluna = self.leitor.obterColuna()
+            ultimoFinal: str | None = None
+            ultimoLexema = ""
+            ultimoMarcoFinal: tuple[int, int, int] | None = None
+            estadoAntesFalha: str | None = None
 
-                if simbolo is not None:
-                    tipo = simbolo.tipoToken
+            while not self.leitor.chegouAoFim():
+                charAtual = self.leitor.observarCaractere()
+                assert charAtual is not None
+                estadoAnterior = self.afd.obterEstadoAtual()
 
-            return Token(tipo, ultimoLexema, linha, coluna)
+                if self.afd.transicionar(charAtual):
+                    lexema += self.leitor.avancar() or ""
 
-        self.leitor.restaurarMarco(marcoInicial)
-        charInvalido = self.leitor.avancar()
+                    if self.afd.ehEstadoFinal():
+                        ultimoFinal = self.afd.obterEstadoAtual()
+                        ultimoLexema = lexema
+                        ultimoMarcoFinal = self.leitor.criarMarco()
+                else:
+                    estadoAntesFalha = estadoAnterior
+                    break
 
-        return Token(TiposToken.UNKNOWN, charInvalido, linha, coluna)
+            estadoAtual = self.afd.obterEstadoAtual()
+            estadoIncompleto = estadoAntesFalha or estadoAtual
+
+            if estadoIncompleto in {"qCOMMENT", "qCOMMENTSTAR"}:
+                return Token(
+                    TiposToken.UNKNOWN,
+                    lexema,
+                    linha,
+                    coluna,
+                    mensagemErro="Comentário não terminado",
+                )
+
+            if estadoIncompleto == "qSTRING":
+                lexema = self._consumirAteFechamento(lexema, '"')
+                return Token(
+                    TiposToken.UNKNOWN,
+                    lexema,
+                    linha,
+                    coluna,
+                    mensagemErro="Literal de string não terminado",
+                )
+
+            if estadoIncompleto in {"qCHAR1", "qCHAR2"}:
+                lexema = self._consumirAteFechamento(lexema, "'")
+                return Token(
+                    TiposToken.UNKNOWN,
+                    lexema,
+                    linha,
+                    coluna,
+                    mensagemErro="Literal de caractere inválido ou não terminado",
+                )
+
+            if estadoIncompleto == "qDOT":
+                return Token(
+                    TiposToken.UNKNOWN,
+                    lexema,
+                    linha,
+                    coluna,
+                    mensagemErro="Número decimal incompleto",
+                )
+
+            if ultimoFinal is not None and ultimoMarcoFinal is not None:
+                self.leitor.restaurarMarco(ultimoMarcoFinal)
+                if ultimoFinal == "qCOMMENTDONE":
+                    continue
+
+                tipo = ESTADO_PARA_TOKEN.get(ultimoFinal, TiposToken.UNKNOWN)
+                return Token(tipo, ultimoLexema, linha, coluna)
+
+            self.leitor.restaurarMarco(marcoInicial)
+            charInvalido = self.leitor.avancar()
+            return Token(
+                TiposToken.UNKNOWN,
+                charInvalido,
+                linha,
+                coluna,
+                mensagemErro="Token não reconhecido",
+            )
