@@ -1,8 +1,8 @@
-from src.GerenciadorErros import GerenciadorErros
-from src.TabelaSimbolos import TabelaSimbolos
-from src.TiposToken import TiposToken
-from src.core.Reconhecedor import Reconhecedor
-from src.models.Token import Token
+from src.lexer.GerenciadorErros import GerenciadorErros
+from src.lexer.TabelaSimbolos import TabelaSimbolos
+from src.lexer.TiposToken import TiposToken
+from src.lexer.core.Reconhecedor import Reconhecedor
+from src.lexer.models.Token import Token
 
 
 class MotorLexer:

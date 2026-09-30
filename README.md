@@ -47,12 +47,12 @@ EOF
 ## Organização
 
 - `main.py`: interface de linha de comando.
-- `src/Lexer.py`: fachada que valida a entrada e inicia uma análise isolada.
-- `src/AFD.py` e `src/AFD.json`: execução e configuração do autômato.
-- `src/core/`: leitura, reconhecimento por maior lexema e orquestração.
-- `src/TabelaSimbolos.py`: tabela única de reservadas, símbolos fixos,
+- `src/lexer/Lexer.py`: fachada que valida a entrada e inicia uma análise isolada.
+- `src/lexer/AFD.py` e `src/lexer/AFD.json`: execução e configuração do autômato.
+- `src/lexer/core`: leitura, reconhecimento por maior lexema e orquestração.
+- `src/lexer/TabelaSimbolos.py`: tabela única de reservadas, símbolos fixos,
   identificadores e literais.
-- `src/GerenciadorErros.py`: coleta de diagnósticos sem interromper a análise.
+- `src/lexer/GerenciadorErros.py`: coleta de diagnósticos sem interromper a análise.
 - `tests/test_lexer.py`: testes automatizados de regressão.
 - `docs/doc_Latex/`: fontes, evidências e instruções do relatório.
 

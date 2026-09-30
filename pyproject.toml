@@ -19,4 +19,4 @@ where = ["."]
 include = ["src*"]
 
 [tool.setuptools.package-data]
-src = ["AFD.json"]
+"src.lexer" = ["AFD.json"]

@@ -1,7 +1,7 @@
-from src.AFD import AFD
-from src.TiposToken import TiposToken
-from src.core.LeitorTexto import LeitorTexto
-from src.models.Token import Token
+from src.lexer.AFD import AFD
+from src.lexer.TiposToken import TiposToken
+from src.lexer.core.LeitorTexto import LeitorTexto
+from src.lexer.models.Token import Token
 
 ESTADO_PARA_TOKEN = {
     # Identificadores e Literais

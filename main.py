@@ -2,10 +2,10 @@ import argparse
 import sys
 from pathlib import Path
 
-from src.Lexer import Lexer
+from src.lexer.Lexer import Lexer
 
 
-CAMINHO_AFD = Path(__file__).resolve().parent / "src" / "AFD.json"
+CAMINHO_AFD = Path(__file__).resolve().parent / "src" / "lexer" / "AFD.json"
 
 
 def parser() -> argparse.ArgumentParser:

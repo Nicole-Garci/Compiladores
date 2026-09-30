@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.TiposToken import NOMES_TOKEN, TiposToken
+from src.lexer.TiposToken import NOMES_TOKEN, TiposToken
 
 
 @dataclass

@@ -1,5 +1,5 @@
-from src.TiposToken import TiposToken
-from src.models.Simbolo import CategoriaSimbolo, Simbolo
+from src.lexer.TiposToken import TiposToken
+from src.lexer.models.Simbolo import CategoriaSimbolo, Simbolo
 
 PALAVRAS_RESERVADAS = {
     "int": TiposToken.INT,

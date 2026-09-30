@@ -1,4 +1,4 @@
-from src.models.ErroLexer import ErroLexer
+from src.lexer.models.ErroLexer import ErroLexer
 
 
 class GerenciadorErros:
