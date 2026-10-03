@@ -1,19 +1,19 @@
-<mxfile host="Electron">
-  <diagram name="Contrato de classes" id="lexer-class-contract">
-    <mxGraphModel dx="2162" dy="1315" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1300" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+<mxfile host="Electron" pages="2">
+  <diagram name="Lexer" id="lexer-class-contract">
+    <mxGraphModel dx="2162" dy="1264" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1300" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;strokeColor=none;fillColor=none;" value="&lt;b&gt;Analisador Léxico C--&lt;/b&gt;" vertex="1">
           <mxGeometry height="45" width="900" x="40" y="20" as="geometry" />
         </mxCell>
-        <mxCell id="Lexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontFamily=Helvetica;fontColor=default;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Lexer&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;facade — TODO&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- caminhoAFD: str&lt;br&gt;- tabelaSimbolos: TabelaSimbolos?&lt;br&gt;- gerenciadorErros: GerenciadorErros?&lt;hr&gt;+ __init__(caminhoAFD: str)&lt;br&gt;+ analisarArquivo(caminhoFonte: str): list[Token]&lt;br&gt;+ obterTabelaSimbolos(): TabelaSimbolos&lt;br&gt;+ obterErros(): list[ErroLexer]" vertex="1">
+        <mxCell id="Lexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontFamily=Helvetica;fontColor=default;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Lexer&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;facade&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- caminhoAFD: str&lt;br&gt;- tabelaSimbolos: TabelaSimbolos?&lt;br&gt;- gerenciadorErros: GerenciadorErros?&lt;hr&gt;+ __init__(caminhoAFD: str)&lt;br&gt;+ analisarArquivo(caminhoFonte: str): list[Token]&lt;br&gt;+ obterTabelaSimbolos(): TabelaSimbolos&lt;br&gt;+ obterErros(): list[ErroLexer]" vertex="1">
           <mxGeometry height="275" width="340" x="40" y="80" as="geometry" />
         </mxCell>
         <mxCell id="VSj9FzkloLAJbqGQTPUN-1" edge="1" parent="1" source="MotorLexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="Lexer" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="MotorLexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontFamily=Helvetica;fontColor=default;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;MotorLexer&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core — TODO&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- reconhecedor: Reconhecedor&lt;br&gt;- tabelaSimbolos: TabelaSimbolos&lt;br&gt;- gerenciadorErros: GerenciadorErros&lt;br&gt;- tokens: list[Token]&lt;hr&gt;+ __init__(reconhecedor, tabelaSimbolos, gerenciadorErros)&lt;br&gt;+ executar(): list[Token]&lt;br&gt;- processarToken(token: Token): None&lt;br&gt;- registrarSimbolo(token: Token): None" vertex="1">
+        <mxCell id="MotorLexer" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontFamily=Helvetica;fontColor=default;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;MotorLexer&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- reconhecedor: Reconhecedor&lt;br&gt;- tabelaSimbolos: TabelaSimbolos&lt;br&gt;- gerenciadorErros: GerenciadorErros&lt;br&gt;- tokens: list[Token]&lt;hr&gt;+ __init__(reconhecedor, tabelaSimbolos, gerenciadorErros)&lt;br&gt;+ executar(): list[Token]&lt;br&gt;- processarToken(token: Token): None&lt;br&gt;- registrarSimbolo(token: Token): None" vertex="1">
           <mxGeometry height="235" width="420" x="460" y="100" as="geometry" />
         </mxCell>
         <mxCell id="GerenciadorErros" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=8;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=15;fontFamily=Helvetica;fontColor=default;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;GerenciadorErros&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;TODO&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- erros: list[ErroLexer]&lt;hr&gt;+ __init__()&lt;br&gt;+ registrarErro(mensagem, linha, coluna, lexema): ErroLexer&lt;br&gt;+ obterErros(): list[ErroLexer]&lt;br&gt;+ possuiErros(): bool&lt;br&gt;+ quantidade(): int&lt;br&gt;+ limpar(): None" vertex="1">
@@ -110,6 +110,142 @@
           <mxGeometry relative="1" x="-0.049" y="14" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Parser" id="parser-class-contract">
+    <mxGraphModel dx="3423" dy="2002" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1500" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+      <root>
+        <mxCell id="pc-0" />
+        <mxCell id="pc-1" parent="pc-0" />
+        <mxCell id="pc-Lexer" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;Lexer&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;facade&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;+ analisarArquivo(caminhoFonte: str): list[Token]&lt;br&gt;+ obterErros(): list[ErroLexer]" vertex="1">
+          <mxGeometry height="195" width="366" x="35" y="517.5" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-Parser" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;Parser&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;facade&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;- gerenciadorErros: GerenciadorErrosSintaticos&lt;div&gt;- saida: SaidaParser&lt;/div&gt;&lt;div&gt;&lt;hr&gt;+ analisar(tokens: list[Token]): Programa&lt;br&gt;+ obterErros(): list[ErroSintatico]&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="360" x="553" y="495" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-MotorParser" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;MotorParser&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;core&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;- fluxo: FluxoTokens&lt;br&gt;- erros: GerenciadorErrosSintaticos&lt;div&gt;- conjuntos: ConjuntosLL1&lt;/div&gt;&lt;div&gt;&lt;hr&gt;+ executar(): Programa&lt;br&gt;- program(): Programa&lt;br&gt;- declaracao(): Declaracao&lt;br&gt;- comando(): Comando&lt;br&gt;- expressao(): Expressao&lt;br&gt;- casar(tipo: TiposToken): Token&lt;br&gt;- sincronizar(follow: set[TiposToken]): None&lt;div&gt;- entrar(nomeNaoTerminal: str): None&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Demais: um método para cada não terminal&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="360" width="329" x="1134" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-Gerenciador" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;GerenciadorErrosSintaticos&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;- erros: list[ErroSintatico]&lt;div&gt;- destino: TextIO = stderr&lt;br&gt;&lt;hr&gt;+ registrar(token: Token, mensagem: str): ErroSintatico&lt;br&gt;+ obterErros(): list[ErroSintatico]&lt;div&gt;+ possuiErros(): bool&lt;br&gt;+ limpar(): None&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="270" width="415" x="1735" y="467" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-Token" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;Token&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;model&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr style=&quot;text-align: center;&quot;&gt;+ tipo: TiposToken&lt;br&gt;+ lexema: str?&lt;br&gt;+ linha: int&lt;br&gt;+ coluna: int&lt;br&gt;+ indiceSimbolo: int?" vertex="1">
+          <mxGeometry height="235" width="184" x="191" y="905" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-FluxoTokens" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;FluxoTokens&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr style=&quot;text-align: center;&quot;&gt;- tokens: list[Token]&lt;br&gt;- indice: int&lt;hr&gt;+ atual(): Token&lt;br&gt;+ avancar(): Token&lt;br&gt;+ chegouAoFim(): bool&lt;div&gt;+ verificar(tipo: TiposToken): bool&lt;/div&gt;&lt;div&gt;+ posicao(): int&lt;/div&gt;" vertex="1">
+          <mxGeometry height="265" width="273" x="614" y="845" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-NoAST" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;NoAST&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;abstrato&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;+ linha: int&lt;br&gt;+ coluna: int" vertex="1">
+          <mxGeometry height="160" width="117" x="1011" y="1114" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-Programa" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;Programa&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;AST&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;+ declaracoes: list[Declaracao]" vertex="1">
+          <mxGeometry height="160" width="160" x="1505" y="1035" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-ErroSintatico" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;ErroSintatico&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;models&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;+ mensagem: str&lt;br&gt;+ linha: int&lt;br&gt;+ coluna: int&lt;div&gt;+ encontrado: Token&lt;/div&gt;&lt;div&gt;+ esperados: set[TiposToken]&lt;/div&gt;&lt;div&gt;+recuperacao:str&lt;br&gt;&lt;hr&gt;+ paraString(): str&lt;/div&gt;" vertex="1">
+          <mxGeometry height="240" width="228.44" x="1802.56" y="902.5" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-TiposToken" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#dcfce7;strokeColor=#16a34a;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;TiposToken&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;Enum&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;ID, NUM_INT, IF, ELSE, ...&lt;br&gt;END_OF_FILE" vertex="1">
+          <mxGeometry height="165" width="206" x="180" y="1224" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-Declaracao" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;Declaracao&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;AST abstrata&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;Variantes futuras: variável, tipo, função" vertex="1">
+          <mxGeometry height="155" width="245" x="1196" y="865" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-e-Lexer-Parser" edge="1" parent="pc-1" source="pc-Lexer" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;labelBackgroundColor=none;align=left;" target="pc-Parser" value="fornece tokens">
+          <mxGeometry relative="1" x="-0.7093" y="-18" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Parser-Motor" edge="1" parent="pc-1" source="pc-Parser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;labelBackgroundColor=none;align=left;" target="pc-MotorParser" value="delega">
+          <mxGeometry relative="1" x="-0.4179" y="-16" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Parser-Gerenciador" edge="1" parent="pc-1" source="pc-Parser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;align=left;" target="pc-Gerenciador" value="expõe erros">
+          <mxGeometry relative="1" x="-0.0007" y="15" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="749" y="390" />
+              <mxPoint x="1970" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Motor-Fluxo" edge="1" parent="pc-1" source="pc-MotorParser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#000000,#000000);fontSize=17;labelBackgroundColor=none;align=left;exitX=0.009;exitY=0.911;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="pc-FluxoTokens" value="consome lookahead">
+          <mxGeometry relative="1" x="0.0278" y="16" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1137" y="759" />
+              <mxPoint x="751.4" y="759" />
+              <mxPoint x="751.4" y="829.6" />
+              <mxPoint x="750.52" y="829.6" />
+            </Array>
+            <mxPoint x="1077.12" y="759" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Motor-Gerenciador" edge="1" parent="pc-1" source="pc-MotorParser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312E81,#000000);fontSize=17;labelBackgroundColor=none;align=left;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" target="pc-Gerenciador" value="registra">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1658.25" y="516" />
+              <mxPoint x="1658.25" y="516" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Fluxo-Token" edge="1" parent="pc-1" source="pc-FluxoTokens" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamond;startFill=0;endArrow=open;endFill=0;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;labelBackgroundColor=none;align=left;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" target="pc-Token" value="mantém lista">
+          <mxGeometry relative="1" x="0.5233" y="18" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Token-Tipo" edge="1" parent="pc-1" source="pc-Token" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;strokeColor=#16a34a;fontColor=light-dark(#312e81, #000000);fontSize=17;labelBackgroundColor=none;align=left;" target="pc-TiposToken" value="classifica">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-e-Gerenciador-Erro" edge="1" parent="pc-1" source="pc-Gerenciador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamond;startFill=0;endArrow=open;endFill=0;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;labelBackgroundColor=none;align=left;" target="pc-ErroSintatico" value="acumula">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="pc-e-Motor-Programa" edge="1" parent="pc-1" source="pc-MotorParser" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=1;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;labelBackgroundColor=none;align=left;" target="pc-Programa" value="constrói">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1545" y="850" />
+              <mxPoint x="1545" y="850" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Programa-No" edge="1" parent="pc-1" source="pc-Programa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#000000,#000000);fontSize=18;labelBackgroundColor=none;align=left;" target="pc-NoAST" value="herda">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Declaracao-No" edge="1" parent="pc-1" source="pc-Declaracao" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;endFill=0;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;exitX=0;exitY=0.25;exitDx=0;exitDy=0;labelBackgroundColor=none;entryX=0.75;entryY=0;entryDx=0;entryDy=0;align=left;" target="pc-NoAST" value="herda">
+          <mxGeometry relative="1" x="0.1375" y="8" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1134" y="886.5" />
+              <mxPoint x="1098" y="886.5" />
+              <mxPoint x="1098" y="1013" />
+              <mxPoint x="1004.8" y="1013" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="pc-e-Programa-Declaracao" edge="1" parent="pc-1" source="pc-Programa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;dashed=1;strokeColor=#6366f1;fontColor=light-dark(#312e81, #000000);fontSize=17;labelBackgroundColor=none;align=left;" target="pc-Declaracao" value="contém">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1314" y="1046.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKN5QkZPJRkOw7W5utk2-3" edge="1" parent="pc-1" source="PKN5QkZPJRkOw7W5utk2-0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;strokeColor=#6366f1;dashed=1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=17;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;endArrow=block;endFill=1;entryX=0.002;entryY=0.647;entryDx=0;entryDy=0;entryPerimeter=0;" target="pc-MotorParser">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="643" y="735" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKN5QkZPJRkOw7W5utk2-0" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&lt;b&gt;ConjuntosLL1&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr style=&quot;text-align: center;&quot;&gt;FIRSTS: dict[str, set[TiposToken]]&lt;div&gt;FOLLOW:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;dict[str, set[TiposToken]]&lt;/span&gt;&lt;/div&gt;&lt;div&gt;NULLABLE:&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;set[str]&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120.5" width="273" x="632" y="82" as="geometry" />
+        </mxCell>
+        <mxCell id="PKN5QkZPJRkOw7W5utk2-2" parent="pc-1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;fontColor=light-dark(#312e81, #ffffff);fontSize=16;" value="&lt;div style=&quot;&quot;&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;SaidaParser&lt;/b&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;lt;&amp;lt;facade&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;hr&gt;- destino: TextIO = stdout&lt;div&gt;&lt;hr&gt;+ naoTerminal(nome: str): None&lt;/div&gt;&lt;div&gt;+ TerminalCasado(token: Token): None&lt;/div&gt;" vertex="1">
+          <mxGeometry height="160" width="299" x="1061" y="85" as="geometry" />
+        </mxCell>
+        <mxCell id="PKN5QkZPJRkOw7W5utk2-6" edge="1" parent="pc-1" source="PKN5QkZPJRkOw7W5utk2-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.23;entryY=-0.006;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#6366f1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=17;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;endArrow=block;endFill=1;" target="pc-MotorParser">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
