@@ -2,6 +2,10 @@ import argparse
 import sys
 from pathlib import Path
 
+from src.lexer.TiposToken import TiposToken
+from src.parser.SaidaParser import SaidaParser
+from src.parser.core.FluxoTokens import FluxoTokens
+from src.parser.core.MotorParser import MotorParser
 from src.lexer.Lexer import Lexer
 
 
@@ -10,7 +14,7 @@ CAMINHO_AFD = Path(__file__).resolve().parent / "src" / "lexer" / "AFD.json"
 
 def parser() -> argparse.ArgumentParser:
     analisadorArgumentos = argparse.ArgumentParser(
-        description="Executa o analisador lexico da linguagem C--."
+        description="Executa o compilador da linguagem C--."
     )
     analisadorArgumentos.add_argument(
         "arquivo",
@@ -29,16 +33,41 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Erro: {erro}", file=sys.stderr)
         return 2
 
-    for token in tokens:
-        print(token.paraString())
+    # for token in tokens:
+    #     print(token.paraString())
 
-    erros = lexer.obterErros()
+    errosLexer = lexer.obterErros()
     sys.stdout.flush()
 
-    for erro in erros:
-        print(erro.paraString(), file=sys.stderr)
+    if errosLexer:
+        print("\nErros léxicos encontrados: ")
+        for erro in errosLexer:
+            print(erro.paraString(), file=sys.stderr)
+        return 1
 
-    return 1 if erros else 0
+    try:
+        fluxo = FluxoTokens(tokens)
+        saida = SaidaParser()
+        motor = MotorParser(fluxo, saida)
+
+        t = motor.casar(TiposToken.IF)
+
+
+    except SyntaxError as erro:
+        print(f"{erro}", file=sys.stderr)
+        return 2
+
+    errosParser = []
+    sys.stdout.flush()
+
+
+    if errosParser:
+        print("\nErros sintáticos encontrados: ")
+        for erro in errosParser:
+            print(erro.paraString(), file=sys.stderr)
+        return 1
+
+    return 0
 
 
 if __name__ == "__main__":
