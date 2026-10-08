@@ -1,3 +1,6 @@
+import sys
+from typing import TextIO
+
 from src.lexer.models.Token import Token
 from src.lexer.TiposToken import TiposToken
 from src.parser.ErroSintatico import ErroSintatico
@@ -6,8 +9,9 @@ from src.parser.ErroSintatico import ErroSintatico
 class GerenciadorErrosSintaticos:
     """Gerencia os erros encontrados durante a análise sintática."""
 
-    def __init__(self):
+    def __init__(self, destino: TextIO = sys.stderr):
         self.erros: list[ErroSintatico] = []
+        self.destino = destino
 
     def registrar(
         self,
@@ -19,8 +23,6 @@ class GerenciadorErrosSintaticos:
 
         erro = ErroSintatico(
             mensagem=mensagem,
-            linha=token.linha,
-            coluna=token.coluna,
             encontrado=token,
             esperados=frozenset(
                 esperados if esperados is not None else ()
@@ -29,6 +31,8 @@ class GerenciadorErrosSintaticos:
         )
 
         self.erros.append(erro)
+
+        print(erro, file=self.destino)
 
         return erro
 

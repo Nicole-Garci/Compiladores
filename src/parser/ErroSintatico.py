@@ -9,13 +9,19 @@ class ErroSintatico:
     """Representa um erro encontrado durante a análise sintática."""
 
     mensagem: str
-    linha: int
-    coluna: int
     encontrado: Token
     esperados: frozenset[TiposToken] = field(
         default_factory=frozenset
     )
     recuperacao: str = ""
+
+    @property
+    def linha(self) -> int:
+        return self.encontrado.linha
+
+    @property
+    def coluna(self) -> int:
+        return self.encontrado.coluna
 
     def paraString(self) -> str:
         texto = (
