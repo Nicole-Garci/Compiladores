@@ -68,12 +68,6 @@ reservadas, identificadores, números, strings, caracteres, maior lexema,
 comentários completos e incompletos, recuperação de erros, CRLF, tabela de
 símbolos, reinicialização entre arquivos, CLI e entradas extensas.
 
-## Documentação da entrega
-
-O relatório final atualizado está em
-`output/pdf/Compilador_C--_Entrega_1.pdf`. As instruções de reprodução e
-compilação ficam em `docs/doc_Latex/README.md`.
-
 ## Autores
 
 - João Victor Domingos e Souza - John5626

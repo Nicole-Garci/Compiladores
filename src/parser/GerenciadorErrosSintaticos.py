@@ -9,7 +9,7 @@ from src.parser.ErroSintatico import ErroSintatico
 class GerenciadorErrosSintaticos:
     """Gerencia os erros encontrados durante a análise sintática."""
 
-    def __init__(self, destino: TextIO = sys.stderr):
+    def __init__(self, destino: TextIO | None = None):
         self.erros: list[ErroSintatico] = []
         self.destino = destino
 
@@ -31,13 +31,15 @@ class GerenciadorErrosSintaticos:
         )
 
         self.erros.append(erro)
-
-        print(erro, file=self.destino)
-
         return erro
 
     def obterErros(self) -> list[ErroSintatico]:
         return list(self.erros)
+
+    def imprimirErros(self) -> None:
+        destino = self.destino if self.destino is not None else sys.stderr
+        for erro in self.erros:
+            print(erro.paraString(), file=destino)
 
     def possuiErros(self) -> bool:
         return bool(self.erros)

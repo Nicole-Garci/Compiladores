@@ -2,7 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from src.lexer.TiposToken import TiposToken
+from src.parser.GerenciadorErrosSintaticos import GerenciadorErrosSintaticos
 from src.parser.SaidaParser import SaidaParser
 from src.parser.core.FluxoTokens import FluxoTokens
 from src.parser.core.MotorParser import MotorParser
@@ -45,26 +45,19 @@ def main(argv: list[str] | None = None) -> int:
             print(erro.paraString(), file=sys.stderr)
         return 1
 
-    try:
-        fluxo = FluxoTokens(tokens)
-        saida = SaidaParser()
-        motor = MotorParser(fluxo, saida)
+    erros = GerenciadorErrosSintaticos()
+    fluxo = FluxoTokens(tokens)
+    saida = SaidaParser()
+    motor = MotorParser(fluxo, saida, erros)
+    motor.executar()
 
-        t = motor.casar(TiposToken.IF)
-
-
-    except SyntaxError as erro:
-        print(f"{erro}", file=sys.stderr)
-        return 2
-
-    errosParser = []
+    errosParser = erros.obterErros()
     sys.stdout.flush()
 
 
     if errosParser:
-        print("\nErros sintáticos encontrados: ")
-        for erro in errosParser:
-            print(erro.paraString(), file=sys.stderr)
+        print("\nErros sintáticos encontrados:", file=sys.stderr)
+        erros.imprimirErros()
         return 1
 
     return 0
