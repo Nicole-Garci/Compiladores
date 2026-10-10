@@ -70,15 +70,21 @@ INICIO_ATOM_NO_ID = {
 
 INICIO_STMT = INICIO_STMT_SEM_ID | {TiposToken.ID}
 
+INICIO_COMANDO_SEGURO = {
+    TiposToken.IF,
+    TiposToken.WHILE,
+    TiposToken.BREAK,
+    TiposToken.PRINT,
+    TiposToken.READLN,
+    TiposToken.RETURN,
+}
+
 # Pontos em que um delimitador ausente pode ser inserido sem consumir o
 # primeiro token da construção seguinte.
 SEGUIDORES_PARA_INSERCAO = {
-    TiposToken.CLOSE_PARENTHESES: INICIO_STMT | {
+    TiposToken.CLOSE_PARENTHESES: {
         TiposToken.SEMICOLON,
-        TiposToken.COMMA,
-        TiposToken.CLOSE_PARENTHESES,
-        TiposToken.CLOSE_BRACKETS,
-        TiposToken.CLOSE_BRACES,
+        TiposToken.OPEN_BRACES,
     },
     TiposToken.CLOSE_BRACKETS: {
         TiposToken.SEMICOLON,
@@ -119,6 +125,7 @@ class MotorParser:
                 )
                 self.fluxo.avancar()
                 encontrou = self.fluxo.atual()
+
             elif encontrou.tipo in SEGUIDORES_PARA_INSERCAO.get(esperado, set()):
                 self.erros.registrar(
                     token=encontrou,
@@ -132,6 +139,7 @@ class MotorParser:
                     linha=encontrou.linha,
                     coluna=encontrou.coluna,
                 )
+
             else:
                 self.falhar("Token inesperado", {esperado})
 
@@ -196,7 +204,7 @@ class MotorParser:
 
             self.fluxo.avancar()
 
-    def sincronizarComando(self, inicio: int) -> None:
+    def sincronizarComando(self, inicio: int, pararEmElse: bool = False) -> None:
         """Descarta o comando com erro e preserva o fechamento do bloco atual."""
         nivel = 0
         for token in self.fluxo.tokens[inicio:self.fluxo.posicao()]:
@@ -209,12 +217,14 @@ class MotorParser:
             tipo = self.fluxo.atual().tipo
 
             if nivel == 0:
+                if pararEmElse and tipo is TiposToken.ELSE:
+                    return
                 if tipo is TiposToken.CLOSE_BRACES:
                     return
                 if tipo is TiposToken.SEMICOLON:
                     self.fluxo.avancar()
                     return
-                if self.fluxo.posicao() > inicio and tipo in INICIO_STMT:
+                if self.fluxo.posicao() > inicio and tipo in INICIO_COMANDO_SEGURO:
                     return
 
             if tipo is TiposToken.OPEN_BRACES:
@@ -367,9 +377,10 @@ class MotorParser:
                             | INICIO_STMT_SEM_ID,
                 )
         except SyntaxError:
+            if self.fluxo.chegouAoFim():
+                raise
             self.sincronizarComando(inicio)
-            if not self.fluxo.chegouAoFim():
-                self.stmtlist()
+            self.stmtlist()
 
 
     def bodyId(self):
@@ -425,7 +436,13 @@ class MotorParser:
             self.expr()
             self.casar(TiposToken.CLOSE_PARENTHESES)
 
-            self.stmt()
+            inicio_consequente = self.fluxo.posicao()
+            try:
+                self.stmt()
+            except SyntaxError:
+                if self.fluxo.chegouAoFim():
+                    raise
+                self.sincronizarComando(inicio_consequente, pararEmElse=True)
             self.casar(TiposToken.ELSE)
             self.stmt()
 
@@ -644,6 +661,8 @@ class MotorParser:
                     )
                 self.stmt()
             except SyntaxError:
+                if self.fluxo.chegouAoFim():
+                    raise
                 self.sincronizarComando(inicio)
 
     def stmt(self):
@@ -655,7 +674,13 @@ class MotorParser:
             self.casar(TiposToken.OPEN_PARENTHESES)
             self.expr()
             self.casar(TiposToken.CLOSE_PARENTHESES)
-            self.stmt()
+            inicio_consequente = self.fluxo.posicao()
+            try:
+                self.stmt()
+            except SyntaxError:
+                if self.fluxo.chegouAoFim():
+                    raise
+                self.sincronizarComando(inicio_consequente, pararEmElse=True)
             self.casar(TiposToken.ELSE)
             self.stmt()
 

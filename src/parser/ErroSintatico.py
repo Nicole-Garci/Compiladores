@@ -25,7 +25,7 @@ class ErroSintatico:
 
     def paraString(self) -> str:
         texto = (
-            f"Erro sintático na linha {self.linha}, "
+            f"\nErro sintático na linha {self.linha}, "
             f"coluna {self.coluna}: {self.mensagem}"
         )
 
