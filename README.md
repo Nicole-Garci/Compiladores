@@ -1,9 +1,7 @@
-# Compilador C-- - Entrega 1
+# Compilador C-- - Entrega 2
 
-Implementação do analisador léxico da linguagem C-- descrita no enunciado em
-`docs/Trabalho 1 - Compiladores.pdf`. O programa reconhece o maior lexema,
-descarta comentários `/* ... */`, consulta todos os lexemas válidos em uma
-tabela de símbolos e acumula erros com linha e coluna até emitir `EOF`.
+Implementação do analisador léxico e sintático da linguagem C-- descrita nos enunciados em
+`docs/Trabalho 1 - Compiladores.pdf` e `docs/Trabalho 2 - Compiladores.pdf`.
 
 ## Requisitos e execução
 
@@ -24,25 +22,24 @@ python -m pip install -e .
 cmm tests/arquivoTexto.cmm
 ```
 
-Os tokens válidos são escritos em `stdout`, um por linha. Os diagnósticos são
-escritos em `stderr`. O código de saída é 0 em uma análise sem erros, 1 quando
-há erros léxicos e 2 quando o arquivo não pode ser processado.
+Na execução atual, o parser escreve em `stdout` os não terminais visitados e
+os tokens casados (`Match: ...`). Os diagnósticos sintáticos são reunidos e
+exibidos em `stderr` ao final. Se o lexer encontrar erros, o parser não é
+executado. O código de saída é 0 sem erros, 1 com erros léxicos ou sintáticos
+e 2 quando o arquivo não pode ser processado.
 
-Exemplo para `if(x1 <= 32) b = 10;`:
+Exemplo mínimo de entrada:
 
-```text
-IF
-LPARENT
-ID.x1
-LEQ
-NUMINT.32
-RPARENT
-ID.b
-ASSIGN
-NUMINT.10
-SEMICOLON
-EOF
+```c
+int main() {
+    print(1);
+    return 0;
+}
 ```
+
+O rastreamento mostra a entrada nas produções da gramática e cada token
+efetivamente consumido. Os tokens inseridos durante a recuperação são
+registrados no diagnóstico, sem aparecer como `Match`.
 
 ## Organização
 
@@ -53,20 +50,18 @@ EOF
 - `src/lexer/TabelaSimbolos.py`: tabela única de reservadas, símbolos fixos,
   identificadores e literais.
 - `src/lexer/GerenciadorErros.py`: coleta de diagnósticos sem interromper a análise.
-- `tests/test_lexer.py`: testes automatizados de regressão.
-- `docs/doc_Latex/`: fontes, evidências e instruções do relatório.
+- `src/parser/core/FluxoTokens.py`: mantém o token corrente e avança na entrada.
+- `src/parser/core/MotorParser.py`: implementa as produções por funções
+  recursivas, casa terminais e recupera erros sintáticos.
+- `src/parser/SaidaParser.py`: imprime o rastreamento da análise.
+- `src/parser/GerenciadorErrosSintaticos.py`: reúne os diagnósticos sintáticos.
+- `tests/gramatica/gramaticaCompleta_4.g`: gramática LL(1) usada na
+  implementação; corpos e blocos vazios são aceitos por decisão do grupo.
+- `docs/doc_Latex/`: fontes do relatório, incluindo o esboço da seção sintática.
 
-## Testes
+## Verificação gramática
 
-```text
-python -m unittest discover -s tests -p "test_*.py" -v
-python docs/doc_Latex/scripts/verificar_implementacao.py
-```
-
-A suíte cobre todas as classes de operadores e delimitadores, palavras
-reservadas, identificadores, números, strings, caracteres, maior lexema,
-comentários completos e incompletos, recuperação de erros, CRLF, tabela de
-símbolos, reinicialização entre arquivos, CLI e entradas extensas.
+O verificador da gramática está em `tests/gramatica/analiseLl1.py`.
 
 ## Autores
 
@@ -74,9 +69,3 @@ símbolos, reinicialização entre arquivos, CLI e entradas extensas.
 - Nicole Garcia Montes Clemente - Nicole-Garci
 - Marcelo Americo da Silva
 - Davi Marques de Oliveira
-
-## Continuidade do projeto
-
-As próximas etapas são análise sintática, análise semântica e simulação. Os
-tokens mantêm tipo, lexema, posição e índice de símbolo para que essas fases
-possam reutilizar a saída desta entrega sem refazer a análise léxica.
