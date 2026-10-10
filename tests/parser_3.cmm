@@ -1,0 +1,18 @@
+int faltaIgual = ;
+
+float arraySemFechar[2;
+
+bool semPonto
+int aposSemPonto() {}
+
+int parametroRuim(int a, ) {}
+
+int corpoRuim() {
+    int valor = ;
+}
+
+int comandoRuim() {
+    print(1,);
+}
+
+int finalValido() {}

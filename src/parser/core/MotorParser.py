@@ -68,6 +68,32 @@ INICIO_ATOM_NO_ID = {
     TiposToken.FALSE,
 }
 
+INICIO_STMT = INICIO_STMT_SEM_ID | {TiposToken.ID}
+
+# Pontos em que um delimitador ausente pode ser inserido sem consumir o
+# primeiro token da construção seguinte.
+SEGUIDORES_PARA_INSERCAO = {
+    TiposToken.CLOSE_PARENTHESES: INICIO_STMT | {
+        TiposToken.SEMICOLON,
+        TiposToken.COMMA,
+        TiposToken.CLOSE_PARENTHESES,
+        TiposToken.CLOSE_BRACKETS,
+        TiposToken.CLOSE_BRACES,
+    },
+    TiposToken.CLOSE_BRACKETS: {
+        TiposToken.SEMICOLON,
+        TiposToken.COMMA,
+        TiposToken.CLOSE_PARENTHESES,
+        TiposToken.ASSIGN,
+        TiposToken.CLOSE_BRACES,
+    },
+    TiposToken.SEMICOLON: INICIO_STMT | INICIO_TIPO | {
+        TiposToken.TYPEDEF,
+        TiposToken.CLOSE_BRACES,
+        TiposToken.END_OF_FILE,
+    },
+}
+
 class MotorParser:
     def __init__(self, fluxo: FluxoTokens, saida: SaidaParser, erros: GerenciadorErrosSintaticos) -> None:
         self.fluxo = fluxo
@@ -81,10 +107,33 @@ class MotorParser:
         encontrou = self.fluxo.atual()
 
         if encontrou.tipo is not esperado:
-            self.falhar(
-                "Token inesperado",
-                {esperado}
-            )
+            proxima_posicao = self.fluxo.posicao() + 1
+            if (not self.fluxo.chegouAoFim()
+                    and proxima_posicao < len(self.fluxo.tokens)
+                    and self.fluxo.tokens[proxima_posicao].tipo is esperado):
+                self.erros.registrar(
+                    token=encontrou,
+                    mensagem="Token inesperado",
+                    esperados={esperado},
+                    recuperacao=f"Token {encontrou.tipo.name} descartado",
+                )
+                self.fluxo.avancar()
+                encontrou = self.fluxo.atual()
+            elif encontrou.tipo in SEGUIDORES_PARA_INSERCAO.get(esperado, set()):
+                self.erros.registrar(
+                    token=encontrou,
+                    mensagem=f"Token {esperado.name} ausente",
+                    esperados={esperado},
+                    recuperacao=f"Token {esperado.name} inserido antes de {encontrou.tipo.name}",
+                )
+                return Token(
+                    tipo=esperado,
+                    lexema=None,
+                    linha=encontrou.linha,
+                    coluna=encontrou.coluna,
+                )
+            else:
+                self.falhar("Token inesperado", {esperado})
 
         self.saida.terminalCasado(encontrou)
         self.fluxo.avancar()
@@ -142,6 +191,38 @@ class MotorParser:
                 if nivel == 0:
                     if self.fluxo.verificar(TiposToken.SEMICOLON):
                         self.fluxo.avancar()
+                    return
+                continue
+
+            self.fluxo.avancar()
+
+    def sincronizarComando(self, inicio: int) -> None:
+        """Descarta o comando com erro e preserva o fechamento do bloco atual."""
+        nivel = 0
+        for token in self.fluxo.tokens[inicio:self.fluxo.posicao()]:
+            if token.tipo is TiposToken.OPEN_BRACES:
+                nivel += 1
+            elif token.tipo is TiposToken.CLOSE_BRACES:
+                nivel = max(0, nivel - 1)
+
+        while not self.fluxo.chegouAoFim():
+            tipo = self.fluxo.atual().tipo
+
+            if nivel == 0:
+                if tipo is TiposToken.CLOSE_BRACES:
+                    return
+                if tipo is TiposToken.SEMICOLON:
+                    self.fluxo.avancar()
+                    return
+                if self.fluxo.posicao() > inicio and tipo in INICIO_STMT:
+                    return
+
+            if tipo is TiposToken.OPEN_BRACES:
+                nivel += 1
+            elif tipo is TiposToken.CLOSE_BRACES:
+                nivel -= 1
+                self.fluxo.avancar()
+                if nivel == 0:
                     return
                 continue
 
@@ -224,7 +305,7 @@ class MotorParser:
 
 
     def programLinha(self):
-        self.entrar("Program")
+        self.entrar("Program'")
         tipo = self.fluxo.atual().tipo
 
         if tipo is TiposToken.TYPEDEF or tipo in INICIO_TIPO:
@@ -258,31 +339,37 @@ class MotorParser:
 
     def body(self):
         self.entrar("Body")
-        tipo = self.fluxo.atual().tipo
+        inicio = self.fluxo.posicao()
+        try:
+            tipo = self.fluxo.atual().tipo
 
-        if tipo in PRIMARIOS_TIPO:
-            self.primType()
-            self.idList()
-            self.casar(TiposToken.SEMICOLON)
-            self.body()
+            if tipo in PRIMARIOS_TIPO:
+                self.primType()
+                self.idList()
+                self.casar(TiposToken.SEMICOLON)
+                self.body()
 
-        elif tipo is TiposToken.ID:
-            self.casar(TiposToken.ID)
-            self.bodyId()
+            elif tipo is TiposToken.ID:
+                self.casar(TiposToken.ID)
+                self.bodyId()
 
-        elif tipo in INICIO_STMT_SEM_ID:
-            self.stmtNoId()
-            self.stmtlist()
+            elif tipo in INICIO_STMT_SEM_ID:
+                self.stmtNoId()
+                self.stmtlist()
 
-        elif tipo is TiposToken.CLOSE_BRACES:
-            return # Body -> epsilon
+            elif tipo is TiposToken.CLOSE_BRACES:
+                return # Body -> epsilon
 
-        else:
-            self.falhar("Corpo de função inválido",
-                        PRIMARIOS_TIPO
-                        | {TiposToken.ID, TiposToken.CLOSE_BRACES}
-                        | INICIO_STMT_SEM_ID,
-            )
+            else:
+                self.falhar("Corpo de função inválido",
+                            PRIMARIOS_TIPO
+                            | {TiposToken.ID, TiposToken.CLOSE_BRACES}
+                            | INICIO_STMT_SEM_ID,
+                )
+        except SyntaxError:
+            self.sincronizarComando(inicio)
+            if not self.fluxo.chegouAoFim():
+                self.stmtlist()
 
 
     def bodyId(self):
@@ -433,7 +520,17 @@ class MotorParser:
 
 
     def atomNoId(self):
-        self.entrar("")
+        self.entrar("AtomNoId")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.OPEN_PARENTHESES:
+            self.casar(TiposToken.OPEN_PARENTHESES)
+            self.expr()
+            self.casar(TiposToken.CLOSE_PARENTHESES)
+        elif tipo in INICIO_ATOM_NO_ID:
+            self.casar(tipo)
+        else:
+            self.falhar("Expressão atômica sem identificador inválida", INICIO_ATOM_NO_ID)
 
     def idList(self):
         self.entrar("idList")
@@ -525,22 +622,29 @@ class MotorParser:
         self.falhar("Tipo Inválido", INICIO_TIPO)
 
     def stmtlist(self):
-        self.entrar("StmtList")
-        tipo = self.fluxo.atual().tipo
+        while True:
+            self.entrar("StmtList")
+            tipo = self.fluxo.atual().tipo
 
-        if tipo in INICIO_STMT_SEM_ID or tipo is TiposToken.ID:
-            self.stmt()
-            self.stmtlist()
+            if tipo is TiposToken.CLOSE_BRACES:
+                return # StmtList -> epsilon
 
-        #regra epsilon
-        elif tipo is TiposToken.CLOSE_BRACES:
-            return
-        
-        else:
-            self.falhar(
-                "Lista de comandos (StmtList) inválida",
-                INICIO_STMT_SEM_ID | {TiposToken.ID, TiposToken.CLOSE_BRACES}
-            )
+            if tipo is TiposToken.END_OF_FILE:
+                self.falhar(
+                    "Fim de arquivo dentro de um bloco",
+                    {TiposToken.CLOSE_BRACES},
+                )
+
+            inicio = self.fluxo.posicao()
+            try:
+                if tipo not in INICIO_STMT:
+                    self.falhar(
+                        "Lista de comandos (StmtList) inválida",
+                        INICIO_STMT | {TiposToken.CLOSE_BRACES},
+                    )
+                self.stmt()
+            except SyntaxError:
+                self.sincronizarComando(inicio)
 
     def stmt(self):
         self.entrar("Stmt")
@@ -628,7 +732,7 @@ class MotorParser:
             )
 
     def exprListLinha(self):
-        self.entrar("ExprListLinha")
+        self.entrar("ExprList'")
 
         self.expr()
         self.restoExprList()
@@ -642,7 +746,7 @@ class MotorParser:
             self.exprListLinha()
 
         # epsilon
-        if tipo is TiposToken.CLOSE_PARENTHESES:
+        elif tipo is TiposToken.CLOSE_PARENTHESES:
             return
 
         else:
@@ -683,7 +787,7 @@ class MotorParser:
 
     def orLinha(self):
         self.entrar("OrLinha")
-        tipo = self.fluxo.atual().linha
+        tipo = self.fluxo.atual().tipo
 
         if tipo is TiposToken.OR:
             self.casar(TiposToken.OR)
@@ -702,7 +806,7 @@ class MotorParser:
 
     def andLinha(self):
         self.entrar("AndLinha")
-        tipo = self.fluxo.atual().linha
+        tipo = self.fluxo.atual().tipo
 
         if tipo is TiposToken.AND:
             self.casar(TiposToken.AND)
@@ -879,6 +983,7 @@ class MotorParser:
         if tipo is TiposToken.OPEN_PARENTHESES:
             self.casar(TiposToken.OPEN_PARENTHESES)
             self.exprList()
+            self.casar(TiposToken.CLOSE_PARENTHESES)
 
         else:
             return
