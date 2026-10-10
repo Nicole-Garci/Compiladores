@@ -525,80 +525,370 @@ class MotorParser:
         self.falhar("Tipo Inválido", INICIO_TIPO)
 
     def stmtlist(self):
-        self.entrar("")
+        self.entrar("StmtList")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo in INICIO_STMT_SEM_ID or tipo is TiposToken.ID:
+            self.stmt()
+            self.stmtlist()
+
+        #regra epsilon
+        elif tipo is TiposToken.CLOSE_BRACES:
+            return
+        
+        else:
+            self.falhar(
+                "Lista de comandos (StmtList) inválida",
+                INICIO_STMT_SEM_ID | {TiposToken.ID, TiposToken.CLOSE_BRACES}
+            )
 
     def stmt(self):
-        self.entrar("")
+        self.entrar("Stmt")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.IF:
+            self.casar(TiposToken.IF)
+            self.casar(TiposToken.OPEN_PARENTHESES)
+            self.expr()
+            self.casar(TiposToken.CLOSE_PARENTHESES)
+            self.stmt()
+            self.casar(TiposToken.ELSE)
+            self.stmt()
+
+        elif tipo is TiposToken.WHILE:
+            self.casar(TiposToken.WHILE)
+            self.casar(TiposToken.OPEN_PARENTHESES)
+            self.expr()
+            self.casar(TiposToken.CLOSE_PARENTHESES)
+            self.stmt()
+
+        elif tipo is TiposToken.BREAK:
+            self.casar(TiposToken.BREAK)
+            self.casar(TiposToken.SEMICOLON)
+
+        elif tipo is TiposToken.PRINT:
+            self.casar(TiposToken.PRINT)
+            self.casar(TiposToken.OPEN_PARENTHESES)
+            self.exprList()
+            self.casar(TiposToken.CLOSE_PARENTHESES)
+            self.casar(TiposToken.SEMICOLON)
+
+        elif tipo is TiposToken.READLN:
+            self.casar(TiposToken.READLN)
+            self.casar(TiposToken.OPEN_PARENTHESES)
+            self.expr()
+            self.casar(TiposToken.CLOSE_PARENTHESES)
+            self.casar(TiposToken.SEMICOLON)
+
+        elif tipo is TiposToken.RETURN:
+            self.casar(TiposToken.RETURN)
+            self.expr()
+            self.casar(TiposToken.SEMICOLON)
+
+        elif tipo is TiposToken.OPEN_BRACES:
+            self.casar(TiposToken.OPEN_BRACES)
+            self.stmtlist()
+            self.casar(TiposToken.CLOSE_BRACES)
+
+        elif tipo in (UNARIOS_OP | INICIO_ATOM_NO_ID | {TiposToken.ID}):
+            self.expr()
+            self.casar(TiposToken.SEMICOLON)
+
+        else:
+            self.falhar(
+                "Comando (Stmt) inválido",
+                UNARIOS_OP
+                | INICIO_ATOM_NO_ID
+                | {
+                    TiposToken.ID,
+                    TiposToken.OPEN_BRACES,
+                    TiposToken.RETURN,
+                    TiposToken.READLN,
+                    TiposToken.PRINT,
+                    TiposToken.BREAK,
+                    TiposToken.WHILE,
+                    TiposToken.IF,
+                },
+            )
 
     def exprList(self):
-        self.entrar("")
+        self.entrar("ExprList")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo in (UNARIOS_OP | INICIO_ATOM_NO_ID | {TiposToken.ID}):
+            self.exprListLinha()
+
+        elif tipo is TiposToken.CLOSE_PARENTHESES:
+            return 
+
+        else:
+            self.falhar(
+                "Lista de expressões (ExprList) inválida",
+                UNARIOS_OP | INICIO_ATOM_NO_ID | {TiposToken.ID, TiposToken.CLOSE_PARENTHESES}
+            )
 
     def exprListLinha(self):
-        self.entrar("")
+        self.entrar("ExprListLinha")
+
+        self.expr()
+        self.restoExprList()
 
     def restoExprList(self):
-        self.entrar("")
+        self.entrar("RestoExprList")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.COMMA:
+            self.casar(TiposToken.COMMA)
+            self.exprListLinha()
+
+        # epsilon
+        if tipo is TiposToken.CLOSE_PARENTHESES:
+            return
+
+        else:
+            self.falhar(
+                "Continuação da lista de expressões inválida",
+                {TiposToken.COMMA, TiposToken.CLOSE_PARENTHESES}
+            )
 
     def expr(self):
-        self.entrar("")
+        self.entrar("Expr")
+
+        self.assignExpr()
 
     def assignExpr(self):
-        self.entrar("")
+        self.entrar("AssignExpr")
+
+        self.orExpr()
+        self.assignLinha()
 
     def assignLinha(self):
-        self.entrar("")
+        self.entrar("AssignLinha")
+
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.ASSIGN:
+            self.casar(TiposToken.ASSIGN)
+            self.assignExpr()
+
+        #epsilon
+        else:
+            return
 
     def orExpr(self):
-        self.entrar("")
+        self.entrar("OrExpr")
+
+        self.andExpr()
+        self.orLinha()
 
     def orLinha(self):
-        self.entrar("")
+        self.entrar("OrLinha")
+        tipo = self.fluxo.atual().linha
+
+        if tipo is TiposToken.OR:
+            self.casar(TiposToken.OR)
+            self.andExpr()
+            self.orLinha()
+            
+        # epsilon
+        else:
+            return
 
     def andExpr(self):
-        self.entrar("")
+        self.entrar("AndExpr")
+
+        self.equalityExpr()
+        self.andLinha()
 
     def andLinha(self):
-        self.entrar("")
+        self.entrar("AndLinha")
+        tipo = self.fluxo.atual().linha
+
+        if tipo is TiposToken.AND:
+            self.casar(TiposToken.AND)
+            self.equalityExpr()
+            self.andLinha()
+            
+        # epsilon
+        else:
+            return
 
     def equalityExpr(self):
-        self.entrar("")
+        self.entrar("EqualityExpr")
+
+        self.relExpr()
+        self.equalityLinha()
 
     def equalityLinha(self):
-        self.entrar("")
+        self.entrar("EqualityLinha")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.EQUALS:
+            self.casar(TiposToken.EQUALS)
+            self.relExpr()
+            self.equalityLinha()
+
+        elif tipo is TiposToken.DIFF:
+            self.casar(TiposToken.DIFF)
+            self.relExpr()
+            self.equalityLinha()
+
+        else:
+            return
 
     def relExpr(self):
-        self.entrar("")
+        self.entrar("RelExpr")
+
+        self.addExpr()
+        self.relLinha()
 
     def relLinha(self):
-        self.entrar("")
+        self.entrar("RelLinha")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.LESS_THAN:
+            self.casar(TiposToken.LESS_THAN)
+            self.addExpr()
+            self.relLinha()
+
+        elif tipo is TiposToken.LESS_THAN_EQUAL:
+            self.casar(TiposToken.LESS_THAN_EQUAL)
+            self.addExpr()
+            self.relLinha()
+
+        elif tipo is TiposToken.GREATER_THAN:
+            self.casar(TiposToken.GREATER_THAN)
+            self.addExpr()
+            self.relLinha()
+
+        elif tipo is TiposToken.GREATER_THAN_EQUAL:
+            self.casar(TiposToken.GREATER_THAN_EQUAL)
+            self.addExpr()
+            self.relLinha()
+
+        else:
+            return
 
     def addExpr(self):
-        self.entrar("")
+        self.entrar("AddExpr")
+
+        self.mulExpr()
+        self.addLinha()
 
     def addLinha(self):
-        self.entrar("")
+        self.entrar("AddLinha")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.PLUS:
+            self.casar(TiposToken.PLUS)
+            self.mulExpr()
+            self.addLinha()
+
+        elif tipo is TiposToken.MINUS:
+            self.casar(TiposToken.MINUS)
+            self.mulExpr()
+            self.addLinha()
+
+        else:
+            return
 
     def mulExpr(self):
-        self.entrar("")
+        self.entrar("MulExpr")
+
+        self.unaryExpr()
+        self.mulLinha()
 
     def mulLinha(self):
-        self.entrar("")
+        self.entrar("MulLinha")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.MULT:
+            self.casar(TiposToken.MULT)
+            self.unaryExpr()
+            self.mulLinha()
+
+        elif tipo is TiposToken.DIV:
+            self.casar(TiposToken.DIV)
+            self.unaryExpr()
+            self.mulLinha()
+
+        elif tipo is TiposToken.MOD:
+            self.casar(TiposToken.MOD)
+            self.unaryExpr()
+            self.mulLinha()
+
+        else:
+            return
 
     def unaryExpr(self):
-        self.entrar("")
+        self.entrar("UnaryExpr")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo in UNARIOS_OP:
+            self.unaryOp()
+            self.unaryExpr()
+
+        else:
+            self.primary()
 
     def primary(self):
-        self.entrar("")
+        self.entrar("Primary")
 
+        self.atom()
+        self.indexLinha()
+        
     def indexLinha(self):
-        self.entrar("")
+        self.entrar("IndexLinha")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.OPEN_BRACKETS:
+            self.casar(TiposToken.OPEN_BRACKETS)
+            self.expr()
+            self.casar(TiposToken.CLOSE_BRACKETS)
+            self.indexLinha()
+
+        else:
+            return
 
     def atom(self):
-        self.entrar("")
+        self.entrar("Atom")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.ID:
+            self.casar(TiposToken.ID)
+            self.callOpt()
+            
+        elif tipo is TiposToken.OPEN_PARENTHESES:
+            self.casar(TiposToken.OPEN_PARENTHESES)
+            self.expr()
+            self.casar(TiposToken.CLOSE_PARENTHESES)
+            
+        elif tipo in (ATOM - {TiposToken.OPEN_PARENTHESES}):
+            self.casar(tipo)
+            
+        else:
+            self.falhar(
+                "expressão atômica (Atom) inválido",
+                ATOM | {TiposToken.ID}
+            )
 
     def callOpt(self):
-        self.entrar("")
+        self.entrar("CallOpt")
+        tipo = self.fluxo.atual().tipo
+
+        if tipo is TiposToken.OPEN_PARENTHESES:
+            self.casar(TiposToken.OPEN_PARENTHESES)
+            self.exprList()
+
+        else:
+            return
 
     def unaryOp(self):
-        self.entrar("")
+        self.entrar("UnaryOp")
+        tipo = self.fluxo.atual().tipo
 
+        if tipo in UNARIOS_OP:
+            self.casar(tipo)
+
+        else:
+            self.falhar("Operador Unário (UnaryOP) inválido", UNARIOS_OP)
