@@ -20,7 +20,37 @@ def parser() -> argparse.ArgumentParser:
         "arquivo",
         help="caminho do arquivo-fonte .cmm",
     )
+    analisadorArgumentos.add_argument(
+        "--arvore",
+        action="store_true",
+        help="imprime a árvore de sintaxe abstrata ao final (usa o anytree)",
+    )
+    analisadorArgumentos.add_argument(
+        "--imagem",
+        metavar="ARQUIVO",
+        help="salva a árvore como imagem, ex.: arvore.png (requer Graphviz)",
+    )
     return analisadorArgumentos
+
+
+def mostrarArvore(programa, argumentos: argparse.Namespace, parcial: bool) -> None:
+    from src.parser.VisualizadorArvore import VisualizadorArvore
+
+    visualizador = VisualizadorArvore()
+
+    if argumentos.arvore:
+        titulo = "Árvore sintática abstrata"
+        if parcial:
+            titulo += " (parcial: houve erros sintáticos)"
+        print(f"\n{titulo}:")
+        visualizador.imprimir(programa)
+        sys.stdout.flush()
+
+    if argumentos.imagem:
+        try:
+            visualizador.exportarImagem(programa, argumentos.imagem)
+        except Exception as erro:
+            print(f"Não foi possível gerar a imagem da árvore: {erro}", file=sys.stderr)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -49,10 +79,13 @@ def main(argv: list[str] | None = None) -> int:
     fluxo = FluxoTokens(tokens)
     saida = SaidaParser()
     motor = MotorParser(fluxo, saida, erros)
-    motor.executar()
+    programa = motor.executar()
 
     errosParser = erros.obterErros()
     sys.stdout.flush()
+
+    if argumentos.arvore or argumentos.imagem:
+        mostrarArvore(programa, argumentos, parcial=bool(errosParser))
 
 
     if errosParser:

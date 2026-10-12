@@ -6,7 +6,9 @@ Implementação do analisador léxico e sintático da linguagem C-- descrita nos
 ## Requisitos e execução
 
 - Python 3.10 ou posterior.
-- Nenhuma dependência externa para executar ou testar o analisador.
+- Nenhuma dependência externa para executar o analisador.
+- `anytree` (`python -m pip install anytree`) apenas para visualizar a árvore
+  com `--arvore`; para `--imagem` também é preciso o Graphviz (comando `dot`).
 - Arquivos de entrada devem usar UTF-8 e extensão `.cmm`.
 
 Na raiz do projeto:
@@ -27,6 +29,22 @@ os tokens casados (`Match: ...`). Os diagnósticos sintáticos são reunidos e
 exibidos em `stderr` ao final. Se o lexer encontrar erros, o parser não é
 executado. O código de saída é 0 sem erros, 1 com erros léxicos ou sintáticos
 e 2 quando o arquivo não pode ser processado.
+
+## Árvore de sintaxe abstrata
+
+`MotorParser.executar()` devolve a raiz `Programa` da árvore de sintaxe
+abstrata, construída em memória durante o parsing. Os nós ficam em
+`src/parser/ast/Nos.py`. Para visualizá-la:
+
+```text
+python main.py tests/arquivoTexto.cmm --arvore
+python main.py tests/arquivoTexto.cmm --imagem arvore.png
+```
+
+`--arvore` imprime a árvore no fim da saída. Se houver erros sintáticos, a
+árvore exibida é parcial e marca com `<erro>` as partes perdidas na
+recuperação. A conversão para o anytree fica isolada em
+`src/parser/VisualizadorArvore.py`.
 
 Exemplo mínimo de entrada:
 
@@ -54,6 +72,8 @@ registrados no diagnóstico, sem aparecer como `Match`.
 - `src/parser/core/MotorParser.py`: implementa as produções por funções
   recursivas, casa terminais e recupera erros sintáticos.
 - `src/parser/SaidaParser.py`: imprime o rastreamento da análise.
+- `src/parser/ast/Nos.py`: nós da árvore de sintaxe abstrata.
+- `src/parser/VisualizadorArvore.py`: exibe a árvore com o anytree.
 - `src/parser/GerenciadorErrosSintaticos.py`: reúne os diagnósticos sintáticos.
 - `tests/gramatica/gramaticaCompleta_4.g`: gramática LL(1) usada na
   implementação; corpos e blocos vazios são aceitos por decisão do grupo.
