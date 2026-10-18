@@ -7,7 +7,7 @@ name = "cmm"
 version = "0.1.0"
 description = "Compilador da linguagem C--"
 requires-python = ">=3.10"
-dependencies = ["anytree>=2.12"]
+dependencies = []
 
 [project.scripts]
 cmm = "main:main"

@@ -7,44 +7,44 @@ Implementação do analisador léxico e sintático da linguagem C-- descrita nos
 
 - Python 3.10 ou posterior.
 - Nenhuma dependência externa para executar o analisador.
-- `anytree` (`python -m pip install anytree`) apenas para visualizar a árvore
-  com `--arvore`; para `--imagem` também é preciso o Graphviz (comando `dot`).
-- Arquivos de entrada devem usar UTF-8 e extensão `.cmm`.
+- `--arvore` não requer dependências externas. Para `--imagem`, instale
+  [Graphviz](https://graphviz.org/download/).
+- Arquivos de entrada devem usar extensão `.cmm`.
 
 Na raiz do projeto:
 
 ```text
-python main.py tests/arquivoTexto.cmm
+python main.py tests/exemplo.cmm
 ```
 
 Também é possível instalar o projeto e usar o comando `cmm`:
 
 ```text
 python -m pip install -e .
-cmm tests/arquivoTexto.cmm
+cmm tests/exemplo.cmm
 ```
 
 Na execução atual, o parser escreve em `stdout` os não terminais visitados e
-os tokens casados (`Match: ...`). Os diagnósticos sintáticos são reunidos e
-exibidos em `stderr` ao final. Se o lexer encontrar erros, o parser não é
-executado. O código de saída é 0 sem erros, 1 com erros léxicos ou sintáticos
-e 2 quando o arquivo não pode ser processado.
+os tokens casados (`Match: ...`). Os diagnósticos são exibidos em `stderr`.
+Se o lexer encontrar erros, a análise termina antes de executar o parser.
+O código de saída é 0 sem erros, 1 com erros léxicos ou sintáticos e 2 quando
+o arquivo ou a visualização da árvore não pode ser processado.
 
 ## Árvore de sintaxe abstrata
 
-`MotorParser.executar()` devolve a raiz `Programa` da árvore de sintaxe
+`Parser.analisar(tokens)` devolve a raiz `Programa` da árvore de sintaxe
 abstrata, construída em memória durante o parsing. Os nós ficam em
 `src/parser/ast/Nos.py`. Para visualizá-la:
 
 ```text
-python main.py tests/arquivoTexto.cmm --arvore
-python main.py tests/arquivoTexto.cmm --imagem arvore.png
+python main.py tests/exemplo.cmm --arvore
+python main.py tests/exemplo.cmm --imagem arvore.png
 ```
 
 `--arvore` imprime a árvore no fim da saída. Se houver erros sintáticos, a
 árvore exibida é parcial e marca com `<erro>` as partes perdidas na
-recuperação. A conversão para o anytree fica isolada em
-`src/parser/VisualizadorArvore.py`.
+recuperação. A imagem é gerada pelo Graphviz diretamente a partir da árvore,
+sem criar um arquivo temporário intermediário.
 
 Exemplo mínimo de entrada:
 
@@ -69,15 +69,18 @@ registrados no diagnóstico, sem aparecer como `Match`.
   identificadores e literais.
 - `src/lexer/GerenciadorErros.py`: coleta de diagnósticos sem interromper a análise.
 - `src/parser/core/FluxoTokens.py`: mantém o token corrente e avança na entrada.
+- `src/parser/Parser.py`: fachada que recebe os tokens, inicia uma análise
+  isolada e disponibiliza os erros sintáticos.
+- `src/parser/core/ConjuntosLL1.py`: reúne os conjuntos de previsão e
+  recuperação utilizados pelo motor.
 - `src/parser/core/MotorParser.py`: implementa as produções por funções
   recursivas, casa terminais e recupera erros sintáticos.
 - `src/parser/SaidaParser.py`: imprime o rastreamento da análise.
 - `src/parser/ast/Nos.py`: nós da árvore de sintaxe abstrata.
-- `src/parser/VisualizadorArvore.py`: exibe a árvore com o anytree.
+- `src/parser/VisualizadorArvore.py`: imprime a árvore e gera imagens com Graphviz.
 - `src/parser/GerenciadorErrosSintaticos.py`: reúne os diagnósticos sintáticos.
 - `tests/gramatica/gramaticaCompleta_4.g`: gramática LL(1) usada na
   implementação; corpos e blocos vazios são aceitos por decisão do grupo.
-- `docs/doc_Latex/`: fontes do relatório, incluindo o esboço da seção sintática.
 
 ## Verificação gramática
 

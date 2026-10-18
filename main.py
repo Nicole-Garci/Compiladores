@@ -1,11 +1,11 @@
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
 from src.parser.GerenciadorErrosSintaticos import GerenciadorErrosSintaticos
+from src.parser.Parser import Parser
 from src.parser.SaidaParser import SaidaParser
-from src.parser.core.FluxoTokens import FluxoTokens
-from src.parser.core.MotorParser import MotorParser
 from src.lexer.Lexer import Lexer
 
 
@@ -23,7 +23,7 @@ def parser() -> argparse.ArgumentParser:
     analisadorArgumentos.add_argument(
         "--arvore",
         action="store_true",
-        help="imprime a árvore de sintaxe abstrata ao final (usa o anytree)",
+        help="imprime a árvore de sintaxe abstrata ao final",
     )
     analisadorArgumentos.add_argument(
         "--imagem",
@@ -33,24 +33,27 @@ def parser() -> argparse.ArgumentParser:
     return analisadorArgumentos
 
 
-def mostrarArvore(programa, argumentos: argparse.Namespace, parcial: bool) -> None:
-    from src.parser.VisualizadorArvore import VisualizadorArvore
+def mostrarArvore(programa, argumentos: argparse.Namespace, parcial: bool) -> bool:
+    try:
+        from src.parser.VisualizadorArvore import VisualizadorArvore
 
-    visualizador = VisualizadorArvore()
+        visualizador = VisualizadorArvore()
 
-    if argumentos.arvore:
-        titulo = "Árvore sintática abstrata"
-        if parcial:
-            titulo += " (parcial: houve erros sintáticos)"
-        print(f"\n{titulo}:")
-        visualizador.imprimir(programa)
-        sys.stdout.flush()
+        if argumentos.arvore:
+            titulo = "Árvore sintática abstrata"
+            if parcial:
+                titulo += " (parcial: houve erros na análise)"
+            print(f"\n{titulo}:")
+            visualizador.imprimir(programa)
+            sys.stdout.flush()
 
-    if argumentos.imagem:
-        try:
+        if argumentos.imagem:
             visualizador.exportarImagem(programa, argumentos.imagem)
-        except Exception as erro:
-            print(f"Não foi possível gerar a imagem da árvore: {erro}", file=sys.stderr)
+    except (ImportError, OSError, RuntimeError, ValueError, subprocess.CalledProcessError) as erro:
+        print(f"Não foi possível visualizar a árvore: {erro}", file=sys.stderr)
+        return False
+
+    return True
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -70,27 +73,30 @@ def main(argv: list[str] | None = None) -> int:
     sys.stdout.flush()
 
     if errosLexer:
-        print("\nErros léxicos encontrados: ")
+        print("\nErros léxicos encontrados:", file=sys.stderr)
         for erro in errosLexer:
             print(erro.paraString(), file=sys.stderr)
         return 1
 
-    erros = GerenciadorErrosSintaticos()
-    fluxo = FluxoTokens(tokens)
-    saida = SaidaParser()
-    motor = MotorParser(fluxo, saida, erros)
-    programa = motor.executar()
+    analisadorSintatico = Parser(
+        gerenciadorErros=GerenciadorErrosSintaticos(
+            destino=sys.stderr, imprimirAoRegistrar=True
+        ),
+        saida=SaidaParser(),
+    )
+    programa = analisadorSintatico.analisar(tokens)
 
-    errosParser = erros.obterErros()
+    errosParser = analisadorSintatico.obterErros()
     sys.stdout.flush()
 
     if argumentos.arvore or argumentos.imagem:
-        mostrarArvore(programa, argumentos, parcial=bool(errosParser))
-
+        if not mostrarArvore(programa, argumentos, parcial=bool(errosParser)):
+            return 2
 
     if errosParser:
-        print("\nErros sintáticos encontrados:", file=sys.stderr)
-        erros.imprimirErros()
+        #print("\nErros sintáticos encontrados:", file=sys.stderr)
+        #for erro in errosParser:
+        #    print(erro.paraString(), file=sys.stderr)
         return 1
 
     return 0

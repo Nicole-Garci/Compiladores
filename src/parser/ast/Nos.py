@@ -4,7 +4,7 @@ from src.lexer.models.Token import Token
 
 
 @dataclass
-class No:
+class NoAST:
 
     linha: int = field(default=0, kw_only=True)
     coluna: int = field(default=0, kw_only=True)
@@ -12,7 +12,7 @@ class No:
 
 
 @dataclass
-class Expr(No):
+class Expr(NoAST):
     pass
 
 
@@ -60,7 +60,7 @@ class Chamada(Expr):
 
 
 @dataclass
-class Comando(No):
+class Comando(NoAST):
     pass
 
 
@@ -110,26 +110,31 @@ class ComandoExpr(Comando):
 
 
 @dataclass
-class DeclVariavel(No):
+class Declaracao(NoAST):
+    pass
+
+
+@dataclass
+class DeclVariavel(Declaracao):
     tipo: str
     nome: str
     tamanho: int | None = None
 
 
 @dataclass
-class Parametro(No):
+class Parametro(NoAST):
     tipo: str
     nome: str
     tamanho: int | None = None
 
 
 @dataclass
-class DeclStruct(No):
+class DeclStruct(Declaracao):
     campos: list[DeclVariavel] = field(default_factory=list)
 
 
 @dataclass
-class DeclFuncao(No):
+class DeclFuncao(Declaracao):
     tipoRetorno: str
     nome: str
     parametros: list[Parametro] = field(default_factory=list)
@@ -137,8 +142,10 @@ class DeclFuncao(No):
 
 
 @dataclass
-class Programa(No):
-    declaracoes: list[No] = field(default_factory=list)
+class Programa(NoAST):
+    declaracoes: list[Declaracao] = field(default_factory=list)
+
+No = NoAST
 
 
 def nomeTipo(token: Token) -> str:
