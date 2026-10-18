@@ -1,0 +1,4 @@
+int main() {
+    if (x1 <= 32) b = 10;
+    return 0;
+}

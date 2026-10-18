@@ -1,0 +1,5 @@
+int main() {
+    int a[2], b[2], valor;
+    a[0] + b[1] = valor;
+    return 0;
+}

@@ -1,0 +1,18 @@
+typedef struct {
+    int codigo;
+    float saldo;
+    char categoria;
+    bool ativo;
+};
+
+int totais[3], contador;
+
+float media(float a, float b) {
+    return (a + b) / 2;
+}
+
+int main() {
+    int indice;
+    indice = 0;
+    return indice;
+}
