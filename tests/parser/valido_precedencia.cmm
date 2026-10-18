@@ -1,0 +1,11 @@
+int main() {
+    int a, b, c;
+    bool ok;
+
+    a = 1 + 2 * 3;
+    b = (1 + 2) * 3;
+    c = a = b + 4;
+    ok = !false || true && a < b + c == false;
+
+    return a;
+}

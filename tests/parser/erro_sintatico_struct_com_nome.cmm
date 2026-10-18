@@ -1,0 +1,6 @@
+typedef struct {
+    int codigo;
+    float saldo;
+} Conta;
+
+int main() {}

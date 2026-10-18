@@ -1,0 +1,9 @@
+typedef struct {
+    int x, y[2];
+    float z;
+};
+
+int a[3] b;
+
+float auxiliar( {}
+int main() {}

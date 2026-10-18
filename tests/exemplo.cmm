@@ -1,0 +1,9 @@
+typedef struct { int x; float y[3]; };
+int soma(int a, int b) { return a + b; }
+int main() {
+  int p; int i, v[10];
+  i = 0;
+  while (i < 10) { v[i] = soma(i, 2); i = i + 1; if (i == 5) break; else print(i); }
+  readln(i);
+  return 0;
+}

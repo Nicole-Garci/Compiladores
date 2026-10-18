@@ -1,1 +1,1 @@
-"""Pacote do analisador lexico de C--."""
+"""Pacotes do compilador C--."""

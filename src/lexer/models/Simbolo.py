@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from src.TiposToken import TiposToken
+from src.lexer.TiposToken import TiposToken
 
 
 class CategoriaSimbolo(str, Enum):

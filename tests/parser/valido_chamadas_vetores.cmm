@@ -1,0 +1,11 @@
+int soma(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    int valores[4], indice;
+    indice = 1;
+    valores[indice] = soma(indice, 2);
+    print(valores[indice], soma(1, 2));
+    return valores[indice];
+}

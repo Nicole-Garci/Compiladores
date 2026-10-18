@@ -1,0 +1,6 @@
+int vazia() {}
+
+int main() {
+    while (true) {}
+    if (false) {} else {}
+}

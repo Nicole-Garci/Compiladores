@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from src.GerenciadorErros import GerenciadorErros
-from src.TabelaSimbolos import TabelaSimbolos
-from src.core.MotorLexer import MotorLexer
-from src.core.Reconhecedor import Reconhecedor
-from src.models.ErroLexer import ErroLexer
-from src.models.Token import Token
+from src.lexer.GerenciadorErros import GerenciadorErros
+from src.lexer.TabelaSimbolos import TabelaSimbolos
+from src.lexer.core.MotorLexer import MotorLexer
+from src.lexer.core.Reconhecedor import Reconhecedor
+from src.lexer.models.ErroLexer import ErroLexer
+from src.lexer.models.Token import Token
 
 
 class Lexer:

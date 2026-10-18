@@ -1,0 +1,15 @@
+int main() {
+    int indice;
+    indice = 0;
+
+    while (indice < 3) {
+        if (indice == 1) {
+            print("meio", indice);
+        } else {
+            readln(indice);
+        }
+        indice = indice + 1;
+    }
+
+    return indice;
+}

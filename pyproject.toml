@@ -5,8 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "cmm"
 version = "0.1.0"
-description = "Analisador léxico da linguagem C--"
+description = "Compilador da linguagem C--"
 requires-python = ">=3.10"
+dependencies = []
 
 [project.scripts]
 cmm = "main:main"
@@ -19,4 +20,4 @@ where = ["."]
 include = ["src*"]
 
 [tool.setuptools.package-data]
-src = ["AFD.json"]
+"src.lexer" = ["AFD.json"]

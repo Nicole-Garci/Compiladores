@@ -1,0 +1,5 @@
+int main() {
+    int valores[3;
+    print(valores[1;
+    return 0
+}
