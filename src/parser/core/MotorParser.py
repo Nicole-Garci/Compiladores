@@ -178,9 +178,9 @@ class MotorParser:
 
         self.casar(TiposToken.OPEN_BRACES)
         tipo = self.type()
-        struct.campos.extend(self.idList(tipo))
+        self.idList(tipo, struct.campos)
         self.casar(TiposToken.SEMICOLON)
-        struct.campos.extend(self.varDecl())
+        self.varDecl(struct.campos)
         self.casar(TiposToken.CLOSE_BRACES)
 
         self.casar(TiposToken.SEMICOLON)
@@ -212,7 +212,7 @@ class MotorParser:
             primeira = DeclVariavel(nomeTipo(tipo), nome.lexema, self.array(),
                                     linha=nome.linha, coluna=nome.coluna)
             self.programa.declaracoes.append(primeira)
-            self.programa.declaracoes.extend(self.idListLinha(tipo))
+            self.programa.declaracoes.extend(self.idListLinha(tipo, []))
             self.casar(TiposToken.SEMICOLON)
             self.program()
 
@@ -238,19 +238,19 @@ class MotorParser:
                         self.conjuntos.INICIO_TIPO | {TiposToken.END_OF_FILE, TiposToken.TYPEDEF}
             )
 
-    def varDecl(self) -> list[DeclVariavel]:
+    def varDecl(self, campos: list[DeclVariavel]) -> None:
         self.entrar("VarDecl")
 
         tipo = self.fluxo.atual().tipo
 
         if tipo in self.conjuntos.INICIO_TIPO:
             tipoToken = self.type()
-            declaracoes = self.idList(tipoToken)
+            self.idList(tipoToken, campos)
             self.casar(TiposToken.SEMICOLON)
-            return declaracoes + self.varDecl()
+            self.varDecl(campos)
 
         elif tipo is TiposToken.CLOSE_BRACES:
-            return [] # Vardecl -> epsilon
+            return # VarDecl -> epsilon
 
         else:
             self.falhar("Declaração de variável inválida", self.conjuntos.INICIO_TIPO |
@@ -403,15 +403,22 @@ class MotorParser:
         else:
             self.falhar("Expressão atômica sem identificador inválida", self.conjuntos.INICIO_ATOM_NO_ID)
 
-    def idList(self, tipo: Token) -> list[DeclVariavel]:
+    def idList(
+        self, tipo: Token, declaracoes: list[DeclVariavel] | None = None,
+    ) -> list[DeclVariavel]:
         self.entrar("idList")
 
+        if declaracoes is None:
+            declaracoes = []
         nome = self.casar(TiposToken.ID)
         primeira = DeclVariavel(nomeTipo(tipo), nome.lexema, self.array(),
                                 linha=nome.linha, coluna=nome.coluna)
-        return [primeira] + self.idListLinha(tipo)
+        declaracoes.append(primeira)
+        return self.idListLinha(tipo, declaracoes)
 
-    def idListLinha(self, tipo: Token) -> list[DeclVariavel]:
+    def idListLinha(
+        self, tipo: Token, declaracoes: list[DeclVariavel],
+    ) -> list[DeclVariavel]:
         self.entrar("idList'")
         tipoAtual = self.fluxo.atual().tipo
 
@@ -420,11 +427,12 @@ class MotorParser:
             nome = self.casar(TiposToken.ID)
             declaracao = DeclVariavel(nomeTipo(tipo), nome.lexema, self.array(),
                                       linha=nome.linha, coluna=nome.coluna)
-            return [declaracao] + self.idListLinha(tipo)
+            declaracoes.append(declaracao)
+            return self.idListLinha(tipo, declaracoes)
 
         elif tipoAtual in ({TiposToken.SEMICOLON}
                            | self.conjuntos.SEGUIDORES_PARA_INSERCAO[TiposToken.SEMICOLON]):
-            return [] # IdListLinha -. epsilon
+            return declaracoes # IdListLinha -> epsilon
 
         else:
             self.falhar("Continuação da lista de identificadores inválida",

@@ -1,0 +1,2 @@
+class Simulador:
+    pass

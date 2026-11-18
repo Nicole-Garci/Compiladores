@@ -1,0 +1,2 @@
+class BancoRegistradores:
+    pass

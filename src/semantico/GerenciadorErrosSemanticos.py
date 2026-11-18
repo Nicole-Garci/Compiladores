@@ -1,0 +1,2 @@
+class GerenciadorErrosSemanticos:
+    pass

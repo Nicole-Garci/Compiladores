@@ -1,0 +1,2 @@
+class MotorSemantico:
+    pass

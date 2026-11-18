@@ -1,0 +1,2 @@
+class AnalisadorSemantico:
+    pass

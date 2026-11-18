@@ -1,0 +1,2 @@
+class OperandoTAC:
+    pass

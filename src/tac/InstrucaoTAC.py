@@ -1,0 +1,2 @@
+class InstrucaoTAC:
+    pass

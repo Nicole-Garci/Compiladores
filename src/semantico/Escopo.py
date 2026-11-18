@@ -1,0 +1,2 @@
+class Escopo:
+    pass

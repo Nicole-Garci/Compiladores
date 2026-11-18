@@ -1,4 +1,4 @@
-<mxfile host="Electron" pages="2">
+<mxfile host="Electron" pages="4">
   <diagram name="Lexer" id="lexer-class-contract">
     <mxGraphModel dx="2162" dy="1264" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1300" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
       <root>
@@ -246,6 +246,216 @@
         </mxCell>
         <mxCell id="PKN5QkZPJRkOw7W5utk2-6" edge="1" parent="pc-1" source="PKN5QkZPJRkOw7W5utk2-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.23;entryY=-0.006;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeColor=#6366f1;align=left;verticalAlign=middle;fontFamily=Helvetica;fontSize=17;fontColor=light-dark(#000000,#000000);labelBackgroundColor=none;endArrow=block;endFill=1;" target="pc-MotorParser">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Semântico e TAC" id="semantico-class-contract">
+    <mxGraphModel dx="2316" dy="1347" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1350" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;strokeColor=none;fillColor=none;" value="&lt;b&gt;Analisador Semântico e Código de Três Endereços C--&lt;/b&gt;" vertex="1">
+          <mxGeometry height="45" width="1300" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Programa" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#dcfce7;strokeColor=#16a34a;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Programa&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;ASA · parser&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ declaracoes: list[Declaracao]" vertex="1">
+          <mxGeometry height="140" width="315" x="40" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="AnalisadorSemantico" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;AnalisadorSemantico&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;facade&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- gerenciadorErros: GerenciadorErrosSemanticos&lt;hr&gt;+ analisar(programa: Programa): ProgramaTAC?&lt;br&gt;+ obterErros(): list[ErroSemantico]" vertex="1">
+          <mxGeometry height="190" width="425" x="495" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="MotorSemantico" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;MotorSemantico&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- escopoGlobal: Escopo&lt;br&gt;- programaTAC: ProgramaTAC&lt;hr&gt;+ executar(programa: Programa): ProgramaTAC&lt;br&gt;- cadastrarGlobais(programa: Programa): None&lt;br&gt;- validarStruct(no: DeclStruct): TipoSemantico&lt;br&gt;- visitarComando(no, escopo, contexto): None&lt;br&gt;- visitarExpressao(no, escopo): ResultadoExpressao&lt;br&gt;- emitir(instrucao: InstrucaoTAC): None" vertex="1">
+          <mxGeometry height="280" width="394.5" x="1099.75" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="GerenciadorErrosSemanticos" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;GerenciadorErrosSemanticos&lt;/b&gt;&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;hr&gt;- erros: list[ErroSemantico]&lt;hr&gt;+ registrar(no: NoAST, mensagem: str): ErroSemantico&lt;br&gt;+ obterErros(): list[ErroSemantico]&lt;br&gt;+ limpar(): None" vertex="1">
+          <mxGeometry height="180" width="450" x="1660" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="DeclStruct" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#dcfce7;strokeColor=#16a34a;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;DeclStruct&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;ASA&amp;nbsp; parser&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ campos: list[DeclVariavel]" vertex="1">
+          <mxGeometry height="140" width="227" x="84" y="447" as="geometry" />
+        </mxCell>
+        <mxCell id="ResultadoExpressao" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ResultadoExpressao&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ tipo: TipoSemantico&lt;br&gt;+ operando: OperandoTAC?&lt;br&gt;+ deslocamento: OperandoTAC?&lt;br&gt;+ atribuivel: bool" vertex="1">
+          <mxGeometry height="178" width="365" x="561" y="432" as="geometry" />
+        </mxCell>
+        <mxCell id="Escopo" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Escopo&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;tabela de símbolos&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- pai: Escopo?&lt;br&gt;- simbolos: dict[str, SimboloSemantico]&lt;hr&gt;+ inserir(simbolo: SimboloSemantico): bool&lt;br&gt;+ buscar(nome: str): SimboloSemantico?" vertex="1">
+          <mxGeometry height="180" width="329" x="1132.5" y="469" as="geometry" />
+        </mxCell>
+        <mxCell id="ErroSemantico" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ErroSemantico&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass frozen&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ mensagem: str&lt;br&gt;+ linha: int&lt;br&gt;+ coluna: int&lt;hr&gt;+ paraString(): str" vertex="1">
+          <mxGeometry height="180" width="177" x="1796.5" y="432" as="geometry" />
+        </mxCell>
+        <mxCell id="DeclVariavel" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#dcfce7;strokeColor=#16a34a;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;DeclVariavel&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;ASA&amp;nbsp; parser&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ tipo: str&lt;br&gt;+ nome: str&lt;br&gt;+ tamanho: int?" vertex="1">
+          <mxGeometry height="168" width="151" x="122" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="ProgramaTAC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ProgramaTAC&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;contrato Parte 3 / Parte 4&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ entrada: str&lt;br&gt;+ tamanhoDados: int&lt;br&gt;+ quadros: dict[str, tuple[int, list[int]]]&lt;br&gt;+ instrucoes: list[InstrucaoTAC]&lt;hr&gt;+ salvar(caminho: str): None&lt;br&gt;+ carregar(caminho: str): ProgramaTAC" vertex="1">
+          <mxGeometry height="225" width="365" x="495" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="SimboloSemantico" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;SimboloSemantico&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ nome: str&lt;br&gt;+ categoria: str&lt;br&gt;+ tipo: TipoSemantico&lt;br&gt;+ endereco: OperandoTAC?&lt;br&gt;+ parametros: list[TipoSemantico]" vertex="1">
+          <mxGeometry height="190" width="266" x="1164" y="755" as="geometry" />
+        </mxCell>
+        <mxCell id="TipoSemantico" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;TipoSemantico&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ nome: str&lt;br&gt;+ tamanhoBytes: int&lt;br&gt;+ elemento: TipoSemantico?&lt;br&gt;+ comprimento: int?&lt;br&gt;+ campos: dict[str, tuple[TipoSemantico, int]]" vertex="1">
+          <mxGeometry height="188" width="348" x="1679" y="756" as="geometry" />
+        </mxCell>
+        <mxCell id="InstrucaoTAC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;InstrucaoTAC&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass frozen&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ opcode: str&lt;br&gt;+ operandos: tuple[OperandoTAC | None, ...]&lt;br&gt;+ linha: int&lt;br&gt;+ coluna: int" vertex="1">
+          <mxGeometry height="166" width="365" x="495" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="OperandoTAC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;OperandoTAC&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;dataclass frozen&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ categoria: str&lt;br&gt;+ valor: int | float | bool | str" vertex="1">
+          <mxGeometry height="145" width="218" x="1015" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="e-AnalisadorSemantico-Programa" edge="1" parent="1" source="AnalisadorSemantico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0;exitY=0.31;entryX=1;entryY=0.42;dashed=1;endArrow=open;endFill=0;" target="Programa" value="recebe ASA">
+          <mxGeometry relative="1" x="0.5365" y="-15" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-AnalisadorSemantico-MotorSemantico" edge="1" parent="1" source="AnalisadorSemantico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=1;exitY=0.48;entryX=0;entryY=0.343;dashed=1;endArrow=block;endFill=1;" target="MotorSemantico" value="delega">
+          <mxGeometry relative="1" x="-0.2422" y="11" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-MotorSemantico-GerenciadorErrosSemanticos" edge="1" parent="1" source="MotorSemantico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=1;exitY=0.35;entryX=0;entryY=0.517;dashed=1;endArrow=open;endFill=0;" target="GerenciadorErrosSemanticos" value="registra">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-GerenciadorErrosSemanticos-ErroSemantico" edge="1" parent="1" source="GerenciadorErrosSemanticos" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="ErroSemantico" value="acumula">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-MotorSemantico-Escopo" edge="1" parent="1" source="MotorSemantico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;endArrow=open;endFill=0;" target="Escopo" value="consulta">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-MotorSemantico-ResultadoExpressao" edge="1" parent="1" source="MotorSemantico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.22;exitY=1;entryX=0.5;entryY=0;dashed=1;endArrow=open;endFill=0;" target="ResultadoExpressao" value="sintetiza">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-12" as="offset" />
+            <Array as="points">
+              <mxPoint x="1116" y="419" />
+              <mxPoint x="678" y="419" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-Escopo-SimboloSemantico" edge="1" parent="1" source="Escopo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="SimboloSemantico" value="armazena">
+          <mxGeometry relative="1" x="-0.2873" y="9" as="geometry">
+            <mxPoint x="-3" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-SimboloSemantico-TipoSemantico" edge="1" parent="1" source="SimboloSemantico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=1;exitY=0.45;entryX=0;entryY=0.455;dashed=1;endArrow=open;endFill=0;" target="TipoSemantico" value="declara tipo">
+          <mxGeometry relative="1" x="-0.2155" y="10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-Programa-DeclStruct" edge="1" parent="1" source="Programa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#16a34a;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="DeclStruct" value="inclui">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-DeclStruct-DeclVariavel" edge="1" parent="1" source="DeclStruct" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#16a34a;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="DeclVariavel" value="acumula campos">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-AnalisadorSemantico-ProgramaTAC" edge="1" parent="1" source="AnalisadorSemantico" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0;exitY=0.78;entryX=0;entryY=0.41;dashed=1;endArrow=open;endFill=0;" target="ProgramaTAC" value="devolve TAC">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="415" y="258" />
+              <mxPoint x="415" y="847" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-ProgramaTAC-InstrucaoTAC" edge="1" parent="1" source="ProgramaTAC" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="InstrucaoTAC" value="contém">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-InstrucaoTAC-OperandoTAC" edge="1" parent="1" source="InstrucaoTAC" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=1;exitY=0.43;entryX=0;entryY=0.49;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="OperandoTAC" value="contém">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-ResultadoExpressao-OperandoTAC" edge="1" parent="1" source="ResultadoExpressao" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=1;exitY=0.6;entryX=0.15;entryY=0;dashed=1;endArrow=open;endFill=0;" target="OperandoTAC" value="refere-se a">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="939" y="547" />
+              <mxPoint x="939" y="1040" />
+              <mxPoint x="1084" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Simulador" id="simulador-class-contract">
+    <mxGraphModel dx="2316" dy="1347" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="960" background="light-dark(#FFFFFF,#FFFFFF)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=22;strokeColor=none;fillColor=none;" value="&lt;b&gt;Simulador de Arquitetura C-- · TAC / MIPS modificado&lt;/b&gt;" vertex="1">
+          <mxGeometry height="45" width="1300" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ProgramaTAC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#dcfce7;strokeColor=#16a34a;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;ProgramaTAC&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;contrato da Parte 3&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ entrada: str&lt;br&gt;+ tamanhoDados: int&lt;br&gt;+ quadros: dict[str, tuple[int, list[int]]]&lt;br&gt;+ instrucoes: list[InstrucaoTAC]&lt;hr&gt;+ carregar(caminho: str): ProgramaTAC" vertex="1">
+          <mxGeometry height="200" width="365" x="40" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="Simulador" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;Simulador&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;facade&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- instrucoes: MemoriaInstrucoes&lt;br&gt;- dados: MemoriaDados&lt;br&gt;- registradores: BancoRegistradores&lt;br&gt;- operacoes: UnidadeOperacoes&lt;br&gt;- pc: int&lt;br&gt;- ir: InstrucaoTAC?&lt;br&gt;- rastro: list[tuple[int, InstrucaoTAC]]&lt;hr&gt;+ executar(programa: ProgramaTAC): None&lt;br&gt;+ obterRastro(): list[tuple[int, InstrucaoTAC]]&lt;br&gt;- executarInstrucao(instrucao: InstrucaoTAC): None" vertex="1">
+          <mxGeometry height="310" width="460" x="597" y="106" as="geometry" />
+        </mxCell>
+        <mxCell id="MemoriaInstrucoes" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;MemoriaInstrucoes&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- instrucoes: list[InstrucaoTAC]&lt;br&gt;- rotulos: dict[str, int]&lt;hr&gt;+ carregar(programa: ProgramaTAC): None&lt;br&gt;+ buscar(pc: int): InstrucaoTAC&lt;br&gt;+ resolverRotulo(nome: str): int" vertex="1">
+          <mxGeometry height="195" width="390" x="1205" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="InstrucaoTAC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#dcfce7;strokeColor=#16a34a;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;InstrucaoTAC&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;contrato da Parte 3&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ opcode: str&lt;br&gt;+ operandos: tuple[OperandoTAC | None, ...]&lt;br&gt;+ linha: int&lt;br&gt;+ coluna: int" vertex="1">
+          <mxGeometry height="165" width="405" x="1750" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="MemoriaDados" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;MemoriaDados&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- dadosEstaticos: dict[int, object]&lt;br&gt;- pilha: list[object]&lt;hr&gt;+ reservarQuadro(tamanho: int): int&lt;br&gt;+ liberarQuadro(base: int): None&lt;br&gt;+ ler(regiao: str, endereco: int): object&lt;br&gt;+ escrever(regiao: str, endereco: int, valor): None" vertex="1">
+          <mxGeometry height="230" width="415" x="40" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="BancoRegistradores" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;BancoRegistradores&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;- especiais: dict[str, object]&lt;br&gt;$zero, $sp, $fp, $ra, $v0&lt;br&gt;- temporarios: dict[int, object]&lt;hr&gt;+ ler(chave: str | int): object&lt;br&gt;+ escrever(chave: str | int, valor: object): None&lt;br&gt;+ trocarTemporarios(novos): dict[int, object]" vertex="1">
+          <mxGeometry height="230" width="420" x="617" y="538" as="geometry" />
+        </mxCell>
+        <mxCell id="UnidadeOperacoes" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#e0e7ff;strokeColor=#6366f1;dashed=1;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;UnidadeOperacoes&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;core&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(49, 46, 129), rgb(255, 255, 255));&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;hr&gt;+ executar(opcode: str, a, b=None): object" vertex="1">
+          <mxGeometry height="155" width="284" x="1212" y="513" as="geometry" />
+        </mxCell>
+        <mxCell id="OperandoTAC" parent="1" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacing=10;fontColor=light-dark(#312e81, #ffffff);fontSize=16;fillColor=#dcfce7;strokeColor=#16a34a;" value="&lt;div style=&quot;text-align:center&quot;&gt;&lt;b&gt;OperandoTAC&lt;/b&gt;&lt;br&gt;&amp;lt;&amp;lt;contrato da Parte 3&amp;gt;&amp;gt;&lt;/div&gt;&lt;hr&gt;+ categoria: str&lt;br&gt;+ valor: int | float | bool | str" vertex="1">
+          <mxGeometry height="140" width="219" x="1843" y="513" as="geometry" />
+        </mxCell>
+        <mxCell id="e-Simulador-ProgramaTAC" edge="1" parent="1" source="Simulador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0;exitY=0.331;entryX=1;entryY=0.463;dashed=1;endArrow=open;endFill=0;" target="ProgramaTAC" value="carrega TAC">
+          <mxGeometry relative="1" x="0.3297" y="-12" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-Simulador-MemoriaInstrucoes" edge="1" parent="1" source="Simulador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=1;exitY=0.313;entryX=0;entryY=0.447;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="MemoriaInstrucoes" value="busca por PC">
+          <mxGeometry relative="1" x="-0.6918" y="-27" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-MemoriaInstrucoes-InstrucaoTAC" edge="1" parent="1" source="MemoriaInstrucoes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=1;exitY=0.4;entryX=0;entryY=0.473;dashed=1;startArrow=diamond;startFill=0;endArrow=open;endFill=0;" target="InstrucaoTAC" value="armazena">
+          <mxGeometry relative="1" x="-0.3917" y="13" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-InstrucaoTAC-OperandoTAC" edge="1" parent="1" source="InstrucaoTAC" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#16a34a;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="OperandoTAC" value="contém">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-Simulador-MemoriaDados" edge="1" parent="1" source="Simulador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.12;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="MemoriaDados" value="acessa dados">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-12" as="offset" />
+            <Array as="points">
+              <mxPoint x="625" y="460" />
+              <mxPoint x="248" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-Simulador-BancoRegistradores" edge="1" parent="1" source="Simulador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.5;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="BancoRegistradores" value="mantém estado">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-Simulador-UnidadeOperacoes" edge="1" parent="1" source="Simulador" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6366f1;fontSize=17;fontColor=light-dark(#312e81, #000000);labelBackgroundColor=none;align=left;exitX=0.88;exitY=1;entryX=0.5;entryY=0;dashed=1;startArrow=diamond;startFill=1;endArrow=open;endFill=0;" target="UnidadeOperacoes" value="delega operações">
+          <mxGeometry relative="1" x="-0.0561" as="geometry">
+            <mxPoint y="-12" as="offset" />
+            <Array as="points">
+              <mxPoint x="1001.8" y="460" />
+              <mxPoint x="1354" y="460" />
+            </Array>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
