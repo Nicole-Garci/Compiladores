@@ -1,6 +1,6 @@
 typedef struct {
     int codigo;
     float saldo;
-} Conta;
+} Conta Poupanca;
 
 int main() {}

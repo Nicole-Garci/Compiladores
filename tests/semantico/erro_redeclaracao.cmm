@@ -1,0 +1,19 @@
+int contador;
+float contador;
+
+int calcular(int a, int a) {
+    int b;
+    float b;
+    return 0;
+}
+
+int calcular() {
+    return 1;
+}
+
+int a;
+
+int main(int x) {
+    int x;
+    return 0;
+}

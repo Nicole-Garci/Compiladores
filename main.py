@@ -7,6 +7,7 @@ from src.parser.GerenciadorErrosSintaticos import GerenciadorErrosSintaticos
 from src.parser.Parser import Parser
 from src.parser.SaidaParser import SaidaParser
 from src.lexer.Lexer import Lexer
+from src.semantico.AnalisadorSemantico import AnalisadorSemantico
 
 
 CAMINHO_AFD = Path(__file__).resolve().parent / "src" / "lexer" / "AFD.json"
@@ -29,6 +30,11 @@ def parser() -> argparse.ArgumentParser:
         "--imagem",
         metavar="ARQUIVO",
         help="salva a árvore como imagem, ex.: arvore.png (requer Graphviz)",
+    )
+    analisadorArgumentos.add_argument(
+        "--tabela",
+        action="store_true",
+        help="imprime a tabela de símbolos da análise semântica ao final",
     )
     return analisadorArgumentos
 
@@ -97,6 +103,22 @@ def main(argv: list[str] | None = None) -> int:
         #print("\nErros sintáticos encontrados:", file=sys.stderr)
         #for erro in errosParser:
         #    print(erro.paraString(), file=sys.stderr)
+        return 1
+
+    analisadorSemantico = AnalisadorSemantico()
+    analisadorSemantico.analisar(programa)
+    errosSemanticos = analisadorSemantico.obterErros()
+
+    if argumentos.tabela:
+        print("\nTabela de símbolos:")
+        for linha in analisadorSemantico.descreverTabela():
+            print(linha)
+        sys.stdout.flush()
+
+    if errosSemanticos:
+        print("\nErros semânticos encontrados:", file=sys.stderr)
+        for erro in sorted(errosSemanticos, key=lambda erro: (erro.linha, erro.coluna)):
+            print(erro.paraString(), file=sys.stderr)
         return 1
 
     return 0

@@ -182,9 +182,18 @@ class MotorParser:
         self.casar(TiposToken.SEMICOLON)
         self.varDecl(struct.campos)
         self.casar(TiposToken.CLOSE_BRACES)
+        struct.nome = self.nomeStruct()
 
         self.casar(TiposToken.SEMICOLON)
         return struct
+
+    def nomeStruct(self) -> str | None:
+        self.entrar("NomeStruct")
+
+        if self.fluxo.atual().tipo is TiposToken.ID:
+            return self.casar(TiposToken.ID).lexema
+
+        return None
 
 
 

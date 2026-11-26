@@ -1,0 +1,22 @@
+typedef struct {
+    int x;
+    int y;
+} Ponto;
+
+typedef struct {
+    float valor;
+} Ponto;
+
+typedef struct {
+    Lista proxima;
+    Circulo borda;
+    int tamanho;
+} Lista;
+
+Retangulo r;
+
+int main() {
+    Ponto p;
+    Circulo c;
+    return 0;
+}

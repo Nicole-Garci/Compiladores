@@ -1,0 +1,19 @@
+typedef struct {
+    int codigo;
+    float codigo;
+    Conta interna;
+    int lista[0];
+};
+
+Pessoa cliente;
+
+int vetor[0];
+
+Registro buscar(Registro chave) {
+    Registro achado;
+    return 0;
+}
+
+int main() {
+    return 0;
+}

@@ -1,2 +1,10 @@
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
 class OperandoTAC:
-    pass
+    categoria: str
+    valor: int | float | bool | str
+
+    def paraString(self) -> str:
+        return f"{self.categoria}[{self.valor}]"

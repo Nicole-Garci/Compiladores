@@ -1,0 +1,32 @@
+typedef struct {
+    int x;
+    int y;
+} Ponto;
+
+typedef struct {
+    Ponto origem;
+    Ponto vertices[3];
+    float area;
+} Triangulo;
+
+typedef struct {
+    int codigo;
+    bool ativo;
+};
+
+Ponto centro;
+Triangulo formas[2];
+
+float calcularArea(Triangulo t, Ponto p) {
+    Ponto auxiliar;
+    float resultado;
+    resultado = 0.0;
+    return resultado;
+}
+
+int main() {
+    Triangulo t;
+    int i;
+    i = 0;
+    return i;
+}

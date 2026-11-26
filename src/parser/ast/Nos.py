@@ -131,6 +131,7 @@ class Parametro(NoAST):
 @dataclass
 class DeclStruct(Declaracao):
     campos: list[DeclVariavel] = field(default_factory=list)
+    nome: str | None = None
 
 
 @dataclass

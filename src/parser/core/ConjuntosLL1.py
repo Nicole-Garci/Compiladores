@@ -54,7 +54,7 @@ class ConjuntosLL1:
 
     def __init__(self) -> None:
         # Conjuntos FIRST e FOLLOW consultados pelo motor, conforme
-        # gramaticaCompleta_4.g. Body e StmtList aceitam epsilon.
+        # gramaticaCompleta_5.g. Body e StmtList aceitam epsilon.
         self.FIRSTS: dict[str, set[TiposToken]] = {
             "Program": self.INICIO_TIPO | {TiposToken.TYPEDEF},
             "Type": set(self.INICIO_TIPO),
@@ -83,7 +83,7 @@ class ConjuntosLL1:
         self.NULLABLE: set[str] = {
             "Program'", "VarDecl", "Body", "IdExprRest", "idList'", "Array",
             "FormalList", "FormalRest", "StmtList", "ExprList",
-            "RestoExprList", "Assign'", "Or'", "And'",
+            "RestoExprList", "NomeStruct", "Assign'", "Or'", "And'",
             "Equality'", "Rel'", "Add'", "Mul'", "Index'", "CallOpt",
         }
 
