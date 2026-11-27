@@ -5,8 +5,8 @@ class UnidadeOperacoes:
     """Operações sobre valores, sem acesso ao estado do simulador.
     Decisões provisórias: int/float podem se misturar; bool não é número.
     Divisão inteira trunca para zero e mod aceita somente inteiros.
-    Comparações são numéricas, exceto eq/ne entre booleanos. Strings
-    (inclusive char) não são convertidas. not aceita bool ou número e
+    Comparações são numéricas, exceto eq/ne entre booleanos e chars. Strings
+    não são convertidas. not aceita bool ou número e
     testa igualdade com zero. None representa ausência do segundo operando.
     Inteiros não têm overflow artificial; floats seguem a aritmética Python.
     """
@@ -31,6 +31,9 @@ class UnidadeOperacoes:
         if b is None:
             raise TypeError(f"'{opcode}' exige dois operandos.")
         if opcode in {"eq", "ne"} and type(a) is bool and type(b) is bool:
+            return a == b if opcode == "eq" else a != b
+        if (opcode in {"eq", "ne"} and type(a) is str and type(b) is str
+                and len(a) == 1 and len(b) == 1):
             return a == b if opcode == "eq" else a != b
 
         self._validarNumero(a)

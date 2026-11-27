@@ -36,6 +36,16 @@ def parser() -> argparse.ArgumentParser:
         action="store_true",
         help="imprime a tabela de símbolos da análise semântica ao final",
     )
+    analisadorArgumentos.add_argument(
+        "--tac",
+        metavar="ARQUIVO",
+        help="salva o TAC gerado em JSON",
+    )
+    analisadorArgumentos.add_argument(
+        "--executar",
+        action="store_true",
+        help="executa o TAC gerado e imprime o rastro do simulador",
+    )
     return analisadorArgumentos
 
 
@@ -106,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     analisadorSemantico = AnalisadorSemantico()
-    analisadorSemantico.analisar(programa)
+    programaTAC = analisadorSemantico.analisar(programa)
     errosSemanticos = analisadorSemantico.obterErros()
 
     if argumentos.tabela:
@@ -120,6 +130,32 @@ def main(argv: list[str] | None = None) -> int:
         for erro in sorted(errosSemanticos, key=lambda erro: (erro.linha, erro.coluna)):
             print(erro.paraString(), file=sys.stderr)
         return 1
+
+    if programaTAC is None:
+        print("Erro: não foi possível gerar o TAC.", file=sys.stderr)
+        return 1
+
+    if argumentos.tac:
+        try:
+            programaTAC.salvar(argumentos.tac)
+        except (OSError, TypeError, ValueError) as erro:
+            print(f"Erro ao salvar TAC: {erro}", file=sys.stderr)
+            return 2
+
+    if argumentos.executar:
+        from src.simulador.Simulador import Simulador
+
+        simulador = Simulador()
+        try:
+            simulador.executar(programaTAC)
+        except (TypeError, ValueError, KeyError, IndexError, ArithmeticError,
+                RuntimeError, EOFError, OSError) as erro:
+            print(f"Erro no simulador: {erro}", file=sys.stderr)
+            return 1
+        print("\nRastro de execução:")
+        for ordem, (pc, instrucao) in enumerate(simulador.obterRastro(), start=1):
+            print(f"{ordem}: PC {pc} | {instrucao.paraString()}")
+        print(f"Total de instruções executadas: {len(simulador.rastro)}")
 
     return 0
 

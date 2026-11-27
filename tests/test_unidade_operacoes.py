@@ -81,9 +81,14 @@ class UnidadeOperacoesTests(unittest.TestCase):
                         self.unidade.executar(opcode, invalido, 2)
                     with self.assertRaises(TypeError):
                         self.unidade.executar(opcode, 2, invalido)
-        for opcode in ('add', 'eq', 'lt'):
+        for opcode in ('add', 'lt'):
             with self.assertRaises(TypeError):
                 self.unidade.executar(opcode, 'a', 'b')
+        self.assertIs(self.unidade.executar('eq', 'a', 'a'), True)
+        self.assertIs(self.unidade.executar('ne', 'a', 'b'), True)
+        for opcode in ('eq', 'ne'):
+            with self.assertRaises(TypeError):
+                self.unidade.executar(opcode, 'texto', 'texto')
         for opcode in ('neg', 'not'):
             for invalido in (None, 'a', []):
                 with self.assertRaises(TypeError):

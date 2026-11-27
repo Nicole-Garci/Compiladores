@@ -39,7 +39,7 @@ class AnalisadorSemantico:
             linhas.append("  " + self.descreverSimbolo(simbolo))
 
         for tipoStruct in self.motor.structs:
-            linhas.append(f"{tipoStruct.nome} (tamanho {tipoStruct.tamanhoBytes}):")
+            linhas.append(f"{tipoStruct.nome} ({tipoStruct.tamanhoPosicoes} posição(ões)):")
             for nomeCampo, (tipoCampo, deslocamento) in tipoStruct.campos.items():
                 linhas.append(
                     f"  {nomeCampo}: {tipoCampo.paraString()}, deslocamento {deslocamento}"
@@ -51,7 +51,7 @@ class AnalisadorSemantico:
             for simbolo in escopo.simbolos.values():
                 linhas.append("  " + self.descreverSimbolo(simbolo))
 
-        linhas.append(f"Tamanho da área global: {self.motor.programaTAC.tamanhoDados}")
+        linhas.append(f"Posições da área global: {self.motor.programaTAC.tamanhoDados}")
         return linhas
 
     @staticmethod

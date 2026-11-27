@@ -45,7 +45,7 @@ CONTRATOS_TAC: dict[str, ContratoInstrucao] = {
     "return": ContratoInstrucao(
         0, 1, operandosOpcionais=(0,), descricao="valor de retorno opcional",
     ),
-    "read": ContratoInstrucao(1, 1, descricao="destino"),
+    "read": ContratoInstrucao(1, 2, operandosOpcionais=(1,), descricao="destino, tipo opcional"),
     "print": ContratoInstrucao(1, 1, descricao="valor"),
     "halt": ContratoInstrucao(0, 0, descricao="encerra a execução"),
 }
@@ -78,4 +78,9 @@ def validarInstrucaoTAC(instrucao: InstrucaoTAC) -> list[str]:
             erros.append(
                 f"O operando {indice + 1} de '{instrucao.opcode}' deve ser OperandoTAC"
             )
+    if instrucao.opcode == "read" and quantidade == 2:
+        tipo = instrucao.operandos[1]
+        if (not isinstance(tipo, OperandoTAC) or tipo.categoria != "constante"
+                or tipo.valor not in ("int", "float", "bool", "char")):
+            erros.append("O tipo opcional de 'read' deve ser int, float, bool ou char")
     return erros

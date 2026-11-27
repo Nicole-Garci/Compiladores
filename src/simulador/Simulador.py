@@ -142,7 +142,10 @@ class Simulador:
         else:
             destino = self._destino(operandos[0])
             if opcode == "read":
-                resultado = self._lerEntrada()
+                tipoEsperado = (
+                    operandos[1].valor if len(operandos) == 2 else None
+                )
+                resultado = self._lerEntrada(tipoEsperado)
             elif opcode == "move":
                 resultado = self._valor(operandos[1])
             elif opcode == "load":
@@ -246,15 +249,44 @@ class Simulador:
         return tamanho, deslocamentos.copy()
 
     @staticmethod
-    def _lerEntrada() -> int | float | bool | str:
-        """Política provisória: TAC não carrega o tipo esperado por read.
+    def _lerEntrada(tipoEsperado: str | None = None) -> int | float | bool | str:
+        """Lê o tipo informado pelo TAC; TAC antigo sem tipo usa inferência.
 
-        Reconhece true/false, inteiro decimal, real decimal/exponencial, char
-        entre aspas simples (escapes Python) ou um caractere não numérico.
-        Aspas permitem distinguir '1' de 1 e representar espaço. Não infere
-        tipo pelo conteúdo anterior do destino; rejeita texto livre e não finitos.
+        Char pode vir entre aspas simples para representar espaço ou escapes.
+        Entrada real não finita e texto incompatível com o tipo são rejeitados.
         """
         texto = input().strip()
+        if tipoEsperado is not None:
+            if tipoEsperado == "bool":
+                if texto in {"true", "false"}:
+                    return texto == "true"
+                raise ValueError("Entrada inválida: esperado true ou false.")
+            if tipoEsperado == "int":
+                if re.fullmatch(r"[+-]?[0-9]+", texto):
+                    return int(texto)
+                raise ValueError("Entrada inválida: esperado int.")
+            if tipoEsperado == "float":
+                if not re.fullmatch(
+                    r"[+-]?(?:[0-9]+(?:\.[0-9]*)?|\.[0-9]+)(?:[eE][+-]?[0-9]+)?",
+                    texto,
+                ):
+                    raise ValueError("Entrada inválida: esperado float.")
+                valor = float(texto)
+                if math.isfinite(valor):
+                    return valor
+                raise ValueError("Entrada real fora da faixa finita.")
+            if tipoEsperado == "char":
+                if texto.startswith("'") and texto.endswith("'"):
+                    try:
+                        valor = ast.literal_eval(texto)
+                    except (SyntaxError, ValueError) as erro:
+                        raise ValueError("Literal de caractere inválido.") from erro
+                    if type(valor) is str and len(valor) == 1:
+                        return valor
+                elif len(texto) == 1 and texto not in {"'", '"'}:
+                    return texto
+                raise ValueError("Entrada inválida: esperado char.")
+            raise ValueError(f"Tipo de entrada desconhecido: '{tipoEsperado}'.")
         if texto in {"true", "false"}:
             return texto == "true"
         if re.fullmatch(r"[+-]?[0-9]+", texto):

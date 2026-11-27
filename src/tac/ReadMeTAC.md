@@ -1,19 +1,19 @@
 # Contrato do código de três endereços
 
-Este documento é, atualmente, temporário. Ele define o formato de TAC usado pelas classes em `src/tac` e
-prepara uma interface comum para o gerador semântico e o simulador. A geração
-automática a partir da AST ainda pertence ao analisador semântico.
+Este documento define o formato de TAC usado pelo gerador semântico e pelo
+simulador. Cada posição de dados representa uma célula virtual de tamanho 1;
+não há conversão para bytes, assembly ou registradores físicos.
 
 ## Operandos
 
-Um operando é o par `categoria, valor`. As categorias planejadas são:
+Um operando é o par `categoria, valor`. As categorias são:
 
 | Categoria | Valor | Uso |
 |---|---|---|
 | `constante` | `int`, `float`, `bool` ou `str` | Literal imediato |
 | `temporario` | nome string, como `t0` | Resultado intermediário |
-| `global` | deslocamento inteiro | Endereço de dado global |
-| `local` | deslocamento inteiro | Endereço relativo ao quadro corrente |
+| `global` | deslocamento inteiro | Endereço global, contado em posições |
+| `local` | deslocamento inteiro | Endereço relativo ao quadro, contado em posições |
 | `rotulo` | nome string | Destino de salto ou rótulo definido |
 | `funcao` | nome string | Função chamada |
 
@@ -42,7 +42,7 @@ permitido nos operandos opcionais de `call` e `return`.
 | `param` | valor | Empilha/prepara um argumento para a próxima chamada |
 | `call` | destino opcional, função, quantidade de argumentos | Chama uma função |
 | `return` | valor opcional | Retorna da função atual |
-| `read` | destino | Lê um valor de entrada para o destino |
+| `read` | destino, tipo opcional | Lê int, float, bool ou char para o destino |
 | `print` | valor | Emite um valor |
 | `halt` | nenhum | Encerra a execução |
 
@@ -50,6 +50,13 @@ permitido nos operandos opcionais de `call` e `return`.
 o inverso. `param` deve aparecer na ordem dos argumentos imediatamente antes
 do `call` correspondente. Uma chamada sem valor de retorno usa `None` no
 primeiro operando.
+
+Vetores ocupam `comprimento × tamanho do elemento` posições. Uma `struct`
+ocupa a soma das posições de seus campos; campos e elementos ficam contíguos.
+Parâmetros vetoriais e de `struct` são passados por referência.
+
+Quando o compilador gera `read`, ele inclui o tipo esperado. TAC antigo sem tipo
+continua válido: nesse caso, o simulador usa a regra de inferência anterior.
 
 ## Exemplo
 
@@ -77,9 +84,15 @@ também verifica rótulos duplicados e destinos de salto não definidos. A
 validação estrutural também exige que o rótulo de entrada exista. Ela não
 executa o programa nem substitui a análise semântica.
 
-## O que ainda não está ligado
+## Geração a partir da AST
 
-O MotorSemantico já cria alguns operandos de endereço para variáveis, mas ainda não percorre todas as expressões e comandos para produzir instruções TAC. A geração automática a partir da AST continua pendente, assim como a execução no simulador. Portanto, por enquanto, essas classes permitem montar, conferir, imprimir e salvar programas TAC, mas ainda não completam o fluxo fonte → TAC → execução.
+O `MotorSemantico` visita declarações, comandos e expressões, verifica os tipos
+e gera `ProgramaTAC`. A CLI `main.py` pode salvar o resultado em JSON (`--tac`)
+ou executá-lo (`--executar`). O comando `python -m src.simulador` aceita os
+formatos TAC textual e JSON, inclusive arquivos criados separadamente.
+
+A geração automática de TAC textual (`.tac`) pelo compilador ainda não está
+implementada; `--tac` salva JSON.
 
 ## Leitura textual independente (Trabalho 4)
 

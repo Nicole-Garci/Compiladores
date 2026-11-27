@@ -4,8 +4,8 @@ typedef struct {
 } Ponto;
 
 typedef struct {
-    Ponto origem;
-    Ponto vertices[3];
+    float x;
+    float y;
     float area;
 } Triangulo;
 
@@ -15,7 +15,7 @@ typedef struct {
 };
 
 Ponto centro;
-Triangulo formas[2];
+Triangulo forma;
 
 float calcularArea(Triangulo t, Ponto p) {
     Ponto auxiliar;

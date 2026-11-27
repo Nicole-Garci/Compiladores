@@ -1,6 +1,6 @@
 typedef struct {
     int codigo;
-    float notas[3];
+    float nota;
     char letra;
     bool ativo;
 };
