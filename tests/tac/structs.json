@@ -1,0 +1,565 @@
+{
+  "versao": 1,
+  "entrada": "main",
+  "tamanhoDados": 12,
+  "quadros": {
+    "main": {
+      "tamanho": 0,
+      "deslocamentosParametros": []
+    }
+  },
+  "instrucoes": [
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": "main"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "global",
+          "valor": 0
+        },
+        {
+          "categoria": "constante",
+          "valor": 11
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "mul",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "offset"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        },
+        {
+          "categoria": "constante",
+          "valor": 6
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "global",
+          "valor": 0
+        },
+        {
+          "categoria": "temporario",
+          "valor": "offset"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 0
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "store",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "constante",
+          "valor": 42
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "store",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "constante",
+          "valor": 2.5
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 2
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "store",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "constante",
+          "valor": true
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 3
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "store",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "constante",
+          "valor": "A"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 4
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "store",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "constante",
+          "valor": 7
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 5
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "store",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "constante",
+          "valor": 8
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 0
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "load",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "load",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 2
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "load",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 3
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "load",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "campo"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "valor"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "vetor"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "registro"
+        },
+        {
+          "categoria": "constante",
+          "valor": 4
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "load",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "a"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "vetor"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "ultimo"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "vetor"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "load",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "b"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "ultimo"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "add",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "soma"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "a"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "b"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "soma"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "halt",
+      "operandos": [],
+      "linha": 0,
+      "coluna": 0
+    }
+  ]
+}

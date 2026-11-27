@@ -1,0 +1,288 @@
+{
+  "versao": 1,
+  "entrada": "main",
+  "tamanhoDados": 1,
+  "quadros": {
+    "main": {
+      "tamanho": 0,
+      "deslocamentosParametros": []
+    },
+    "fib": {
+      "tamanho": 1,
+      "deslocamentosParametros": [
+        0
+      ]
+    }
+  },
+  "instrucoes": [
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": "main"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "read",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "n"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "param",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "n"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "call",
+      "operandos": [
+        {
+          "categoria": "global",
+          "valor": 0
+        },
+        {
+          "categoria": "funcao",
+          "valor": "fib"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "global",
+          "valor": 0
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "return",
+      "operandos": [
+        {
+          "categoria": "global",
+          "valor": 0
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": "fib"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "le",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "base"
+        },
+        {
+          "categoria": "local",
+          "valor": 0
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "if_true",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "base"
+        },
+        {
+          "categoria": "rotulo",
+          "valor": "base"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "sub",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "n1"
+        },
+        {
+          "categoria": "local",
+          "valor": 0
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "param",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "n1"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "call",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "a"
+        },
+        {
+          "categoria": "funcao",
+          "valor": "fib"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "sub",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "n2"
+        },
+        {
+          "categoria": "local",
+          "valor": 0
+        },
+        {
+          "categoria": "constante",
+          "valor": 2
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "param",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "n2"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "call",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "b"
+        },
+        {
+          "categoria": "funcao",
+          "valor": "fib"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "add",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "soma"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "a"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "b"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "return",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "soma"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": "base"
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    },
+    {
+      "opcode": "return",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 0
+        }
+      ],
+      "linha": 0,
+      "coluna": 0
+    }
+  ]
+}
