@@ -80,3 +80,98 @@ executa o programa nem substitui a análise semântica.
 ## O que ainda não está ligado
 
 O MotorSemantico já cria alguns operandos de endereço para variáveis, mas ainda não percorre todas as expressões e comandos para produzir instruções TAC. A geração automática a partir da AST continua pendente, assim como a execução no simulador. Portanto, por enquanto, essas classes permitem montar, conferir, imprimir e salvar programas TAC, mas ainda não completam o fluxo fonte → TAC → execução.
+
+## Leitura textual independente (Trabalho 4)
+
+A CLI `python -B -m src.simulador arquivo.tac` agora aceita TAC textual UTF-8.
+Arquivos com extensão `.tac` (sem distinção de maiúsculas) usam
+`src/tac/LeitorTAC.py`; os demais continuam usando o carregador JSON existente.
+Não há tradução para MIPS nem dependência do analisador semântico. O leitor
+constrói os mesmos objetos `ProgramaTAC`, `InstrucaoTAC` e `OperandoTAC`.
+Esta extensão não altera os contratos nem a geração de TAC.
+
+A sintaxe das instruções é a de `InstrucaoTAC.paraString()`: uma instrução
+por linha, opcode em minúsculas, operandos `categoria[valor]` separados por
+vírgula. Todos os 27 opcodes da tabela acima são aceitos. `_` representa
+`None`: `call _, funcao[f], constante[0]`, `return _` ou simplesmente
+`return`. Os índices `0:`, `1:`, etc. produzidos por `ProgramaTAC.paraString()`
+são opcionais e ignorados; saltos continuam usando rótulos, nunca esses índices.
+Linhas vazias e comentários iniciados por `#` fora de aspas são ignorados.
+
+Valores: inteiros com sinal opcional, reais (inclusive `.5` e `1e2`), booleanos
+`true`/`false` ou `True`/`False`, e texto entre aspas simples ou duplas.
+Escapes de literais Python, como `\n`, `\t`, `\\` e `\'`, são aceitos via
+`ast.literal_eval`, sem executar expressões. Caracteres Unicode são permitidos.
+Uma palavra simples como `constante[A]` é compatível com `paraString()`;
+use aspas para valores ambíguos (`constante['1']`, `constante['true']`),
+espaços, vírgulas, colchetes e `#`. Nomes de temporários, funções e rótulos
+permanecem strings. Endereços usuais são `global[0]` e `local[0]`.
+
+Os metadados, ausentes em `paraString()`, usam três diretivas:
+
+```text
+.entrada main
+.dados 8
+.quadro main 0 []
+.quadro soma 2 [0, 1]
+```
+
+`.entrada` define o nome do rótulo inicial (padrão `main`); `.dados` define
+um tamanho inteiro não negativo (padrão zero); `.quadro nome tamanho [offsets]`
+define o quadro e os deslocamentos inteiros dos parâmetros, na ordem dos
+argumentos. Sem diretivas de quadros, o dicionário é vazio, como no modelo.
+As diretivas podem aparecer em qualquer linha; entrada, dados e cada nome
+de quadro só podem ser declarados uma vez. Nomes nas diretivas não usam aspas
+nem espaços. Limites e uso dos quadros continuam a cargo do simulador.
+
+Exemplo completo (`tests/tac/soma.tac`):
+
+```text
+# Soma independente do analisador semântico
+.entrada main
+.dados 0
+.quadro main 0 []
+
+label rotulo[main]
+add temporario[t0], constante[2], constante[3]
+print temporario[t0]
+halt
+```
+
+Os exemplos completos equivalentes aos JSON estão em
+[expressao.tac](../../tests/tac/expressao.tac),
+[matriz.tac](../../tests/tac/matriz.tac),
+[structs.tac](../../tests/tac/structs.tac) e
+[fibonacci.tac](../../tests/tac/fibonacci.tac).
+Execute a partir da raiz:
+
+```sh
+python -B -m src.simulador tests/tac/soma.tac
+python -B -m src.simulador tests/tac/expressao.tac
+python -B -m src.simulador tests/tac/matriz.tac
+python -B -m src.simulador tests/tac/structs.tac
+printf '8\n' | python -B -m src.simulador tests/tac/fibonacci.tac
+```
+
+Resultados esperados: soma imprime 5 (4 instruções); expressão imprime -14 e
+-3.5 (12); matriz imprime 36 (107); structs imprime 42, 2.5, true, A e 15 (35);
+Fibonacci com entrada 8 imprime 21 (539). Os testes comparam os tipos e os
+metadados dos modelos, além de toda a saída da CLI, incluindo cada PC e
+instrução do rastro, entre JSON e texto.
+
+`lerTAC(texto)` e `carregarTAC(caminho)` fazem a leitura, como o carregador
+JSON. `diagnosticosTAC(programa)` reutiliza `ProgramaTAC.validar()` e adiciona
+localizações; a CLI faz essa verificação antes de executar. Não há outra
+implementação dos contratos de opcode, aridade ou execução. Erros sintáticos
+interrompem a leitura com linha e coluna (base 1), código de saída 2. Erros de
+contrato ou execução retornam 1; sucesso retorna 0. Diagnósticos globais sem
+instrução associada, como entrada inexistente, usam linha 1, coluna 1.
+
+Limitações: `paraString()` é uma apresentação legível, não uma serialização
+completa: não inclui metadados nem distingue o caractere `'1'` do inteiro 1.
+Esses casos exigem diretivas e aspas explícitas. O leitor não infere layout,
+não verifica tipos da linguagem fonte e não substitui a validação dinâmica de
+endereços, chamadas e quadros. A geração automática de arquivos textuais pelo
+analisador semântico permanece fora deste incremento. O Trabalho 4 permite
+um simulador da representação intermediária; por isso a leitura preserva o
+TAC do grupo e seu rastro, sem introduzir instruções MIPS.
