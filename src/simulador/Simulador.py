@@ -139,10 +139,23 @@ class Simulador:
         elif opcode == "store":
             regiao, indice = self._endereco(operandos[0])
             self.dados.escrever(regiao, indice, self._valor(operandos[1]))
+        elif opcode == "copy":
+            self._copiar(*operandos)
+        elif opcode == "bounds":
+            indice, limite = (self._valor(operando) for operando in operandos)
+            if type(indice) is not int or type(limite) is not int:
+                raise TypeError("bounds exige índice e comprimento inteiros.")
+            if limite <= 0:
+                raise ValueError("O comprimento de um vetor deve ser positivo.")
+            if not 0 <= indice < limite:
+                raise IndexError(f"Índice {indice} fora dos limites do vetor de tamanho {limite}.")
         else:
             destino = self._destino(operandos[0])
             if opcode == "read":
-                resultado = self._lerEntrada()
+                if len(operandos) == 1:
+                    resultado = self._lerEntrada()
+                else:
+                    resultado = self._lerEntradaTipada(self._valor(operandos[1]))
             elif opcode == "move":
                 resultado = self._valor(operandos[1])
             elif opcode == "load":
@@ -161,6 +174,21 @@ class Simulador:
                 b = self._valor(operandos[2]) if len(operandos) == 3 else None
                 resultado = self.operacoes.executar(opcode, a, b)
             self._escreverDestino(destino, resultado)
+
+    def _copiar(
+        self, destino: OperandoTAC, origem: OperandoTAC, largura: OperandoTAC
+    ) -> None:
+        total = self._valor(largura)
+        if type(total) is not int or total <= 0:
+            raise ValueError("A largura de copy deve ser um inteiro positivo.")
+        regiaoDestino, inicioDestino = self._endereco(destino)
+        regiaoOrigem, inicioOrigem = self._endereco(origem)
+        self._validarEndereco((regiaoDestino, inicioDestino + total - 1))
+        self._validarEndereco((regiaoOrigem, inicioOrigem + total - 1))
+        # A cópia preserva células ainda não inicializadas e aceita regiões sobrepostas.
+        valores = [self.dados.ler(regiaoOrigem, inicioOrigem + i) for i in range(total)]
+        for indice, valor in enumerate(valores, inicioDestino):
+            self.dados.escrever(regiaoDestino, indice, valor)
 
     def _chamar(
         self, destino: OperandoTAC | None, funcao: OperandoTAC, quantidade: OperandoTAC
@@ -247,7 +275,7 @@ class Simulador:
 
     @staticmethod
     def _lerEntrada() -> int | float | bool | str:
-        """Política provisória: TAC não carrega o tipo esperado por read.
+        """Infere o tipo da entrada para TAC sem anotação de tipo.
 
         Reconhece true/false, inteiro decimal, real decimal/exponencial, char
         entre aspas simples (escapes Python) ou um caractere não numérico.
@@ -274,6 +302,17 @@ class Simulador:
         elif len(texto) == 1 and texto not in {"'", '"'}:
             return texto
         raise ValueError("Entrada inválida: esperado int, float, bool ou char.")
+
+    def _lerEntradaTipada(self, tipo: object) -> int | float | bool | str:
+        tipos = {"int": int, "float": float, "bool": bool, "char": str}
+        if not isinstance(tipo, str) or tipo not in tipos:
+            raise ValueError("Tipo esperado de read inválido.")
+        valor = self._lerEntrada()
+        if tipo == "float" and type(valor) is int:
+            return float(valor)
+        if type(valor) is not tipos[tipo]:
+            raise ValueError(f"Entrada incompatível com {tipo}.")
+        return valor
 
     def _temporario(self, operando: OperandoTAC) -> int:
         nome = operando.valor

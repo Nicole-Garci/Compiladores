@@ -1,7 +1,8 @@
-# Compilador C-- - Entrega 2
+# Compilador C-- e simulador TAC
 
-Implementação do analisador léxico e sintático da linguagem C-- descrita nos enunciados em
-`docs/Trabalho 1 - Compiladores.pdf` e `docs/Trabalho 2 - Compiladores.pdf`.
+Implementação das análises léxica, sintática e semântica de C--, com geração
+de código de três endereços e execução no simulador. Os enunciados das
+quatro partes estão em `docs/`.
 
 ## Requisitos e execução
 
@@ -24,11 +25,47 @@ python -m pip install -e .
 cmm tests/exemplo.cmm
 ```
 
-Na execução atual, o parser escreve em `stdout` os não terminais visitados e
-os tokens casados (`Match: ...`). Os diagnósticos são exibidos em `stderr`.
-Se o lexer encontrar erros, a análise termina antes de executar o parser.
-O código de saída é 0 sem erros, 1 com erros léxicos ou sintáticos e 2 quando
-o arquivo ou a visualização da árvore não pode ser processado.
+O parser escreve em `stdout` os não terminais visitados e os tokens casados
+(`Match: ...`). Os diagnósticos são exibidos em `stderr`. O código de saída
+é 0 sem erros, 1 com erros de análise ou de validação, e 2 quando um arquivo
+ou a visualização da árvore não puder ser processado.
+
+## Compilação, execução e testes
+
+`cmm arquivo.cmm` gera `arquivo.tac.json` na pasta do fonte. Para escolher
+o nome ou o caminho da saída, use `cmm arquivo.cmm -o programa.json`.
+`--tac-saida` é um alias de `-o`. Os mesmos argumentos funcionam com
+`python main.py`.
+
+Use `cmm arquivo.cmm --executar` para compilar e executar em um só comando.
+O terminal exibe os valores de `print` e os diagnósticos em caso de erro.
+Use `-o` junto com `--executar` para escolher onde salvar o TAC. Para ver
+o rastro de instruções, abra o TAC com `python -m src.simulador`.
+
+```text
+python -B main.py tests/semantico/valido_declaracoes.cmm
+python -B -m src.simulador tests/semantico/valido_declaracoes.tac.json
+python -B -m unittest discover -s tests
+```
+
+O exemplo imprime `0`, seguido do rastro com os PCs e as instruções
+executadas. Para rodar a suíte no PowerShell em UTF-8, defina
+`$env:PYTHONUTF8 = '1'` e `$env:PYTHONIOENCODING = 'utf-8'` antes dos comandos.
+
+O semântico cadastra globais e assinaturas antes de percorrer os corpos.
+Na segunda passagem, cada expressão devolve tipo e operando. Os comandos
+recebem o escopo e o contexto de função, emitem TAC e informam quais caminhos
+podem continuar, retornar ou terminar com `break`. A recuperação usa um
+tipo de erro e mantém a análise dos outros nós. Só há exportação depois de
+validar os diagnósticos e o programa TAC. A execução começa em `main()`,
+que recebe zero parâmetros e retorna um tipo escalar.
+
+As condições e os operadores lógicos exigem `bool`. Aritmética combina
+`int` e `float`, enquanto atribuições, chamadas e retornos exigem tipos
+compatíveis por igualdade. Em `struct`, os campos são indexados com um
+literal inteiro a partir de zero, pela ordem de declaração. Vetores aceitam
+expressões de índice inteiro com verificação de limites. Atribuição e
+passagem de agregados usam cópia por valor.
 
 ## Árvore de sintaxe abstrata
 
@@ -79,7 +116,7 @@ registrados no diagnóstico, sem aparecer como `Match`.
 - `src/parser/ast/Nos.py`: nós da árvore de sintaxe abstrata.
 - `src/parser/VisualizadorArvore.py`: imprime a árvore e gera imagens com Graphviz.
 - `src/parser/GerenciadorErrosSintaticos.py`: reúne os diagnósticos sintáticos.
-- `tests/gramatica/gramaticaCompleta_4.g`: gramática LL(1) usada na
+- `tests/gramatica/gramaticaCompleta_5.g`: gramática LL(1) usada na
   implementação; corpos e blocos vazios são aceitos por decisão do grupo.
 
 ## Verificação gramática

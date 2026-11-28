@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 from .InstrucaoTAC import InstrucaoTAC
 from .OperandoTAC import OperandoTAC
@@ -15,7 +16,7 @@ class ProgramaTAC:
     quadros: dict[str, tuple[int, list[int]]] = field(default_factory=dict)
     instrucoes: list[InstrucaoTAC] = field(default_factory=list)
 
-    def salvar(self, caminho: str) -> None:
+    def salvar(self, caminho: str | Path) -> None:
         """Salva o programa TAC em JSON UTF-8.
 
         O formato conserva a ordem das instruções e os tipos dos valores dos
@@ -48,9 +49,19 @@ class ProgramaTAC:
                 for instrucao in self.instrucoes
             ],
         }
-        with Path(caminho).open("w", encoding="utf-8", newline="\n") as arquivo:
-            json.dump(dados, arquivo, ensure_ascii=False, indent=2, allow_nan=False)
-            arquivo.write("\n")
+        destino = Path(caminho).resolve()
+        temporario = None
+        try:
+            with NamedTemporaryFile(
+                mode="w", encoding="utf-8", newline="\n", dir=destino.parent, delete=False
+            ) as arquivo:
+                temporario = Path(arquivo.name)
+                json.dump(dados, arquivo, ensure_ascii=False, indent=2, allow_nan=False)
+                arquivo.write("\n")
+            temporario.replace(destino)
+        finally:
+            if temporario is not None:
+                temporario.unlink(missing_ok=True)
 
     @staticmethod
     def carregar(caminho: str) -> ProgramaTAC:

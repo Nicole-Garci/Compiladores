@@ -34,6 +34,8 @@ CONTRATOS_TAC: dict[str, ContratoInstrucao] = {
     "addr": ContratoInstrucao(3, 3, descricao="destino, base, índice"),
     "load": ContratoInstrucao(2, 2, descricao="destino, endereço"),
     "store": ContratoInstrucao(2, 2, descricao="endereço, valor"),
+    "copy": ContratoInstrucao(3, 3, descricao="endereço de destino, origem, largura"),
+    "bounds": ContratoInstrucao(2, 2, descricao="índice e comprimento do vetor"),
     "goto": ContratoInstrucao(1, 1, descricao="rótulo de destino"),
     "if_true": ContratoInstrucao(2, 2, descricao="condição, rótulo de destino"),
     "if_false": ContratoInstrucao(2, 2, descricao="condição, rótulo de destino"),
@@ -45,7 +47,7 @@ CONTRATOS_TAC: dict[str, ContratoInstrucao] = {
     "return": ContratoInstrucao(
         0, 1, operandosOpcionais=(0,), descricao="valor de retorno opcional",
     ),
-    "read": ContratoInstrucao(1, 1, descricao="destino"),
+    "read": ContratoInstrucao(1, 2, descricao="destino, tipo esperado opcional"),
     "print": ContratoInstrucao(1, 1, descricao="valor"),
     "halt": ContratoInstrucao(0, 0, descricao="encerra a execução"),
 }

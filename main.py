@@ -8,6 +8,7 @@ from src.parser.Parser import Parser
 from src.parser.SaidaParser import SaidaParser
 from src.lexer.Lexer import Lexer
 from src.semantico.AnalisadorSemantico import AnalisadorSemantico
+from src.simulador.cli import executarPrograma
 
 
 CAMINHO_AFD = Path(__file__).resolve().parent / "src" / "lexer" / "AFD.json"
@@ -15,7 +16,7 @@ CAMINHO_AFD = Path(__file__).resolve().parent / "src" / "lexer" / "AFD.json"
 
 def parser() -> argparse.ArgumentParser:
     analisadorArgumentos = argparse.ArgumentParser(
-        description="Executa o compilador da linguagem C--."
+        description="Compila um arquivo C-- e gera código de três endereços em JSON."
     )
     analisadorArgumentos.add_argument(
         "arquivo",
@@ -24,7 +25,7 @@ def parser() -> argparse.ArgumentParser:
     analisadorArgumentos.add_argument(
         "--arvore",
         action="store_true",
-        help="imprime a árvore de sintaxe abstrata ao final",
+        help="imprime a árvore de sintaxe abstrata ao final da compilação sem --executar",
     )
     analisadorArgumentos.add_argument(
         "--imagem",
@@ -34,7 +35,18 @@ def parser() -> argparse.ArgumentParser:
     analisadorArgumentos.add_argument(
         "--tabela",
         action="store_true",
-        help="imprime a tabela de símbolos da análise semântica ao final",
+        help="imprime a tabela de símbolos ao final da compilação sem --executar",
+    )
+    analisadorArgumentos.add_argument(
+        "-o",
+        "--tac-saida",
+        metavar="ARQUIVO",
+        help="caminho de saída do TAC (padrão: <nome>.tac.json ao lado do fonte)",
+    )
+    analisadorArgumentos.add_argument(
+        "--executar",
+        action="store_true",
+        help="compila e executa, exibindo a saída do programa",
     )
     return analisadorArgumentos
 
@@ -45,7 +57,7 @@ def mostrarArvore(programa, argumentos: argparse.Namespace, parcial: bool) -> bo
 
         visualizador = VisualizadorArvore()
 
-        if argumentos.arvore:
+        if argumentos.arvore and not argumentos.executar:
             titulo = "Árvore sintática abstrata"
             if parcial:
                 titulo += " (parcial: houve erros na análise)"
@@ -64,6 +76,7 @@ def mostrarArvore(programa, argumentos: argparse.Namespace, parcial: bool) -> bo
 
 def main(argv: list[str] | None = None) -> int:
     argumentos = parser().parse_args(argv)
+    fonte = Path(argumentos.arquivo)
     lexer = Lexer(str(CAMINHO_AFD))
 
     try:
@@ -88,14 +101,14 @@ def main(argv: list[str] | None = None) -> int:
         gerenciadorErros=GerenciadorErrosSintaticos(
             destino=sys.stderr, imprimirAoRegistrar=True
         ),
-        saida=SaidaParser(),
+        saida=SaidaParser(habilitada=not argumentos.executar),
     )
     programa = analisadorSintatico.analisar(tokens)
 
     errosParser = analisadorSintatico.obterErros()
     sys.stdout.flush()
 
-    if argumentos.arvore or argumentos.imagem:
+    if argumentos.imagem or (argumentos.arvore and not argumentos.executar):
         if not mostrarArvore(programa, argumentos, parcial=bool(errosParser)):
             return 2
 
@@ -106,21 +119,39 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     analisadorSemantico = AnalisadorSemantico()
-    analisadorSemantico.analisar(programa)
+    programaTAC = analisadorSemantico.analisar(programa)
     errosSemanticos = analisadorSemantico.obterErros()
 
-    if argumentos.tabela:
+    if argumentos.tabela and not argumentos.executar:
         print("\nTabela de símbolos:")
         for linha in analisadorSemantico.descreverTabela():
             print(linha)
         sys.stdout.flush()
 
-    if errosSemanticos:
+    if programaTAC is None:
         print("\nErros semânticos encontrados:", file=sys.stderr)
         for erro in sorted(errosSemanticos, key=lambda erro: (erro.linha, erro.coluna)):
             print(erro.paraString(), file=sys.stderr)
         return 1
 
+    errosTAC = programaTAC.validar()
+    if errosTAC:
+        for erro in errosTAC:
+            print(f"Erro no TAC: {erro}", file=sys.stderr)
+        return 1
+
+    saida = fonte.with_suffix(".tac.json")
+    if argumentos.tac_saida is not None:
+        saida = Path(argumentos.tac_saida)
+    try:
+        programaTAC.salvar(saida)
+    except (OSError, ValueError) as erro:
+        print(f"Erro ao gravar TAC: {erro}", file=sys.stderr)
+        return 2
+
+    if argumentos.executar:
+        return executarPrograma(programaTAC, mostrarRastro=False)
+    print(f"TAC gerado em {saida}")
     return 0
 
 

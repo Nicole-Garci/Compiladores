@@ -17,7 +17,10 @@ class TipoSemantico:
         return self.elemento is not None
 
     def ehStruct(self) -> bool:
-        return self.nome.startswith("struct")
+        return not self.ehVetor() and self.nome.startswith("struct ")
+
+    def ehAgregado(self) -> bool:
+        return self.ehVetor() or self.ehStruct()
 
     def ehErro(self) -> bool:
         return self.nome == "erro"

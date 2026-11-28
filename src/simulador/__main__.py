@@ -2,7 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from src.simulador.Simulador import Simulador
+from src.simulador.cli import executarPrograma
 from src.tac.ProgramaTAC import ProgramaTAC
 from src.tac.LeitorTAC import carregarTAC, diagnosticosTAC
 
@@ -23,24 +23,13 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Erro ao carregar TAC: {erro}", file=sys.stderr)
         return 2
 
-    simulador = Simulador()
-    try:
-        if textual:
-            erros = diagnosticosTAC(programa)
-            if erros:
-                raise ValueError("\n".join(erros))
-        simulador.executar(programa)
-        rastro = simulador.obterRastro()
-        print("\nRastro de execução:")
-        for ordem, (pc, instrucao) in enumerate(rastro, start=1):
-            print(f"{ordem}: PC {pc} | {instrucao.paraString()}")
-        print(f"Total de instruções executadas: {len(rastro)}")
-    except (TypeError, ValueError, KeyError, IndexError, ArithmeticError,
-            RuntimeError, EOFError, OSError) as erro:
-        print(f"Erro no simulador: {erro}", file=sys.stderr)
-        return 1
+    if textual:
+        erros = diagnosticosTAC(programa)
+        if erros:
+            print("Erro no simulador: " + "\n".join(erros), file=sys.stderr)
+            return 1
 
-    return 0
+    return executarPrograma(programa, mostrarRastro=True)
 
 
 if __name__ == "__main__":

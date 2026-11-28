@@ -13,3 +13,4 @@ class ResultadoExpressao:
     operando: OperandoTAC | None = None
     deslocamento: OperandoTAC | None = None
     atribuivel: bool = False
+    indireto: bool = False  # O operando contém um endereço calculado.
