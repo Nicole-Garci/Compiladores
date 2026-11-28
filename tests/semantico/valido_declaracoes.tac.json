@@ -1,0 +1,587 @@
+{
+  "versao": 1,
+  "entrada": "main",
+  "tamanhoDados": 7,
+  "quadros": {
+    "dobro": {
+      "tamanho": 1,
+      "deslocamentosParametros": [
+        0
+      ]
+    },
+    "soma": {
+      "tamanho": 7,
+      "deslocamentosParametros": [
+        0,
+        1
+      ]
+    },
+    "main": {
+      "tamanho": 2,
+      "deslocamentosParametros": []
+    }
+  },
+  "instrucoes": [
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": "dobro"
+        }
+      ],
+      "linha": 11,
+      "coluna": 5
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t0"
+        },
+        {
+          "categoria": "local",
+          "valor": 0
+        }
+      ],
+      "linha": 12,
+      "coluna": 14
+    },
+    {
+      "opcode": "mul",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t1"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t0"
+        },
+        {
+          "categoria": "constante",
+          "valor": 2
+        }
+      ],
+      "linha": 12,
+      "coluna": 14
+    },
+    {
+      "opcode": "return",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t1"
+        }
+      ],
+      "linha": 12,
+      "coluna": 5
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": "soma"
+        }
+      ],
+      "linha": 15,
+      "coluna": 5
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t2"
+        },
+        {
+          "categoria": "local",
+          "valor": 1
+        }
+      ],
+      "linha": 15,
+      "coluna": 21
+    },
+    {
+      "opcode": "copy",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 1
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t2"
+        },
+        {
+          "categoria": "constante",
+          "valor": 4
+        }
+      ],
+      "linha": 15,
+      "coluna": 21
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 6
+        },
+        {
+          "categoria": "constante",
+          "valor": 0
+        }
+      ],
+      "linha": 17,
+      "coluna": 15
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 5
+        },
+        {
+          "categoria": "constante",
+          "valor": 0
+        }
+      ],
+      "linha": 18,
+      "coluna": 7
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": ".L0"
+        }
+      ],
+      "linha": 19,
+      "coluna": 5
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t3"
+        },
+        {
+          "categoria": "local",
+          "valor": 5
+        }
+      ],
+      "linha": 19,
+      "coluna": 14
+    },
+    {
+      "opcode": "lt",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t4"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t3"
+        },
+        {
+          "categoria": "constante",
+          "valor": 4
+        }
+      ],
+      "linha": 19,
+      "coluna": 14
+    },
+    {
+      "opcode": "if_false",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t4"
+        },
+        {
+          "categoria": "rotulo",
+          "valor": ".L1"
+        }
+      ],
+      "linha": 19,
+      "coluna": 5
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t5"
+        },
+        {
+          "categoria": "local",
+          "valor": 6
+        }
+      ],
+      "linha": 20,
+      "coluna": 31
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t6"
+        },
+        {
+          "categoria": "local",
+          "valor": 5
+        }
+      ],
+      "linha": 20,
+      "coluna": 35
+    },
+    {
+      "opcode": "bounds",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t6"
+        },
+        {
+          "categoria": "constante",
+          "valor": 4
+        }
+      ],
+      "linha": 20,
+      "coluna": 35
+    },
+    {
+      "opcode": "addr",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t7"
+        },
+        {
+          "categoria": "local",
+          "valor": 1
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t6"
+        }
+      ],
+      "linha": 20,
+      "coluna": 34
+    },
+    {
+      "opcode": "load",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t8"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t7"
+        }
+      ],
+      "linha": 20,
+      "coluna": 34
+    },
+    {
+      "opcode": "add",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t9"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t5"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t8"
+        }
+      ],
+      "linha": 20,
+      "coluna": 31
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 6
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t9"
+        }
+      ],
+      "linha": 20,
+      "coluna": 19
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t10"
+        },
+        {
+          "categoria": "local",
+          "valor": 5
+        }
+      ],
+      "linha": 21,
+      "coluna": 15
+    },
+    {
+      "opcode": "add",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t11"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t10"
+        },
+        {
+          "categoria": "constante",
+          "valor": 1
+        }
+      ],
+      "linha": 21,
+      "coluna": 15
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 5
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t11"
+        }
+      ],
+      "linha": 21,
+      "coluna": 11
+    },
+    {
+      "opcode": "goto",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": ".L0"
+        }
+      ],
+      "linha": 19,
+      "coluna": 5
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": ".L1"
+        }
+      ],
+      "linha": 19,
+      "coluna": 5
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t12"
+        },
+        {
+          "categoria": "local",
+          "valor": 6
+        }
+      ],
+      "linha": 23,
+      "coluna": 22
+    },
+    {
+      "opcode": "add",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t13"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t12"
+        },
+        {
+          "categoria": "local",
+          "valor": 0
+        }
+      ],
+      "linha": 23,
+      "coluna": 22
+    },
+    {
+      "opcode": "return",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t13"
+        }
+      ],
+      "linha": 23,
+      "coluna": 5
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": "main"
+        }
+      ],
+      "linha": 26,
+      "coluna": 5
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 0
+        },
+        {
+          "categoria": "constante",
+          "valor": 0
+        }
+      ],
+      "linha": 29,
+      "coluna": 7
+    },
+    {
+      "opcode": "move",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t14"
+        },
+        {
+          "categoria": "local",
+          "valor": 0
+        }
+      ],
+      "linha": 30,
+      "coluna": 11
+    },
+    {
+      "opcode": "eq",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t15"
+        },
+        {
+          "categoria": "temporario",
+          "valor": "t14"
+        },
+        {
+          "categoria": "constante",
+          "valor": 0
+        }
+      ],
+      "linha": 30,
+      "coluna": 11
+    },
+    {
+      "opcode": "if_false",
+      "operandos": [
+        {
+          "categoria": "temporario",
+          "valor": "t15"
+        },
+        {
+          "categoria": "rotulo",
+          "valor": ".L2"
+        }
+      ],
+      "linha": 30,
+      "coluna": 5
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 0
+        }
+      ],
+      "linha": 30,
+      "coluna": 25
+    },
+    {
+      "opcode": "goto",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": ".L3"
+        }
+      ],
+      "linha": 30,
+      "coluna": 5
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": ".L2"
+        }
+      ],
+      "linha": 30,
+      "coluna": 5
+    },
+    {
+      "opcode": "print",
+      "operandos": [
+        {
+          "categoria": "local",
+          "valor": 1
+        }
+      ],
+      "linha": 30,
+      "coluna": 44
+    },
+    {
+      "opcode": "label",
+      "operandos": [
+        {
+          "categoria": "rotulo",
+          "valor": ".L3"
+        }
+      ],
+      "linha": 30,
+      "coluna": 5
+    },
+    {
+      "opcode": "return",
+      "operandos": [
+        {
+          "categoria": "constante",
+          "valor": 0
+        }
+      ],
+      "linha": 31,
+      "coluna": 5
+    }
+  ]
+}
